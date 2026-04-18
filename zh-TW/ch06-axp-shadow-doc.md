@@ -19,6 +19,7 @@ keywords:
   - JSON-LD
   - Sitemap
 last_updated: 2026-04-18
+last_modified_at: 2026-04-18T22:32:41+08:00
 ---
 
 # Chapter 6 — AXP 影子文檔：用 Cloudflare Worker 對 AI Bot 服務乾淨內容

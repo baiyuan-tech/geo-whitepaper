@@ -18,6 +18,7 @@ keywords:
   - Cloudflare Workers
   - Next.js
 last_updated: 2026-04-18
+last_modified_at: 2026-04-19T01:00:43+08:00
 ---
 
 # Chapter 2 — Baiyuan GEO Platform: System Overview
