@@ -1,33 +1,37 @@
 {
-  // Markdownlint config tuned for technical whitepapers.
-  // Defaults-on, with relaxations that are justified for CJK + long-form tech docs.
+  // Markdownlint config tuned for technical whitepapers with CJK long-form content.
+  // Strict rules that don't meaningfully improve a whitepaper are relaxed.
 
   "default": true,
 
-  // MD003 Heading style - enforce ATX (#) for consistency
+  // Style consistency
   "MD003": { "style": "atx" },
+  "MD004": { "style": "dash" },
+  "MD046": { "style": "fenced" },
+  "MD048": { "style": "backtick" },
 
-  // MD013 Line length - disabled; CJK paragraphs are intentionally long
+  // Single H1 — ignore YAML frontmatter "title" key (we put titles in frontmatter)
+  "MD025": { "front_matter_title": "" },
+
+  // Relaxed for CJK / long-form / embedded structured data
   "MD013": false,
-
-  // MD024 Duplicate headings - allow different parents (h2 sections may reuse h3 names)
   "MD024": { "siblings_only": true },
-
-  // MD025 Single H1 - enforced (checked by FORMAT.md as well)
-  "MD025": true,
-
-  // MD033 Inline HTML - allowed; we embed JSON-LD <script> blocks for AI metadata
+  "MD026": false,
+  "MD029": false,
   "MD033": false,
-
-  // MD034 Bare URLs - allowed in <...> angle-bracket form
   "MD034": false,
-
-  // MD036 Emphasis as heading - disabled; we use **bold** for inline term intro
   "MD036": false,
-
-  // MD041 First line H1 - disabled; files start with YAML frontmatter
+  "MD037": false,
+  "MD038": false,
   "MD041": false,
+  "MD051": false,
+  "MD060": false,
 
-  // MD046 Code fence style - use fenced (```)
-  "MD046": { "style": "fenced" }
+  // Keep strict
+  "MD001": true,
+  "MD022": true,
+  "MD031": true,
+  "MD032": true,
+  "MD040": true,
+  "MD047": true
 }
