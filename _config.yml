@@ -58,6 +58,12 @@ defaults:
       path: "assets"
     values:
       sitemap: false
+  # Google Search Console verification file — must stay reachable at its
+  # canonical URL for verification, but shouldn't appear as an indexed page.
+  - scope:
+      path: "google*.html"
+    values:
+      sitemap: false
 
 # Markdown engine
 markdown: kramdown
