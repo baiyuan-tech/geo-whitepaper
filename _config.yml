@@ -47,6 +47,7 @@ exclude:
   - .markdownlint.jsonc
   - .lycheeignore
   - assets/pdf       # PDF build scripts — not part of the published site
+  - assets/social    # LinkedIn/social carousels — internal spec, not public
   - node_modules
   - vendor
   - '*.pdf'

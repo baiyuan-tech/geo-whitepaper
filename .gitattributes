@@ -19,6 +19,9 @@ BingSiteAuth.xml        export-ignore
 .markdownlint.jsonc export-ignore
 .lycheeignore       export-ignore
 
+# Social / promotional material — internal-facing spec, not part of the book
+assets/social/      export-ignore
+
 # Normalize line endings in released archives (avoid CRLF noise).
 * text=auto eol=lf
 *.md text eol=lf
