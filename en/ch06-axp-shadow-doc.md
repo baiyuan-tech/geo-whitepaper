@@ -19,7 +19,10 @@ keywords:
   - JSON-LD
   - Sitemap
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:23:13Z
+last_modified_at: 2026-04-18T17:24:43Z
+sitemap:
+  changefreq: weekly
+  priority: 0.8
 ---
 
 # Chapter 6 — AXP Shadow Documents: Serving Clean Content to AI Bots via Cloudflare Workers

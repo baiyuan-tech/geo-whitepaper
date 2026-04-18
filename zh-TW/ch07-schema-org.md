@@ -19,7 +19,10 @@ keywords:
   - GBP Place ID
   - LocalBusiness
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:23:13Z
+last_modified_at: 2026-04-18T17:24:43Z
+sitemap:
+  changefreq: weekly
+  priority: 0.8
 ---
 
 # Chapter 7 — Schema.org Phase 1：25 產業 × 三層 @id 互連

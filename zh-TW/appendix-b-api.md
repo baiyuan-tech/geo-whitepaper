@@ -9,7 +9,10 @@ authors:
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:23:13Z
+last_modified_at: 2026-04-18T17:24:43Z
+sitemap:
+  changefreq: monthly
+  priority: 0.6
 ---
 
 # Appendix B — 公開 API 規格節錄

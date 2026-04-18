@@ -17,7 +17,10 @@ keywords:
   - Sentiment Analysis
   - Multi-Dimensional Scoring
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:23:13Z
+last_modified_at: 2026-04-18T17:24:43Z
+sitemap:
+  changefreq: weekly
+  priority: 0.8
 ---
 
 # Chapter 3 — 七維度 GEO 評分演算法
