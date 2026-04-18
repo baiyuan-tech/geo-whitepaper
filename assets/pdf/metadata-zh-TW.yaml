@@ -1,0 +1,25 @@
+---
+title: "百原GEO Platform 技術白皮書"
+subtitle: "在生成式 AI 時代重新定義品牌可見性的工程實踐"
+author: "Vincent Lin（百原科技）"
+date: "2026-04-18"
+lang: zh-TW
+abstract: |
+  本書記錄百原科技於 2024–2026 年開發「百原GEO Platform」的工程實踐。百原GEO
+  Platform 是一套針對生成式引擎優化（Generative Engine Optimization, GEO）的
+  SaaS 系統，目標是協助品牌在 ChatGPT、Claude、Gemini、Perplexity 等生成式 AI
+  的回答中被正確、持續、準確地提及。本書涵蓋一套七維度 AI 引用率評分演算法、一個
+  對 AI Bot 友善的影子文檔（AXP）交付機制、Schema.org 三層實體知識圖、以及一個
+  幻覺自動偵測與修復的閉環系統。採 CC BY-NC 4.0 授權公開。
+keywords:
+  - Generative Engine Optimization
+  - GEO
+  - AI Citation Rate
+  - Schema.org
+  - Structured Data
+  - Multi-Provider AI Fault Tolerance
+  - Hallucination Detection
+  - Cloudflare Workers
+  - PostgreSQL
+rights: "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)"
+---
