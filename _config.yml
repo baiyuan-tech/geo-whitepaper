@@ -30,10 +30,12 @@ social:
 # Plugins allowed on GitHub Pages (safe mode).
 # Reference: https://pages.github.com/versions/
 plugins:
-  - jekyll-sitemap     # auto-generates /sitemap.xml from .md files
-  - jekyll-seo-tag     # injects OG + Twitter + JSON-LD metadata
-  - jekyll-feed        # /feed.xml for RSS readers (optional but cheap)
+  - jekyll-sitemap             # auto-generates /sitemap.xml from .md files
+  - jekyll-seo-tag             # injects OG + Twitter + JSON-LD metadata
+  - jekyll-feed                # /feed.xml for RSS readers (optional but cheap)
   - jekyll-redirect-from
+  - jekyll-last-modified-at    # reads git commit mtime -> <lastmod> in sitemap
+                               # (GitHub Pages whitelisted plugin)
 
 # Files/dirs excluded from the generated site (they stay in repo, not published).
 # Without this, Jekyll would try to render LICENSE, CITATION.cff, etc.
@@ -53,8 +55,27 @@ exclude:
   - '*.pdf'
   - README.original.md
 
-# Do not list these in sitemap.xml even if they somehow get rendered.
+# Sitemap hints per URL group. Google says it ignores <priority> and uses
+# <changefreq> only as a weak hint, but Bing / Yandex / Baidu still read
+# both. Costs nothing to emit them.
 defaults:
+  # Book chapters — updated most often; highest priority
+  - scope:
+      path: "zh-TW"
+      type: pages
+    values:
+      sitemap:
+        changefreq: weekly
+        priority: 0.8
+  - scope:
+      path: "en"
+      type: pages
+    values:
+      sitemap:
+        changefreq: weekly
+        priority: 0.8
+  # Exclude-from-sitemap rules below must come AFTER the above or they get
+  # overridden. Keeping them scoped to specific paths.
   - scope:
       path: "assets"
     values:
