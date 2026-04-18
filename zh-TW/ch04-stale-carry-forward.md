@@ -18,10 +18,8 @@ keywords:
   - Fault Tolerance
   - Time Series
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:24:43Z
-sitemap:
-  changefreq: weekly
   priority: 0.8
+last_modified_at: 2026-04-18T17:28:18Z
 ---
 
 # Chapter 4 — Stale Carry-Forward：訊號連續性與資料新鮮度的工程設計

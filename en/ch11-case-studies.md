@@ -18,10 +18,8 @@ keywords:
   - Platform Coverage
   - Anonymized Aggregates
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:24:43Z
-sitemap:
-  changefreq: weekly
   priority: 0.8
+last_modified_at: 2026-04-18T17:28:18Z
 ---
 
 # Chapter 11 — Five-Brand Field Observations: Six Weeks of Anonymized Data

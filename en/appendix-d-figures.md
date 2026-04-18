@@ -9,10 +9,8 @@ authors:
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:24:43Z
-sitemap:
-  changefreq: monthly
   priority: 0.6
+last_modified_at: 2026-04-18T17:28:18Z
 ---
 
 # Appendix D — Figure Catalog and Production Guidelines
