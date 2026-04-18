@@ -57,35 +57,13 @@ exclude:
   - '*.pdf'
   - README.original.md
 
-# Sitemap hints per URL group. Google says it ignores <priority> and uses
-# <changefreq> only as a weak hint, but Bing / Yandex / Baidu still read
-# both. Costs nothing to emit them.
-# NOTE: `type` omitted from scope — zh-TW/*.md are plain pages (no
-# collection), so `type: pages` would fail to match them in Jekyll's
-# front-matter-defaults resolver.
+# NOTE on sitemap hints:
+#   jekyll-sitemap (1.4.0 on GitHub Pages) does NOT honor Jekyll's
+#   front-matter-defaults for sitemap.changefreq / sitemap.priority. We
+#   write those directly into each file's YAML frontmatter via
+#   .github/workflows/update-sitemap-lastmod.yml on every push.
 defaults:
-  # Book chapters — updated most often; highest priority
-  - scope:
-      path: "zh-TW"
-    values:
-      sitemap:
-        changefreq: weekly
-        priority: 0.8
-  - scope:
-      path: "en"
-    values:
-      sitemap:
-        changefreq: weekly
-        priority: 0.8
-  # Root README — landing page
-  - scope:
-      path: "README.md"
-    values:
-      sitemap:
-        changefreq: weekly
-        priority: 1.0
-  # Exclude-from-sitemap rules below must come AFTER the above or they get
-  # overridden. Keeping them scoped to specific paths.
+  # Files that should never appear in sitemap.xml:
   - scope:
       path: "assets"
     values:

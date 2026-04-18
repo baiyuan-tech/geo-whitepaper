@@ -32,13 +32,28 @@ jobs:
           fetch-depth: 0  # need full history to derive per-file mtimes
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Write last_modified_at into frontmatter
+      - name: Write last_modified_at + sitemap hints into frontmatter
         run: |
           python3 <<'PY'
-          import pathlib, re, subprocess, sys
+          import pathlib, re, subprocess
 
           roots = ['zh-TW', 'en', 'README.md']
           changed = []
+
+          # jekyll-sitemap DOES NOT honor _config.yml defaults for changefreq/
+          # priority, so we write the full sitemap hint block directly to each
+          # file's frontmatter. Classification by file path:
+          def sitemap_hints(path: pathlib.Path) -> dict:
+              p = str(path).replace('\\', '/')
+              if p == 'README.md':
+                  return {'changefreq': 'weekly', 'priority': 1.0}
+              # Appendices update less frequently
+              if 'appendix-' in p:
+                  return {'changefreq': 'monthly', 'priority': 0.6}
+              # All chapters
+              if p.startswith('zh-TW/') or p.startswith('en/'):
+                  return {'changefreq': 'weekly', 'priority': 0.8}
+              return {}
 
           def files():
               for r in roots:
@@ -50,7 +65,6 @@ jobs:
                           yield f
 
           for f in files():
-              # Git log: most recent commit timestamp for this file, ISO 8601 UTC
               ts = subprocess.run(
                   ['git', 'log', '-1', '--format=%cI', '--', str(f)],
                   capture_output=True, text=True, check=True,
@@ -67,16 +81,27 @@ jobs:
               fm = text[4:end - 1]
               body = text[end + 4:]
 
-              # Remove any prior last_modified_at line
+              # Strip any existing managed blocks so we can re-write cleanly
               fm_clean = re.sub(r'^last_modified_at:.*\n?', '', fm, flags=re.M)
-              # Append fresh value before frontmatter end
-              new_fm = fm_clean.rstrip('\n') + f'\nlast_modified_at: {ts}\n'
+              # Remove prior sitemap: block (handles multi-line YAML mapping)
+              fm_clean = re.sub(
+                  r'^sitemap:\n(?:[ \t]+.*\n)+', '', fm_clean, flags=re.M
+              )
 
+              hints = sitemap_hints(f)
+              add = f'\nlast_modified_at: {ts}\n'
+              if hints:
+                  add += 'sitemap:\n'
+                  add += f"  changefreq: {hints['changefreq']}\n"
+                  add += f"  priority: {hints['priority']}\n"
+
+              new_fm = fm_clean.rstrip('\n') + add
               new_text = '---\n' + new_fm + '---\n' + body
+
               if new_text != text:
                   f.write_text(new_text, encoding='utf-8')
                   changed.append(str(f))
-                  print(f'[set]  {f}  last_modified_at: {ts}')
+                  print(f'[set]  {f}  lastmod={ts}  hints={hints}')
               else:
                   print(f'[same] {f}')
 
@@ -90,10 +115,11 @@ jobs:
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add -A
-            git commit -m "chore(sitemap): sync last_modified_at from git history [skip ci]" \
-                       -m "Auto-updated by .github/workflows/update-sitemap-lastmod.yml so that" \
-                       -m "jekyll-sitemap emits accurate <lastmod> values."
+            git commit -m "chore(sitemap): sync last_modified_at + changefreq/priority from git history [skip ci]" \
+                       -m "Auto-updated by .github/workflows/update-sitemap-lastmod.yml" \
+                       -m "- last_modified_at: from 'git log -1 --format=%cI'" \
+                       -m "- sitemap.changefreq/priority: by file path (README=1.0 weekly, chapters=0.8 weekly, appendices=0.6 monthly)"
             git push
           else
-            echo "No frontmatter changes — all files already have correct last_modified_at."
+            echo "No frontmatter changes — all files already current."
           fi
