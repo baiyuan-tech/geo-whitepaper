@@ -17,6 +17,7 @@ keywords:
   - Sentiment Analysis
   - Multi-Dimensional Scoring
 last_updated: 2026-04-18
+last_modified_at: 2026-04-19T01:05:34+08:00
 ---
 
 # Chapter 3 — The Seven-Dimension GEO Scoring Algorithm

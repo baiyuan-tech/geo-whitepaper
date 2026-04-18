@@ -20,7 +20,7 @@ keywords:
   - ClaimReview
   - Layer-1 Sentinel
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T22:32:41+08:00
+last_modified_at: 2026-04-18T17:00:53Z
 ---
 
 # Chapter 9 — Closed-Loop 幻覺偵測與自動修復
