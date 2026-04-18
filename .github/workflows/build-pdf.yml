@@ -32,16 +32,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             texlive-xetex texlive-lang-chinese texlive-fonts-recommended \
-            texlive-latex-extra fonts-noto-cjk fonts-noto-cjk-extra \
+            texlive-latex-extra texlive-latex-recommended \
+            lmodern \
+            fonts-noto-cjk fonts-noto-cjk-extra \
             fonts-noto-color-emoji pandoc librsvg2-bin
           sudo fc-cache -fv > /dev/null
 
-      - name: Verify CJK font + xeCJK package presence (hard assert)
+      - name: Verify CJK font + xeCJK + lmodern presence (hard assert)
         run: |
           pandoc --version | head -2
           xelatex --version | head -1
           fc-list :lang=zh-tw | grep -qi noto || { echo "FATAL: no Noto CJK zh-tw" >&2; exit 1; }
           kpsewhich xeCJK.sty > /dev/null || { echo "FATAL: xeCJK.sty missing" >&2; exit 1; }
+          kpsewhich lmodern.sty > /dev/null || { echo "FATAL: lmodern.sty missing" >&2; exit 1; }
           echo "Prerequisites OK."
 
       - name: Concatenate Markdown chapters
