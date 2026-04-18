@@ -1,0 +1,74 @@
+name: Build Whitepaper PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'zh-TW/**'
+      - 'en/**'
+      - 'README.md'
+      - 'assets/pdf/**'
+      - '.github/workflows/build-pdf.yml'
+  pull_request:
+    paths:
+      - 'zh-TW/**'
+      - 'en/**'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build-zh-TW:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XeLaTeX, CJK fonts, Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-xetex texlive-lang-chinese texlive-fonts-recommended \
+            texlive-latex-extra fonts-noto-cjk fonts-noto-cjk-extra \
+            pandoc librsvg2-bin
+
+      - name: Concatenate Markdown chapters
+        run: bash assets/pdf/concat.sh zh-TW > whitepaper-zh-TW.md
+
+      - name: Render Mermaid blocks to SVG
+        uses: neenjaw/compile-mermaid-markdown-action@0.4.1
+        with:
+          files: whitepaper-zh-TW.md
+          output: assets/figures/generated
+        continue-on-error: true
+
+      - name: Build PDF via Pandoc + XeLaTeX
+        run: |
+          pandoc whitepaper-zh-TW.md \
+            --pdf-engine=xelatex \
+            --template=assets/pdf/template.tex \
+            --metadata-file=assets/pdf/metadata-zh-TW.yaml \
+            --toc --toc-depth=3 \
+            --number-sections \
+            --highlight-style=tango \
+            -V documentclass=report \
+            -V CJKmainfont="Noto Sans CJK TC" \
+            -V mainfont="Noto Serif" \
+            -V monofont="Noto Sans Mono CJK TC" \
+            -V geometry:a4paper \
+            -V geometry:margin=2.5cm \
+            -V colorlinks=true \
+            -V linkcolor=teal \
+            -V urlcolor=blue \
+            -o whitepaper-zh-TW.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: whitepaper-zh-TW
+          path: whitepaper-zh-TW.pdf
+
+      - name: Attach PDF to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: whitepaper-zh-TW.pdf

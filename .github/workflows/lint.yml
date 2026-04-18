@@ -1,0 +1,32 @@
+name: Markdown Lint & Link Check
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.md']
+  pull_request:
+    paths: ['**.md']
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v18
+        with:
+          globs: '**/*.md'
+          config: '.markdownlint.jsonc'
+
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --exclude-path .git
+            --exclude-mail
+            --accept 200..=299,301,302,403,429
+            'README.md' 'zh-TW/**/*.md' 'en/**/*.md'
+          fail: true
