@@ -13,9 +13,13 @@ on:
     paths:
       - 'zh-TW/**'
       - 'en/**'
+      - 'assets/pdf/**'
   release:
     types: [published]
   workflow_dispatch:
+
+permissions:
+  contents: write  # required for softprops/action-gh-release to attach PDF
 
 jobs:
   build-zh-TW:
@@ -30,22 +34,34 @@ jobs:
             texlive-xetex texlive-lang-chinese texlive-fonts-recommended \
             texlive-latex-extra fonts-noto-cjk fonts-noto-cjk-extra \
             pandoc librsvg2-bin
+          pandoc --version | head -1
+          xelatex --version | head -1
 
       - name: Concatenate Markdown chapters
-        run: bash assets/pdf/concat.sh zh-TW > whitepaper-zh-TW.md
+        run: |
+          chmod +x assets/pdf/concat.sh
+          bash assets/pdf/concat.sh zh-TW > whitepaper-zh-TW.md
+          wc -l whitepaper-zh-TW.md
 
-      - name: Render Mermaid blocks to SVG
-        uses: neenjaw/compile-mermaid-markdown-action@0.4.1
-        with:
-          files: whitepaper-zh-TW.md
-          output: assets/figures/generated
-        continue-on-error: true
+      - name: Strip Mermaid code blocks (replace with placeholder)
+        # Mermaid requires Node + puppeteer to render. For v1.0 draft PDF we
+        # replace each mermaid code block with a caption-only placeholder so
+        # Pandoc can complete. Future revision can swap in mermaid-cli.
+        run: |
+          python3 <<'PY'
+          import re
+          text = open('whitepaper-zh-TW.md', 'r', encoding='utf-8').read()
+          # Replace ```mermaid ... ``` blocks with a note line
+          pattern = re.compile(r'```mermaid\s*\n.*?\n```', re.DOTALL)
+          text = pattern.sub('*[Mermaid diagram rendered in web version — see GitHub source]*', text)
+          open('whitepaper-zh-TW.md', 'w', encoding='utf-8').write(text)
+          print('Mermaid blocks replaced with placeholders.')
+          PY
 
       - name: Build PDF via Pandoc + XeLaTeX
         run: |
           pandoc whitepaper-zh-TW.md \
             --pdf-engine=xelatex \
-            --template=assets/pdf/template.tex \
             --metadata-file=assets/pdf/metadata-zh-TW.yaml \
             --toc --toc-depth=3 \
             --number-sections \
@@ -60,12 +76,14 @@ jobs:
             -V linkcolor=teal \
             -V urlcolor=blue \
             -o whitepaper-zh-TW.pdf
+          ls -la whitepaper-zh-TW.pdf
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: whitepaper-zh-TW
           path: whitepaper-zh-TW.pdf
+          retention-days: 90
 
       - name: Attach PDF to Release
         if: github.event_name == 'release'
