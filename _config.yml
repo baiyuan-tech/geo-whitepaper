@@ -64,6 +64,11 @@ defaults:
       path: "google*.html"
     values:
       sitemap: false
+  # IndexNow key file (Bing / Yandex / Seznam / DuckDuckGo) — same rationale.
+  - scope:
+      path: "[a-f0-9]*.txt"
+    values:
+      sitemap: false
 
 # Markdown engine
 markdown: kramdown

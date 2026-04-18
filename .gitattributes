@@ -6,9 +6,11 @@
 # Search engine / webmaster verification files — must be reachable at
 # their canonical public URLs (served by GitHub Pages), but have no
 # business in a downloadable source archive.
-google*.html        export-ignore
-*-verification.html export-ignore
-BingSiteAuth.xml    export-ignore
+google*.html            export-ignore
+*-verification.html     export-ignore
+BingSiteAuth.xml        export-ignore
+# IndexNow key files follow the pattern <32-hex>.txt at site root.
+[a-f0-9]*.txt           export-ignore
 
 # CI / tooling config — not part of the published book
 .github/            export-ignore
