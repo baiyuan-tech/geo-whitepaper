@@ -20,7 +20,7 @@ keywords:
   - ClaimReview
   - Layer-1 Sentinel
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:18:35Z
+last_modified_at: 2026-04-18T17:23:13Z
 ---
 
 # Chapter 9 — Closed-Loop Hallucination Detection and Auto-Remediation
