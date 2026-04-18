@@ -1,0 +1,71 @@
+# Jekyll config for GitHub Pages — https://baiyuan-tech.github.io/geo-whitepaper/
+#
+# Scope: minimal config to enable jekyll-sitemap + jekyll-seo-tag.
+# We do NOT customize themes or layouts; the default Cayman theme renders
+# the Markdown cleanly enough for a whitepaper repo.
+
+title: "Baiyuan GEO Platform Whitepaper"
+description: >-
+  A technical whitepaper on building a SaaS for Generative Engine Optimization.
+  Covers seven-dimension AI citation scoring, AXP shadow documents, Schema.org
+  three-layer @id interlinking, and closed-loop hallucination remediation.
+url: "https://baiyuan-tech.github.io"
+baseurl: "/geo-whitepaper"
+lang: zh-TW
+
+# Author metadata surfaced by jekyll-seo-tag into <meta> and JSON-LD.
+author:
+  name: Vincent Lin
+  email: services@baiyuan.io
+
+# Organization info referenced by jekyll-seo-tag.
+social:
+  name: Baiyuan Technology
+  links:
+    - https://baiyuan.io
+    - https://geo.baiyuan.io
+    - https://www.linkedin.com/company/112980572
+    - https://github.com/baiyuan-tech
+
+# Plugins allowed on GitHub Pages (safe mode).
+# Reference: https://pages.github.com/versions/
+plugins:
+  - jekyll-sitemap     # auto-generates /sitemap.xml from .md files
+  - jekyll-seo-tag     # injects OG + Twitter + JSON-LD metadata
+  - jekyll-feed        # /feed.xml for RSS readers (optional but cheap)
+  - jekyll-redirect-from
+
+# Files/dirs excluded from the generated site (they stay in repo, not published).
+# Without this, Jekyll would try to render LICENSE, CITATION.cff, etc.
+exclude:
+  - CITATION.cff
+  - LICENSE
+  - FORMAT.md
+  - Gemfile
+  - Gemfile.lock
+  - .github
+  - .markdownlint.jsonc
+  - .lycheeignore
+  - assets/pdf       # PDF build scripts — not part of the published site
+  - node_modules
+  - vendor
+  - '*.pdf'
+  - README.original.md
+
+# Do not list these in sitemap.xml even if they somehow get rendered.
+defaults:
+  - scope:
+      path: "assets"
+    values:
+      sitemap: false
+
+# Markdown engine
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  auto_ids: true
+  toc_levels: 2..4
+
+# Permalink shape — keep paths close to source file structure.
+permalink: /:path/:basename:output_ext
