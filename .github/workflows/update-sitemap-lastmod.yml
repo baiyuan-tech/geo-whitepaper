@@ -32,28 +32,21 @@ jobs:
           fetch-depth: 0  # need full history to derive per-file mtimes
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Write last_modified_at + sitemap hints into frontmatter
+      - name: Write last_modified_at into frontmatter (and clean up dead sitemap block)
         run: |
           python3 <<'PY'
           import pathlib, re, subprocess
 
+          # Note: we previously experimented with writing a `sitemap:` block
+          # carrying changefreq/priority. Verified against jekyll-sitemap
+          # v1.4.0's shipped template that it emits ONLY <loc> and <lastmod>.
+          # Google also ignores <priority> outright and treats <changefreq>
+          # as only a weak hint. So we drop those hints entirely and just
+          # maintain last_modified_at, which is the single signal that all
+          # major search engines and AI crawlers actually consume.
+
           roots = ['zh-TW', 'en', 'README.md']
           changed = []
-
-          # jekyll-sitemap DOES NOT honor _config.yml defaults for changefreq/
-          # priority, so we write the full sitemap hint block directly to each
-          # file's frontmatter. Classification by file path:
-          def sitemap_hints(path: pathlib.Path) -> dict:
-              p = str(path).replace('\\', '/')
-              if p == 'README.md':
-                  return {'changefreq': 'weekly', 'priority': 1.0}
-              # Appendices update less frequently
-              if 'appendix-' in p:
-                  return {'changefreq': 'monthly', 'priority': 0.6}
-              # All chapters
-              if p.startswith('zh-TW/') or p.startswith('en/'):
-                  return {'changefreq': 'weekly', 'priority': 0.8}
-              return {}
 
           def files():
               for r in roots:
@@ -81,27 +74,20 @@ jobs:
               fm = text[4:end - 1]
               body = text[end + 4:]
 
-              # Strip any existing managed blocks so we can re-write cleanly
+              # Remove prior managed entries so we can rewrite cleanly
               fm_clean = re.sub(r'^last_modified_at:.*\n?', '', fm, flags=re.M)
-              # Remove prior sitemap: block (handles multi-line YAML mapping)
+              # Also strip any prior sitemap: block (dead code jekyll-sitemap ignores)
               fm_clean = re.sub(
                   r'^sitemap:\n(?:[ \t]+.*\n)+', '', fm_clean, flags=re.M
               )
 
-              hints = sitemap_hints(f)
-              add = f'\nlast_modified_at: {ts}\n'
-              if hints:
-                  add += 'sitemap:\n'
-                  add += f"  changefreq: {hints['changefreq']}\n"
-                  add += f"  priority: {hints['priority']}\n"
-
-              new_fm = fm_clean.rstrip('\n') + add
+              new_fm = fm_clean.rstrip('\n') + f'\nlast_modified_at: {ts}\n'
               new_text = '---\n' + new_fm + '---\n' + body
 
               if new_text != text:
                   f.write_text(new_text, encoding='utf-8')
                   changed.append(str(f))
-                  print(f'[set]  {f}  lastmod={ts}  hints={hints}')
+                  print(f'[set]  {f}  last_modified_at: {ts}')
               else:
                   print(f'[same] {f}')
 
