@@ -18,7 +18,7 @@ keywords:
   - Platform Coverage
   - Anonymized Aggregates
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:11:20Z
+last_modified_at: 2026-04-18T17:18:35Z
 ---
 
 # Chapter 11 — 5 品牌實戰觀察：6 週運營的匿名化數據

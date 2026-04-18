@@ -18,7 +18,7 @@ keywords:
   - LocalBusiness
   - OAuth
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:11:20Z
+last_modified_at: 2026-04-18T17:18:35Z
 ---
 
 # Chapter 8 — GBP API Integration Strategy: One-Way Sync from Source of Truth to External Output

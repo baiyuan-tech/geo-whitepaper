@@ -17,7 +17,7 @@ keywords:
   - AI Cognition Evolution
   - Phase Testing
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:11:20Z
+last_modified_at: 2026-04-18T17:18:35Z
 ---
 
 # Chapter 10 — Phase 基線測試：以固定問題集做縱向 AI 認知比較

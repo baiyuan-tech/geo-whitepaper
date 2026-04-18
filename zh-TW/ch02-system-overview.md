@@ -18,7 +18,7 @@ keywords:
   - Cloudflare Workers
   - Next.js
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:11:20Z
+last_modified_at: 2026-04-18T17:18:35Z
 ---
 
 # Chapter 2 — 百原GEO Platform 系統總覽
