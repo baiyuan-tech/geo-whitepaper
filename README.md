@@ -139,6 +139,7 @@
 - **速讀**：每章末的「本章要點」聚合關鍵結論
 
 每章都附有：
+
 - **目錄**（anchor 連結）
 - **本章要點**（3–5 條摘要）
 - **參考資料**
@@ -154,6 +155,7 @@
 > Lin, V. (2026). *Baiyuan GEO Platform: A whitepaper on building a SaaS for generative engine optimization*. Baiyuan Technology. https://github.com/baiyuan-tech/geo-whitepaper
 
 **BibTeX**
+
 ```bibtex
 @techreport{lin2026baiyuangeo,
   author      = {Lin, Vincent},

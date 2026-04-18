@@ -29,7 +29,7 @@ canonical: https://baiyuan.io/whitepaper/zh-TW/chNN-slug
 
 ## 2. 檔案結構
 
-```
+```markdown
 <frontmatter>
 
 # H1 章節標題（全檔唯一）
@@ -164,5 +164,6 @@ canonical: https://baiyuan.io/whitepaper/zh-TW/chNN-slug
 ```
 
 頭尾章例外：
+
 - Ch 1：`[📖 目次](../README.md) · [Ch 2 →](./ch02-system-overview.md)`
 - Ch 13：`[← Ch 12](./ch12-constitution.md) · [📖 目次](../README.md) · [附錄 A →](./appendix-a-glossary.md)`

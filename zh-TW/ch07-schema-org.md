@@ -430,8 +430,6 @@ function generateBrandEntitySchema(brand, industry) {
 - [Ch 9 — Closed-Loop 幻覺修復](./ch09-closed-loop.md)
 
 [^schemaorg]: Schema.org. *Schema.org Vocabulary Specification*. <https://schema.org/docs/schemas.html>
-[^jsonld]: W3C. *JSON-LD 1.1: A JSON-based Serialization for Linked Data*. <https://www.w3.org/TR/json-ld11/>
-[^places-api]: Google Maps Platform. *Places API documentation*. <https://developers.google.com/maps/documentation/places/web-service>
 
 ---
 

@@ -98,6 +98,7 @@ flowchart LR
 - **pie chart** Mermaid
 
 理由：
+
 - 可版控、可 diff、可由讀者複製再製
 - 不依賴外部圖床（圖床失效會造成白皮書壞圖）
 - AI 爬蟲能讀 Mermaid 原始 code，圖本身也是結構化資料
@@ -111,6 +112,7 @@ flowchart LR
 - 實際資料圖表需要 Recharts 互動性（PDF 版降為靜態 PNG）
 
 所有靜態圖必須：
+
 - 同時保留原始檔（`.fig`、`.drawio`、Figma 連結）
 - 以 SVG 為首選格式（可縮放、檔案小）
 - 檔名採 `fig-<chapter>-<number>-<slug>.svg` 格式，例：`fig-11-03-completion-citation.svg`

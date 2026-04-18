@@ -53,11 +53,13 @@ https://api.geo.baiyuan.io/v1
 列出當前帳戶可見的品牌。
 
 **Query params**：
+
 - `limit`（1–100，預設 20）
 - `offset`（預設 0）
 - `industry_code`（可選，見 [§7.2](./ch07-schema-org.md#72-25-類產業特化-type-的設計) 的 25 類 enum）
 
 **Response**：
+
 ```json
 {
   "status": "success",
@@ -100,6 +102,7 @@ https://api.geo.baiyuan.io/v1
 觸發一次掃描（立刻執行、非排程）。
 
 **body**：
+
 ```json
 {
   "brand_id": "brd_01H...",
@@ -110,6 +113,7 @@ https://api.geo.baiyuan.io/v1
 ```
 
 **Response**（202 Accepted）：
+
 ```json
 {
   "status": "success",
@@ -126,6 +130,7 @@ https://api.geo.baiyuan.io/v1
 查詢掃描狀態。
 
 **Response**：
+
 ```json
 {
   "status": "success",
@@ -145,6 +150,7 @@ https://api.geo.baiyuan.io/v1
 取得掃描結果。
 
 **Response**（節錄）：
+
 ```json
 {
   "status": "success",
@@ -189,6 +195,7 @@ https://api.geo.baiyuan.io/v1
 取得完整度分數。
 
 **Response**：
+
 ```json
 {
   "status": "success",

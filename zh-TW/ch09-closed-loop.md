@@ -477,7 +477,6 @@ xychart-beta
 - [Ch 10 — Phase 基線測試](./ch10-phase-baseline.md)
 
 [^claimreview]: Schema.org. *ClaimReview*. <https://schema.org/ClaimReview>
-[^factcheck]: Google Search Central. *Fact check article markup*. <https://developers.google.com/search/docs/appearance/structured-data/factcheck>
 
 ---
 
