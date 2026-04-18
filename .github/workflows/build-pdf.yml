@@ -107,32 +107,43 @@ jobs:
           echo "--- pandoc exit: success ---"
           ls -la whitepaper-zh-TW.pdf
 
-      - name: Publish build.log to step summary (always)
+      - name: Surface pandoc error as annotation + step summary (always)
         if: always()
         run: |
-          {
-            echo "## Pandoc Build Log"
-            echo ""
-            echo "Full log attached as artifact. Last 300 lines below:"
-            echo ""
-            echo '```'
-            if [ -f build.log ]; then
+          # Emit the first LaTeX error line as a workflow error annotation
+          # so it's accessible via the unauthenticated check-runs API.
+          if [ -f build.log ]; then
+            # Most informative pattern: LaTeX errors start with '! '
+            err_line=$(grep -m1 -E '^! |^Error producing PDF|fontspec Error|Undefined control sequence' build.log || true)
+            if [ -z "$err_line" ]; then
+              err_line=$(tail -30 build.log | grep -v '^$' | tail -3 | tr '\n' ' | ')
+            fi
+            # Escape for workflow command (:: % , are special)
+            msg=$(printf '%s' "$err_line" | sed -e 's/%/%25/g' -e 's/\r/%0D/g' -e 's/:/%3A/g')
+            echo "::error title=Pandoc PDF build failure::${msg:0:500}"
+
+            # Also publish detailed log to step summary for web UI.
+            {
+              echo "## Pandoc Build Log"
+              echo ""
+              echo "First 50 lines that mention an error:"
+              echo '```'
+              grep -nE '^! |error|Error|fatal|FATAL|fontspec' build.log | head -50 || echo "(no error pattern matched)"
+              echo '```'
+              echo ""
+              echo "## Last 300 lines of build.log"
+              echo '```'
               tail -300 build.log
-            else
-              echo "(build.log not produced — earlier step failed before pandoc ran)"
-            fi
-            echo '```'
-            echo ""
-            echo "---"
-            echo ""
-            echo "## Concatenated Markdown preview (first 60 lines)"
-            echo ""
-            echo '```markdown'
-            if [ -f whitepaper-zh-TW.md ]; then
-              head -60 whitepaper-zh-TW.md
-            fi
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+              echo '```'
+              echo ""
+              echo "## Concatenated Markdown preview (first 60 lines)"
+              echo '```markdown'
+              [ -f whitepaper-zh-TW.md ] && head -60 whitepaper-zh-TW.md
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::error::build.log not produced; earlier step failed before pandoc invocation"
+          fi
 
       - name: Upload artifacts (always, for debugging on failure too)
         if: always()
