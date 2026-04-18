@@ -1,0 +1,19 @@
+# Build artifacts
+whitepaper-*.pdf
+whitepaper-*.md
+*.aux
+*.log
+*.out
+*.toc
+
+# Local editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.bak

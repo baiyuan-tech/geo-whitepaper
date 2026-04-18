@@ -1,0 +1,65 @@
+cff-version: 1.2.0
+message: "If you use this whitepaper in research, articles, or product design, please cite it as below. / 若您於研究、文章、產品設計中引用本書，請依以下格式。"
+title: "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization"
+abstract: >-
+  A technical whitepaper documenting the engineering practice of building
+  Baiyuan GEO Platform (2024-2026), a SaaS system for Generative Engine
+  Optimization. Covers a seven-dimension AI citation-rate scoring algorithm,
+  AI-Bot-friendly shadow document delivery (AXP), Schema.org three-layer
+  entity knowledge graph, and closed-loop hallucination detection &
+  auto-remediation. Published in Traditional Chinese (~30,000 characters);
+  English version forthcoming.
+type: report
+authors:
+  - family-names: Lin
+    given-names: Vincent
+    email: services@baiyuan.io
+    affiliation: "Baiyuan Technology"
+    # orcid: https://orcid.org/0000-0000-0000-0000  # TODO: add ORCID once registered
+    website: https://baiyuan.io
+version: "1.0-draft"
+date-released: 2026-04-18
+url: "https://github.com/baiyuan-tech/geo-whitepaper"
+repository-code: "https://github.com/baiyuan-tech/geo-whitepaper"
+license: CC-BY-NC-4.0
+keywords:
+  - Generative Engine Optimization
+  - GEO
+  - AI Citation Rate
+  - Schema.org
+  - Structured Data
+  - Knowledge Graph
+  - Multi-Provider AI Routing
+  - Hallucination Detection
+  - Closed-Loop Remediation
+  - Cloudflare Workers
+  - AXP
+  - Multi-Tenant SaaS
+  - PostgreSQL
+  - pgvector
+identifiers:
+  - type: url
+    value: "https://github.com/baiyuan-tech/geo-whitepaper"
+    description: "GitHub repository"
+  - type: url
+    value: "https://geo.baiyuan.io"
+    description: "Product website"
+  - type: url
+    value: "https://www.linkedin.com/company/112980572"
+    description: "LinkedIn (Baiyuan Technology)"
+  # - type: doi
+  #   value: "10.xxxx/xxxx"  # TODO: request DOI via Zenodo upon v1.0 release
+preferred-citation:
+  type: report
+  title: "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization"
+  authors:
+    - family-names: Lin
+      given-names: Vincent
+      affiliation: "Baiyuan Technology"
+  institution:
+    name: "Baiyuan Technology"
+    website: "https://baiyuan.io"
+  year: 2026
+  month: 4
+  url: "https://github.com/baiyuan-tech/geo-whitepaper"
+  version: "1.0-draft"
