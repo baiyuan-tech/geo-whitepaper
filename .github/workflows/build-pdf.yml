@@ -82,10 +82,12 @@ jobs:
           PY
 
       - name: Build PDF via Pandoc + XeLaTeX (with pipefail + full log)
+        id: pandoc
         run: |
           set -eo pipefail
           pandoc whitepaper-zh-TW.md \
             --pdf-engine=xelatex \
+            --verbose \
             --metadata-file=assets/pdf/metadata-zh-TW.yaml \
             --toc --toc-depth=3 \
             --number-sections \
@@ -107,6 +109,33 @@ jobs:
             -o whitepaper-zh-TW.pdf 2>&1 | tee build.log
           echo "--- pandoc exit: success ---"
           ls -la whitepaper-zh-TW.pdf
+
+      - name: Publish build.log to step summary (always)
+        if: always()
+        run: |
+          {
+            echo "## Pandoc Build Log"
+            echo ""
+            echo "Full log attached as artifact. Last 300 lines below:"
+            echo ""
+            echo '```'
+            if [ -f build.log ]; then
+              tail -300 build.log
+            else
+              echo "(build.log not produced — earlier step failed before pandoc ran)"
+            fi
+            echo '```'
+            echo ""
+            echo "---"
+            echo ""
+            echo "## Concatenated Markdown preview (first 60 lines)"
+            echo ""
+            echo '```markdown'
+            if [ -f whitepaper-zh-TW.md ]; then
+              head -60 whitepaper-zh-TW.md
+            fi
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload artifacts (always, for debugging on failure too)
         if: always()
