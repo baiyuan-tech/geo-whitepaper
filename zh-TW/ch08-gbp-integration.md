@@ -18,7 +18,7 @@ keywords:
   - LocalBusiness
   - OAuth
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:00:53Z
+last_modified_at: 2026-04-18T17:05:42Z
 ---
 
 # Chapter 8 — GBP API 整合策略：從事實主控源到對外輸出的單向同步

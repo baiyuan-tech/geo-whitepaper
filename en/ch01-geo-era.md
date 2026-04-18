@@ -18,7 +18,7 @@ keywords:
   - ChatGPT
   - Perplexity
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:00:53Z
+last_modified_at: 2026-04-18T17:05:42Z
 ---
 
 # Chapter 1 — The Era of Generative Engine Optimization
