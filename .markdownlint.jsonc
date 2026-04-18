@@ -1,0 +1,33 @@
+{
+  // Markdownlint config tuned for technical whitepapers.
+  // Defaults-on, with relaxations that are justified for CJK + long-form tech docs.
+
+  "default": true,
+
+  // MD003 Heading style - enforce ATX (#) for consistency
+  "MD003": { "style": "atx" },
+
+  // MD013 Line length - disabled; CJK paragraphs are intentionally long
+  "MD013": false,
+
+  // MD024 Duplicate headings - allow different parents (h2 sections may reuse h3 names)
+  "MD024": { "siblings_only": true },
+
+  // MD025 Single H1 - enforced (checked by FORMAT.md as well)
+  "MD025": true,
+
+  // MD033 Inline HTML - allowed; we embed JSON-LD <script> blocks for AI metadata
+  "MD033": false,
+
+  // MD034 Bare URLs - allowed in <...> angle-bracket form
+  "MD034": false,
+
+  // MD036 Emphasis as heading - disabled; we use **bold** for inline term intro
+  "MD036": false,
+
+  // MD041 First line H1 - disabled; files start with YAML frontmatter
+  "MD041": false,
+
+  // MD046 Code fence style - use fenced (```)
+  "MD046": { "style": "fenced" }
+}
