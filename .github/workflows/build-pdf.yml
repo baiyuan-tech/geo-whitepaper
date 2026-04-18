@@ -96,9 +96,6 @@ jobs:
             -V CJKmainfont="Noto Serif CJK TC" \
             -V CJKsansfont="Noto Sans CJK TC" \
             -V CJKmonofont="Noto Sans CJK TC" \
-            -V mainfont="DejaVu Serif" \
-            -V sansfont="DejaVu Sans" \
-            -V monofont="DejaVu Sans Mono" \
             -V geometry:a4paper \
             -V geometry:margin=2.5cm \
             -V colorlinks=true \
