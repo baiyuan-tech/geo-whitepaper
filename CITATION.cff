@@ -9,7 +9,7 @@ abstract: >-
   entity knowledge graph, and closed-loop hallucination detection &
   auto-remediation. Published in Traditional Chinese (~30,000 characters);
   English version forthcoming.
-type: report
+type: software
 authors:
   - family-names: Lin
     given-names: Vincent
@@ -50,7 +50,9 @@ identifiers:
   # - type: doi
   #   value: "10.xxxx/xxxx"  # TODO: request DOI via Zenodo upon v1.0 release
 preferred-citation:
-  type: report
+  # CFF 1.2.0 schema does not include "report" in reference type enum;
+  # "generic" is the correct value for a standalone whitepaper.
+  type: generic
   title: "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization"
   authors:
     - family-names: Lin
