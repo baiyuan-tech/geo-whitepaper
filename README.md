@@ -6,10 +6,11 @@
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Status: Draft](https://img.shields.io/badge/Status-Draft%20v1.0-yellow.svg)](#修訂記錄)
-[![Language: zh-TW](https://img.shields.io/badge/Language-zh--TW-green.svg)](zh-TW/)
-[![English Summary](https://img.shields.io/badge/English-Executive_Summary-informational.svg)](en/README.md)
+[![zh-TW](https://img.shields.io/badge/Language-zh--TW_(complete)-green.svg)](zh-TW/)
+[![en](https://img.shields.io/badge/Language-en_(complete)-green.svg)](en/)
+[![PDF](https://img.shields.io/badge/PDF-download-red.svg)](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 
-> **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)**. Full English edition forthcoming.
+> **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)** or jump to **[Ch 1 (en)](en/ch01-geo-era.md)**. The full English edition (12 chapters + 4 appendices, ~28k words) is complete and parallel to the Traditional Chinese edition.
 
 ---
 
@@ -255,7 +256,11 @@ geo-whitepaper/
 │   ├── appendix-b-api.md
 │   ├── appendix-c-references.md
 │   └── appendix-d-figures.md
-├── en/                    ← English version (forthcoming)
+├── en/                    ← English edition (complete: Ch 1–12 + Appendix A–D)
+│   ├── README.md          ← Executive Summary
+│   ├── ch01-geo-era.md
+│   ├── ... (through ch12)
+│   └── appendix-a..d.md
 ├── assets/
 │   ├── figures/           ← Mermaid 以外的靜態圖
 │   └── pdf/               ← PDF 生產腳本
@@ -271,6 +276,8 @@ geo-whitepaper/
 | 日期 | 版本 | 說明 |
 |------|------|------|
 | 2026-04-18 | v1.0 draft | 初稿開寫，Ch 1–3 完成；README、CITATION.cff、LICENSE 就緒 |
+| 2026-04-18 | v1.0 draft | zh-TW 全 12 章 + 4 附錄完成；PDF 繁體化驗證通過；release + GitHub Pages + sitemap + IndexNow 全數就位 |
+| 2026-04-19 | v1.0 draft | **en/ 英文版完整版上線** — Executive Summary + Ch 1–12 + Appendix A–D（約 28,000 英文字）|
 
 ---
 
