@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # required for softprops/action-gh-release to attach PDF
+  contents: write
 
 jobs:
   build-zh-TW:
@@ -27,15 +27,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install XeLaTeX, CJK fonts, Pandoc
+      - name: Install XeLaTeX, CJK + emoji fonts, Pandoc
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             texlive-xetex texlive-lang-chinese texlive-fonts-recommended \
             texlive-latex-extra fonts-noto-cjk fonts-noto-cjk-extra \
+            fonts-noto-color-emoji fonts-symbola \
             pandoc librsvg2-bin
-          pandoc --version | head -1
+          echo "--- pandoc ---"
+          pandoc --version | head -2
+          echo "--- xelatex ---"
           xelatex --version | head -1
+          echo "--- available Noto CJK fonts ---"
+          fc-list | grep -i "noto.*cjk" | head -8 || true
 
       - name: Concatenate Markdown chapters
         run: |
@@ -43,23 +48,41 @@ jobs:
           bash assets/pdf/concat.sh zh-TW > whitepaper-zh-TW.md
           wc -l whitepaper-zh-TW.md
 
-      - name: Strip Mermaid code blocks (replace with placeholder)
-        # Mermaid requires Node + puppeteer to render. For v1.0 draft PDF we
-        # replace each mermaid code block with a caption-only placeholder so
-        # Pandoc can complete. Future revision can swap in mermaid-cli.
+      - name: Preprocess for XeLaTeX compatibility
+        # 1. Replace Mermaid blocks with placeholder (PDF can't render)
+        # 2. Strip emoji that CJK fonts don't cover (decorative only)
+        # 3. Strip variation selectors (U+FE0F) that confuse fontspec
         run: |
           python3 <<'PY'
           import re
-          text = open('whitepaper-zh-TW.md', 'r', encoding='utf-8').read()
-          # Replace ```mermaid ... ``` blocks with a note line
-          pattern = re.compile(r'```mermaid\s*\n.*?\n```', re.DOTALL)
-          text = pattern.sub('*[Mermaid diagram rendered in web version — see GitHub source]*', text)
-          open('whitepaper-zh-TW.md', 'w', encoding='utf-8').write(text)
-          print('Mermaid blocks replaced with placeholders.')
+          p = 'whitepaper-zh-TW.md'
+          text = open(p, 'r', encoding='utf-8').read()
+
+          # Mermaid code blocks -> placeholder
+          text = re.sub(r'```mermaid\s*\n.*?\n```', '*[Mermaid diagram — see web version on GitHub]*', text, flags=re.DOTALL)
+
+          # Strip emoji (BMP + SMP) that CJK fonts typically don't cover.
+          # Ranges chosen to cover: emoticons, symbols, pictographs, transport, regional.
+          emoji_ranges = (
+            (0x1F300, 0x1F64F), (0x1F680, 0x1F6FF), (0x1F700, 0x1F77F),
+            (0x1F780, 0x1F7FF), (0x1F800, 0x1F8FF), (0x1F900, 0x1F9FF),
+            (0x1FA00, 0x1FA6F), (0x1FA70, 0x1FAFF), (0x2600, 0x26FF),
+            (0x2700, 0x27BF), (0x1F1E6, 0x1F1FF),
+          )
+          def in_range(cp):
+              return any(lo <= cp <= hi for lo, hi in emoji_ranges)
+          text = ''.join('' if in_range(ord(c)) else c for c in text)
+
+          # Variation selector (e.g. emoji style) + ZWJ
+          text = text.replace('\uFE0F', '').replace('\uFE0E', '').replace('\u200D', '')
+
+          open(p, 'w', encoding='utf-8').write(text)
+          print(f'[pre] {p}: {len(text)} chars after cleanup')
           PY
 
       - name: Build PDF via Pandoc + XeLaTeX
         run: |
+          set -e
           pandoc whitepaper-zh-TW.md \
             --pdf-engine=xelatex \
             --metadata-file=assets/pdf/metadata-zh-TW.yaml \
@@ -68,22 +91,31 @@ jobs:
             --highlight-style=tango \
             -V documentclass=report \
             -V CJKmainfont="Noto Sans CJK TC" \
-            -V mainfont="Noto Serif" \
-            -V monofont="Noto Sans Mono CJK TC" \
+            -V CJKsansfont="Noto Sans CJK TC" \
+            -V CJKmonofont="Noto Sans Mono CJK TC" \
+            -V mainfont="DejaVu Serif" \
+            -V sansfont="DejaVu Sans" \
+            -V monofont="DejaVu Sans Mono" \
             -V geometry:a4paper \
             -V geometry:margin=2.5cm \
             -V colorlinks=true \
             -V linkcolor=teal \
             -V urlcolor=blue \
-            -o whitepaper-zh-TW.pdf
+            -V toccolor=black \
+            -V lang=zh-TW \
+            -o whitepaper-zh-TW.pdf 2>&1 | tail -80
           ls -la whitepaper-zh-TW.pdf
 
       - name: Upload PDF artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: whitepaper-zh-TW
-          path: whitepaper-zh-TW.pdf
+          path: |
+            whitepaper-zh-TW.pdf
+            whitepaper-zh-TW.md
           retention-days: 90
+          if-no-files-found: warn
 
       - name: Attach PDF to Release
         if: github.event_name == 'release'
