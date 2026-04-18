@@ -3,7 +3,16 @@ title: "百原GEO Platform 技術白皮書"
 subtitle: "在生成式 AI 時代重新定義品牌可見性的工程實踐"
 author: "Vincent Lin（百原科技）"
 date: "2026-04-18"
-lang: zh-TW
+lang: zh-Hant-TW
+# Override Pandoc/polyglossia auto-localization. With lang: zh-* the default
+# LaTeX localization package (babel/polyglossia) picks Simplified Chinese
+# strings (目录 / 图 / 参考书目 / etc.). We force every auto-generated string
+# to the Traditional Chinese form here.
+toc-title: "目錄"
+abstract-title: "摘要"
+reference-section-title: "參考資料"
+lof-title: "圖目錄"
+lot-title: "表目錄"
 abstract: |
   本書記錄百原科技於 2024–2026 年開發「百原GEO Platform」的工程實踐。百原GEO
   Platform 是一套針對生成式引擎優化（Generative Engine Optimization, GEO）的
