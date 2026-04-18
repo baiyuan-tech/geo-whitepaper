@@ -7,6 +7,9 @@
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Status: Draft](https://img.shields.io/badge/Status-Draft%20v1.0-yellow.svg)](#修訂記錄)
 [![Language: zh-TW](https://img.shields.io/badge/Language-zh--TW-green.svg)](zh-TW/)
+[![English Summary](https://img.shields.io/badge/English-Executive_Summary-informational.svg)](en/README.md)
+
+> **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)**. Full English edition forthcoming.
 
 ---
 
