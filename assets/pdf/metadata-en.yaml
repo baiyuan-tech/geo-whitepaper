@@ -1,0 +1,33 @@
+---
+title: "Baiyuan GEO Platform — Technical Whitepaper"
+subtitle: "Engineering Practice for Brand Visibility in the Generative AI Era"
+author: "Vincent Lin (Baiyuan Technology)"
+date: "2026-04-18"
+lang: en-US
+toc-title: "Contents"
+abstract-title: "Abstract"
+reference-section-title: "References"
+lof-title: "List of Figures"
+lot-title: "List of Tables"
+abstract: |
+  This whitepaper documents the engineering practice of Baiyuan Technology in
+  developing "Baiyuan GEO Platform" (2024–2026), a SaaS system targeting
+  Generative Engine Optimization (GEO). The platform helps brands be cited
+  accurately and consistently in responses from generative AI services
+  (ChatGPT, Claude, Gemini, Perplexity, and others). The book presents a
+  seven-dimension citation-rate scoring algorithm, an AI-Bot-friendly shadow
+  document delivery mechanism (AXP), a Schema.org three-layer entity knowledge
+  graph, and a closed-loop hallucination detection and auto-remediation system.
+  Published under CC BY-NC 4.0.
+keywords:
+  - Generative Engine Optimization
+  - GEO
+  - AI Citation Rate
+  - Schema.org
+  - Structured Data
+  - Multi-Provider AI Fault Tolerance
+  - Hallucination Detection
+  - Cloudflare Workers
+  - PostgreSQL
+rights: "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)"
+---

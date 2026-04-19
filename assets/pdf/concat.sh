@@ -35,7 +35,7 @@ for f in "${FILES[@]}"; do
   [[ -f "$f" ]] || continue
   # Strip YAML frontmatter (between first two "---" lines)
   # Strip JSON-LD HTML comment blocks
-  # Strip nav footer lines starting with "**導覽**"
+  # Strip per-chapter navigation footer lines (zh-TW / en / ja)
   awk '
     BEGIN { fm=0; inld=0 }
     NR==1 && /^---[[:space:]]*$/ { fm=1; next }
@@ -48,6 +48,8 @@ for f in "${FILES[@]}"; do
     inld==1 && /^<\/script>/ { inld=0; next }
     inld==1 { next }
     /^\*\*導覽\*\*/ { next }
+    /^\*\*Navigation\*\*/ { next }
+    /^\*\*ナビゲーション\*\*/ { next }
     { print }
   ' "$f"
   echo ""

@@ -1,0 +1,34 @@
+---
+title: "百元 GEO Platform 技術ホワイトペーパー"
+subtitle: "生成 AI 時代におけるブランド可視性の工学的実践"
+author: "Vincent Lin（百元科技）"
+date: "2026-04-18"
+lang: ja-JP
+# Localized strings for auto-generated sections.
+toc-title: "目次"
+abstract-title: "要旨"
+reference-section-title: "参考資料"
+lof-title: "図目録"
+lot-title: "表目録"
+abstract: |
+  本書は百元科技（Baiyuan Technology）が 2024〜2026 年に開発した「百元 GEO
+  Platform」の工程実践を記録する。百元 GEO Platform は生成エンジン最適化
+  （Generative Engine Optimization、GEO）を対象とする SaaS システムであり、
+  ブランドが ChatGPT、Claude、Gemini、Perplexity 等の生成 AI 応答内で正確かつ
+  継続的に言及されることを目的とする。本書は 7 次元 AI シテーション率スコア
+  リングアルゴリズム、AI ボット向けシャドウドキュメント（AXP）配信機構、
+  Schema.org 3 層エンティティ知識グラフ、およびハルシネーションの自動検知・
+  修復を行うクローズドループシステムを包括する。CC BY-NC 4.0 ライセンスで
+  公開する。
+keywords:
+  - Generative Engine Optimization
+  - GEO
+  - AI シテーション率
+  - Schema.org
+  - 構造化データ
+  - マルチプロバイダ AI 耐障害
+  - ハルシネーション検知
+  - Cloudflare Workers
+  - PostgreSQL
+rights: "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)"
+---
