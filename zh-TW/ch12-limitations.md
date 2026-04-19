@@ -18,7 +18,7 @@ keywords:
   - Honesty
 last_updated: 2026-04-18
   priority: 0.8
-last_modified_at: 2026-04-18T17:28:18Z
+last_modified_at: 2026-04-18T17:37:04Z
 ---
 
 # Chapter 12 — 限制、未解問題與未來工作

@@ -19,7 +19,7 @@ keywords:
   - Anonymized Aggregates
 last_updated: 2026-04-18
   priority: 0.8
-last_modified_at: 2026-04-18T17:28:18Z
+last_modified_at: 2026-04-18T17:37:04Z
 ---
 
 # Chapter 11 — 5 品牌實戰觀察：6 週運營的匿名化數據
