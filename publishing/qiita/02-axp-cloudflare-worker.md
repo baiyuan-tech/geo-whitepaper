@@ -37,7 +37,7 @@ Private: false
 
 **AXP**（AI-ready eXchange Page）は **3 層** の清潔な文書である：
 
-```
+```text
 layer 1: pure HTML（CSR / JS 無し、semantic tag 中心）
 layer 2: Schema.org JSON-LD（@graph で構造化エンティティ）
 layer 3: Markdown（RAG インジェスト用、オプション）
@@ -165,7 +165,7 @@ sitemap も Cloudflare Worker がエッジで合成する（人間が `/sitemap.
 
 `robots.txt` では積極的に歓迎する：
 
-```
+```text
 User-agent: GPTBot
 Allow: /
 
@@ -185,7 +185,7 @@ Sitemap: https://acme.example/sitemap.xml
 
 **パスカテゴリ判定ツリー**：
 
-```
+```text
 リクエストパス
   ├─ /admin/*, /dashboard/*, /api/*  → オリジンへ（AXP 化しない）
   ├─ /blog/*, /docs/*, /pricing, /   → AXP 化

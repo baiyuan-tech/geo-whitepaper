@@ -81,7 +81,7 @@ return average(scores);
 
 プラットフォームデータは 4 状態を持つ：
 
-```
+```text
 Fresh（直近成功）
   ↓ 失敗検知
 Stale（持越中、isStale=true）
@@ -133,7 +133,7 @@ async function getPlatformScore(brandId, platform) {
 
 フロント側では platform score カードに表示：
 
-```
+```text
 ┌─ ChatGPT ────────────────┐
 │ 72 ⚠                     │
 │ Citation Rate: 68%       │
