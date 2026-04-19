@@ -22,12 +22,43 @@ last_updated: 2026-04-18
 
 # Baiyuan GEO Platform ホワイトペーパー — エグゼクティブサマリー
 
-> *本書の完全版は繁体字中国語版（約 30,000 字）および英語版（約 28,000 語）で公開済み。本エグゼクティブサマリーは日本の読者に向けて主要な貢献を 5 項目に凝縮したものである。日本語完全版は今後段階的に公開予定。*
+> *本書の完全版は繁体字中国語版（約 30,000 字）、英語版（約 28,000 語）、日本語版（約 30,000 字）で公開済み。本エグゼクティブサマリーは時間の限られた読者向けに主要な貢献を 5 項目に凝縮したものである。**完全な日本語版**（12 章 + 4 付録）は [`ja/ch01-geo-era.md`](./ch01-geo-era.md) 以降から読める。*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Full zh-TW](https://img.shields.io/badge/zh--TW-complete-green.svg)](../zh-TW/ch01-geo-era.md)
 [![Full en](https://img.shields.io/badge/en-complete-green.svg)](../en/ch01-geo-era.md)
+[![Full ja](https://img.shields.io/badge/ja-complete-green.svg)](./ch01-geo-era.md)
 [![PDF](https://img.shields.io/badge/PDF-download-red.svg)](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
+
+## 日本語版 目次
+
+**Part 1 — 基礎**
+- [第1章 — GEO 時代の到来](./ch01-geo-era.md)
+- [第2章 — システム全体像](./ch02-system-overview.md)
+- [第3章 — 7 次元スコアリングアルゴリズム](./ch03-scoring-algorithm.md)
+
+**Part 2 — 可観測性と耐障害性**
+- [第4章 — Stale Carry-Forward](./ch04-stale-carry-forward.md)
+- [第5章 — マルチプロバイダ AI ルーティング](./ch05-multi-provider-routing.md)
+
+**Part 3 — 構造化データと AI 統合**
+- [第6章 — AXP シャドウドキュメント](./ch06-axp-shadow-doc.md)
+- [第7章 — Schema.org Phase 1](./ch07-schema-org.md)
+- [第8章 — GBP 統合](./ch08-gbp-integration.md)
+
+**Part 4 — クローズドループ修復**
+- [第9章 — クローズドループ型ハルシネーション検知と自動修復](./ch09-closed-loop.md)
+- [第10章 — フェーズ・ベースライン試験](./ch10-phase-baseline.md)
+
+**Part 5 — 事例と限界**
+- [第11章 — 5 ブランド実地観察](./ch11-case-studies.md)
+- [第12章 — 限界、未解決問題、今後の課題](./ch12-limitations.md)
+
+**付録**
+- [付録A — 用語集](./appendix-a-glossary.md)
+- [付録B — 公開API仕様](./appendix-b-api.md)
+- [付録C — 参考文献](./appendix-c-references.md)
+- [付録D — 図目録](./appendix-d-figures.md)
 
 ## 1. 本書は何か
 
@@ -138,22 +169,23 @@ Schema.org は「リッチリザルト用のタグを数個付けるもの」と
 |--------|-----------|
 | 繁体字中国語版（zh-TW v1.0-draft） | ✅ 公開済み |
 | 英語版（en v1.0-draft） | ✅ 公開済み |
-| **日本語版（ja/）** | 🟡 **本エグゼクティブサマリーが第一弾**。各章は順次 |
+| **日本語版（ja v1.0-draft）** | ✅ **公開済み** — エグゼクティブサマリー + 12 章 + 4 付録（約 30,000 字） |
 | 中国語 PDF（~1 MB） | ✅ Releases で配布中 |
 | GitHub Pages ウェブ版 | ✅ [baiyuan-tech.github.io/geo-whitepaper](https://baiyuan-tech.github.io/geo-whitepaper/) |
 | Zenodo DOI 登録 | ⚪ v1.0 正式版以降の予定 |
 | Google Scholar / Semantic Scholar 収録 | ⚪ DOI 取得後 |
 
-日本語完全版は直訳ではなく、日本市場の文脈（国内 AI 採用曲線、日本語データのウェイト、国内検索エンジン生態系）に合わせて章単位で再構成する。
+日本語版は直訳ではなく、事例章（第11章）を中心に日本市場の文脈（国内 AI 採用曲線、日本語データのウェイト、note.com / Qiita 読者層、日系美容クリニック・飲食チェーン・サロン業態）に合わせた注記を加えている。
 
 ## 8. 読者への招き
 
-- **繁体字中国語本文を読む**：[zh-TW/ch01-geo-era.md](../zh-TW/ch01-geo-era.md)（12 章 + 4 附録 + 44 Mermaid 図、GitHub でそのままレンダリング）
+- **日本語完全版を読む**：[ja/ch01-geo-era.md](./ch01-geo-era.md)（12 章 + 4 付録 + 44 Mermaid 図、GitHub でそのままレンダリング）
+- **繁体字中国語本文を読む**：[zh-TW/ch01-geo-era.md](../zh-TW/ch01-geo-era.md)
 - **英語版を読む**：[en/ch01-geo-era.md](../en/ch01-geo-era.md)
 - **PDF をダウンロード**：[最新リリース](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 - **正誤表や質問を投げる**：[GitHub Issues](https://github.com/baiyuan-tech/geo-whitepaper/issues)（テンプレート提供）
 - **引用する**：リポジトリの「Cite this repository」ボタン（[CITATION.cff](../CITATION.cff) 連動）から APA 7 / BibTeX をコピー可
-- **翻訳貢献**：`ja/`、`ko/` 等の言語別ディレクトリへの PR を歓迎
+- **翻訳貢献**：`ko/` 等の追加言語ディレクトリへの PR を歓迎
 
 ## 9. 引用
 

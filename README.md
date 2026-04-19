@@ -8,12 +8,12 @@
 [![Status: Draft](https://img.shields.io/badge/Status-Draft%20v1.0-yellow.svg)](#修訂記錄)
 [![zh-TW](https://img.shields.io/badge/zh--TW-complete-green.svg)](zh-TW/)
 [![en](https://img.shields.io/badge/en-complete-green.svg)](en/)
-[![ja](https://img.shields.io/badge/ja-summary-yellow.svg)](ja/)
+[![ja](https://img.shields.io/badge/ja-complete-green.svg)](ja/)
 [![PDF](https://img.shields.io/badge/PDF-download-red.svg)](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 
 > **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)** or jump to **[Ch 1 (en)](en/ch01-geo-era.md)**. Full English edition (12 chapters + 4 appendices, ~28k words) is complete.
 >
-> **日本語の読者** → **[エグゼクティブサマリー（ja/README.md）](ja/README.md)** からお読みください。完全な日本語版は章ごとに順次公開予定。
+> **日本語の読者** → **[エグゼクティブサマリー（ja/README.md）](ja/README.md)** または直接 **[第 1 章 (ja)](ja/ch01-geo-era.md)** へ。完全な日本語版（12 章 + 4 付録、約 30,000 字）を公開済み。
 
 ---
 
@@ -264,8 +264,11 @@ geo-whitepaper/
 │   ├── ch01-geo-era.md
 │   ├── ... (through ch12)
 │   └── appendix-a..d.md
-├── ja/                    ← 日本語版（現在：エグゼクティブサマリー、章は順次）
-│   └── README.md          ← エグゼクティブサマリー
+├── ja/                    ← 日本語版（完了：Ch 1–12 + Appendix A–D）
+│   ├── README.md          ← エグゼクティブサマリー
+│   ├── ch01-geo-era.md
+│   ├── ... (through ch12)
+│   └── appendix-a..d.md
 ├── assets/
 │   ├── figures/           ← Mermaid 以外的靜態圖
 │   └── pdf/               ← PDF 生產腳本
@@ -283,7 +286,8 @@ geo-whitepaper/
 | 2026-04-18 | v1.0 draft | 初稿開寫，Ch 1–3 完成；README、CITATION.cff、LICENSE 就緒 |
 | 2026-04-18 | v1.0 draft | zh-TW 全 12 章 + 4 附錄完成；PDF 繁體化驗證通過；release + GitHub Pages + sitemap + IndexNow 全數就位 |
 | 2026-04-19 | v1.0 draft | **en/ 英文版完整版上線** — Executive Summary + Ch 1–12 + Appendix A–D（約 28,000 英文字）|
-| 2026-04-19 | v1.0 draft | **ja/ 日本語エグゼクティブサマリー公開** — 日本市場向け第一弾（約 1,400 日文字）；各章は順次公開 |
+| 2026-04-19 | v1.0 draft | **ja/ 日本語エグゼクティブサマリー公開** — 日本市場向け第一弾（約 1,400 日文字）|
+| 2026-04-19 | v1.0 draft | **ja/ 日本語完全版上線** — エグゼクティブサマリー + Ch 1–12 + Appendix A–D（約 30,000 日文字、である文体、事例章は日本市場向け在地化コメント付き）|
 
 ---
 
