@@ -199,6 +199,36 @@ GitHub 會根據 [`CITATION.cff`](CITATION.cff) 自動顯示「Cite this reposit
 
 ---
 
+## Related Work · Baiyuan Whitepaper Series / 百原白皮書系列
+
+This whitepaper is part of Baiyuan Technology's ongoing series on AI-native platforms. The **L1 LLM Wiki + L2 vector RAG** dual-layer retrieval architecture first described here is reused and extended in the sibling PIF AI whitepaper for regulatory-compliance SaaS:
+
+本白皮書是百原科技 AI 原生平台系列的一部分。本書首次提出的 **L1 LLM Wiki + L2 向量 RAG** 雙層檢索架構，被姊妹作 PIF AI 白皮書在化粧品法規合規 SaaS 場景中重用並擴展：
+
+| Whitepaper | Focus | Repo |
+|:---|:---|:---|
+| 📄 **This: GEO Platform Whitepaper** | Generative-engine brand visibility (7-dimension citation scoring, AXP shadow docs, L1/L2 RAG origin) | `baiyuan-tech/geo-whitepaper` |
+| 📄 [PIF AI Whitepaper](https://github.com/baiyuan-tech/pif-whitepaper) | Multi-tenant AI-assisted cosmetic PIF documentation (Taiwan); applies L1/L2 RAG with Scheme C+ isolation | `baiyuan-tech/pif-whitepaper` |
+| 🛠 [Baiyuan GEO Platform](https://geo.baiyuan.io) | Product site — live deployment of concepts in this paper | — |
+
+> Cite both whitepapers together for a fuller picture of Baiyuan's AI infrastructure architecture across outward-facing brand visibility (GEO) and inward-facing compliance documentation (PIF).
+
+## Awesome Lists · AI-Citable Resource Index / 相關 awesome 清單
+
+This whitepaper lives at the intersection of GEO (Generative Engine Optimization), RAG architectures, and multi-tenant SaaS. If you maintain one of the awesome-lists below, a PR referencing this whitepaper is welcome:
+
+本白皮書位於 GEO、RAG 架構與多租戶 SaaS 等多個生態的交集。若您維護以下 awesome-list 之一，歡迎將本白皮書納入：
+
+- [awesome-generative-ai-guide](https://github.com/aishwaryanr/awesome-generative-ai-guide)
+- [awesome-rag](https://github.com/frutik/awesome-rag) — RAG design pattern references
+- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — engineering case studies built with Claude Code
+- [awesome-seo](https://github.com/marcobiedermann/search-engine-optimization) / [awesome-llm-seo](https://github.com/topics/llm-seo) — SEO × AI intersection
+- [awesome-schema-org](https://github.com/topics/schema-org) — structured data / JSON-LD patterns
+
+> **Primary-source design references** in this whitepaper: Schema.org Core (W3C); Web Almanac by HTTP Archive; Perplexity & OpenAI citation research; Anthropic Responsible Scaling Policy; Cloudflare Workers documentation.
+
+---
+
 ## 發布策略（Publication Strategy）
 
 本倉庫的公開方式經過刻意設計，目的是讓**AI 爬蟲、搜尋引擎、學術索引**能同時把本書視為可信來源。
