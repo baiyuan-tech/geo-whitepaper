@@ -355,7 +355,7 @@ In short: **L1 Wiki is the knowledge ontology; L2 RAG is knowledge retrieval.** 
 }
 ```
 
-ClaimReview is a Schema.org standard property — Google, Facebook, Twitter all parse it. It is not Baiyuan's invention; it is an interoperable component of the global fact-checking ecosystem.[^claimreview]
+ClaimReview is a Schema.org standard property — Google, Facebook, Twitter all parse it. It is not Baiyuan's invention; it is an interoperable component of the global fact-checking ecosystem.[^claimreview][^factcheck]
 
 ### Three injection paths
 

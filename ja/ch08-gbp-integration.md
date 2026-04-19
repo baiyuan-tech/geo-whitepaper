@@ -150,6 +150,7 @@ GBP API のデフォルトクオータは **300 QPM**（queries per minute）。
 *図 8-3：1 Location あたり 1 日約 150〜200 回のクオータを消費。300 QPM アカウントで約 2,000 Location 並行対応可。*
 
 ブランド数が単一アカウント QPM を超える場合の戦略：
+
 1. **アカウント分散** — Additional QPM Quota を申請（Google の審査で引上可）
 2. **バッチ分散** — 急ぎでない同期を非ピーク時間に
 3. **優先度分散** — 完全度低いブランドを優先、高いブランドは頻度下げ
@@ -159,6 +160,7 @@ GBP API のデフォルトクオータは **300 QPM**（queries per minute）。
 ## 8.6 Webhook がない場合の補完方法
 
 GBP API は **webhook を提供しない**[^gbp-webhook]、顧客が GBP を変更しても即時通知がない。補完方法：
+
 - **Notifications API + Pub/Sub**：Google が提供する「間接 webhook」。Location 変動時に Google Pub/Sub topic に push、百原が subscribe すれば数分内に変動シグナルを受信可
 - **比較型同期**：読取時に `metadata.updateTime` を比較、時刻が更新されたときだけ JSON-LD を再生成、不要な下流処理を削減
 - **顧客手動トリガー**：UI に「今すぐ同期」ボタンを提供、顧客が GBP を変更した直後に即プルを発動
