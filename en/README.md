@@ -18,9 +18,9 @@ keywords:
   - Multi-Provider AI Routing
   - Shadow Document
 last_updated: 2026-04-18
-  priority: 0.8
 last_modified_at: 2026-04-19T08:22:07+08:00
 ---
+
 
 # Baiyuan GEO Platform Whitepaper — Executive Summary
 

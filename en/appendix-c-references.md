@@ -9,9 +9,9 @@ authors:
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 last_updated: 2026-04-18
-  priority: 0.6
 last_modified_at: 2026-04-18T17:37:04Z
 ---
+
 
 # Appendix C — References
 

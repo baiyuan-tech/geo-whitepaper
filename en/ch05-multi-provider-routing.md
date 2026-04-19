@@ -18,9 +18,9 @@ keywords:
   - Fallback Pattern
   - Circuit Breaker
 last_updated: 2026-04-18
-  priority: 0.8
 last_modified_at: 2026-04-18T17:37:04Z
 ---
+
 
 # Chapter 5 — Multi-Provider AI Routing: Fault Tolerance as Starting Architecture
 

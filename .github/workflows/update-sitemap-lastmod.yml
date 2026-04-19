@@ -2,9 +2,13 @@ name: Update sitemap lastmod from git history
 
 # Writes each content file's most-recent git commit timestamp back into
 # its YAML frontmatter as `last_modified_at`, which jekyll-sitemap then
-# emits as <lastmod> in sitemap.xml. Needed because
-# jekyll-last-modified-at is NOT on GitHub Pages' safe-mode plugin
-# whitelist.
+# emits as <lastmod> in sitemap.xml.
+#
+# IMPORTANT: This workflow uses a YAML parser (not regex) so it cannot
+# damage nested YAML structures. An earlier regex-based version left
+# orphan indented lines after stripping a deprecated `sitemap:` block;
+# we now round-trip through ruamel.yaml which preserves comments and
+# ordering.
 
 on:
   push:
@@ -29,21 +33,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # need full history to derive per-file mtimes
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Write last_modified_at into frontmatter (and clean up dead sitemap block)
+      - name: Install ruamel.yaml
+        run: pip install 'ruamel.yaml>=0.18'
+
+      - name: Update last_modified_at via YAML round-trip
         run: |
           python3 <<'PY'
-          import pathlib, re, subprocess
+          import pathlib, subprocess
+          from ruamel.yaml import YAML
 
-          # Note: we previously experimented with writing a `sitemap:` block
-          # carrying changefreq/priority. Verified against jekyll-sitemap
-          # v1.4.0's shipped template that it emits ONLY <loc> and <lastmod>.
-          # Google also ignores <priority> outright and treats <changefreq>
-          # as only a weak hint. So we drop those hints entirely and just
-          # maintain last_modified_at, which is the single signal that all
-          # major search engines and AI crawlers actually consume.
+          yaml = YAML(typ='rt')     # round-trip mode preserves structure
+          yaml.indent(mapping=2, sequence=4, offset=2)
+          yaml.width = 4096
+          yaml.preserve_quotes = True
 
           roots = ['zh-TW', 'en', 'README.md']
           changed = []
@@ -67,32 +72,49 @@ jobs:
 
               text = f.read_text(encoding='utf-8')
               if not text.startswith('---\n'):
-                  print(f'[skip] {f}: no YAML frontmatter')
                   continue
 
-              end = text.index('\n---\n', 4) + 1
-              fm = text[4:end - 1]
+              try:
+                  end = text.index('\n---\n', 4)
+              except ValueError:
+                  print(f'[skip] {f}: no closing frontmatter')
+                  continue
+
+              fm_text = text[4:end]
               body = text[end + 4:]
 
-              # Remove prior managed entries so we can rewrite cleanly
-              fm_clean = re.sub(r'^last_modified_at:.*\n?', '', fm, flags=re.M)
-              # Also strip any prior sitemap: block (dead code jekyll-sitemap ignores)
-              fm_clean = re.sub(
-                  r'^sitemap:\n(?:[ \t]+.*\n)+', '', fm_clean, flags=re.M
-              )
+              try:
+                  import io
+                  data = yaml.load(io.StringIO(fm_text))
+              except Exception as e:
+                  print(f'[skip] {f}: YAML parse error: {e}')
+                  continue
 
-              new_fm = fm_clean.rstrip('\n') + f'\nlast_modified_at: {ts}\n'
-              new_text = '---\n' + new_fm + '---\n' + body
+              if data is None:
+                  continue
 
-              if new_text != text:
-                  f.write_text(new_text, encoding='utf-8')
-                  changed.append(str(f))
-                  print(f'[set]  {f}  last_modified_at: {ts}')
-              else:
+              # Remove deprecated sitemap key (jekyll-sitemap 1.4 doesn't use it)
+              data.pop('sitemap', None)
+
+              # Check if an update is needed
+              current = data.get('last_modified_at')
+              if str(current).strip() == ts:
                   print(f'[same] {f}')
+                  continue
 
-          if changed:
-              pathlib.Path('/tmp/changed_files.txt').write_text('\n'.join(changed))
+              data['last_modified_at'] = ts
+
+              # Serialize back
+              out = io.StringIO()
+              yaml.dump(data, out)
+              new_fm = out.getvalue()
+
+              new_text = '---\n' + new_fm + '---\n' + body
+              f.write_text(new_text, encoding='utf-8')
+              changed.append(str(f))
+              print(f'[set]  {f}  last_modified_at: {ts}')
+
+          print(f'\nTotal updated: {len(changed)}')
           PY
 
       - name: Commit changes (if any)
@@ -101,11 +123,9 @@ jobs:
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add -A
-            git commit -m "chore(sitemap): sync last_modified_at + changefreq/priority from git history [skip ci]" \
-                       -m "Auto-updated by .github/workflows/update-sitemap-lastmod.yml" \
-                       -m "- last_modified_at: from 'git log -1 --format=%cI'" \
-                       -m "- sitemap.changefreq/priority: by file path (README=1.0 weekly, chapters=0.8 weekly, appendices=0.6 monthly)"
+            git commit -m "chore(sitemap): update last_modified_at from git history [skip ci]" \
+                       -m "Auto-updated by .github/workflows/update-sitemap-lastmod.yml"
             git push
           else
-            echo "No frontmatter changes — all files already current."
+            echo "No frontmatter changes needed."
           fi
