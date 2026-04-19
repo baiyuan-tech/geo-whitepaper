@@ -18,8 +18,9 @@ keywords:
   - ChatGPT
   - Perplexity
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:37:04Z
+last_modified_at: '2026-04-19T08:30:00+08:00'
 ---
+
 
 
 # Chapter 1 — GEO 生成式引擎優化的時代背景與挑戰

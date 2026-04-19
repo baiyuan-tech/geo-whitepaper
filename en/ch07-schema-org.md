@@ -19,8 +19,9 @@ keywords:
   - GBP Place ID
   - LocalBusiness
 last_updated: 2026-04-18
-last_modified_at: 2026-04-18T17:37:04Z
+last_modified_at: '2026-04-19T08:30:00+08:00'
 ---
+
 
 
 # Chapter 7 — Schema.org Phase 1: 25 Industries × Three-Layer @id Interlinking
