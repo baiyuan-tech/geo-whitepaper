@@ -206,7 +206,10 @@ GitHub 會根據 [`CITATION.cff`](CITATION.cff) 自動顯示「Cite this reposit
 ### 1. 雙格式並行
 
 - **Markdown**（本倉庫主格式）：LLM 可直接解析結構，段落、表格、程式碼區塊 token-friendly
-- **PDF**（`whitepaper.pdf`，每次 release 產出）：學術引用、長期保存、列印
+- **PDF**（每次 main push 自動產出並上傳到最新 release）：學術引用、長期保存、列印
+  - 繁體中文：[whitepaper-zh-TW.pdf](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-zh-TW.pdf)
+  - English：[whitepaper-en.pdf](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-en.pdf)
+  - 日本語：[whitepaper-ja.pdf](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-ja.pdf)
 
 兩者以同一份原始碼產生，避免版本漂移。
 

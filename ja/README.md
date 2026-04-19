@@ -176,7 +176,7 @@ Schema.org は「リッチリザルト用のタグを数個付けるもの」と
 | 繁体字中国語版（zh-TW v1.0-draft） | ✅ 公開済み |
 | 英語版（en v1.0-draft） | ✅ 公開済み |
 | **日本語版（ja v1.0-draft）** | ✅ **公開済み** — エグゼクティブサマリー + 12 章 + 4 付録（約 30,000 字） |
-| 中国語 PDF（~1 MB） | ✅ Releases で配布中 |
+| PDF 版（zh-TW / en / ja、main push 毎に自動生成） | ✅ [Releases で配布中](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest) |
 | GitHub Pages ウェブ版 | ✅ [baiyuan-tech.github.io/geo-whitepaper](https://baiyuan-tech.github.io/geo-whitepaper/) |
 | Zenodo DOI 登録 | ⚪ v1.0 正式版以降の予定 |
 | Google Scholar / Semantic Scholar 収録 | ⚪ DOI 取得後 |
@@ -188,7 +188,7 @@ Schema.org は「リッチリザルト用のタグを数個付けるもの」と
 - **日本語完全版を読む**：[ja/ch01-geo-era.md](./ch01-geo-era.md)（12 章 + 4 付録 + 44 Mermaid 図、GitHub でそのままレンダリング）
 - **繁体字中国語本文を読む**：[zh-TW/ch01-geo-era.md](../zh-TW/ch01-geo-era.md)
 - **英語版を読む**：[en/ch01-geo-era.md](../en/ch01-geo-era.md)
-- **PDF をダウンロード**：[最新リリース](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
+- **PDF をダウンロード**：[日本語版](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-ja.pdf) · [繁中](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-zh-TW.pdf) · [English](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-en.pdf)（直接）または [最新リリース](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 - **正誤表や質問を投げる**：[GitHub Issues](https://github.com/baiyuan-tech/geo-whitepaper/issues)（テンプレート提供）
 - **引用する**：リポジトリの「Cite this repository」ボタン（[CITATION.cff](../CITATION.cff) 連動）から APA 7 / BibTeX をコピー可
 - **翻訳貢献**：`ko/` 等の追加言語ディレクトリへの PR を歓迎

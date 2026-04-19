@@ -142,7 +142,7 @@ The whitepaper is deliberate about its limits:
 | Deliverable | Status |
 |-------------|--------|
 | Traditional Chinese edition (zh-TW v1.0 draft) | ✅ Published |
-| Chinese PDF (~1 MB, auto-built from Markdown) | ✅ Available on Releases |
+| PDF editions (zh-TW / en / ja, auto-built on each main push) | ✅ [Available on Releases](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest) |
 | GitHub Pages web edition | ✅ Live at [baiyuan-tech.github.io/geo-whitepaper](https://baiyuan-tech.github.io/geo-whitepaper/) |
 | CITATION.cff + BibTeX | ✅ Ready (generic type per CFF 1.2.0 schema) |
 | Full English edition (en/) | ✅ Complete — Executive Summary + 12 chapters + 4 appendices (~28,000 words) |
@@ -154,7 +154,7 @@ The full English edition will not be a direct translation; chapter-level adaptat
 ## 8. How to Engage
 
 - **Read the Traditional Chinese chapters** at [zh-TW/ch01-geo-era.md](../zh-TW/ch01-geo-era.md) onward (12 chapters, 4 appendices, 44 Mermaid diagrams — GitHub renders them natively)
-- **Download the PDF** from the [latest release](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
+- **Download the PDF** — [zh-TW](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-zh-TW.pdf) · [en](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-en.pdf) · [ja](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-ja.pdf) (direct) or browse [latest release](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 - **File errata or questions** via [GitHub Issues](https://github.com/baiyuan-tech/geo-whitepaper/issues) — templates provided
 - **Cite** using the repo's native [`Cite this repository`](https://github.com/baiyuan-tech/geo-whitepaper) button (driven by [CITATION.cff](../CITATION.cff)) — defaults to APA 7 and BibTeX
 - **Contribute translations** — PRs to `en/`, `ja/`, `ko/` etc. are welcome
