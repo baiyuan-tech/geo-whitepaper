@@ -5,7 +5,7 @@ Title: 生成AI時代の「検索 SEO」の次——GEO（Generative Engine Opti
 Tags: GEO, AI, LLM, SEO, Architecture
 Private: false
 
-投稿URL（投稿後に記入）: https://qiita.com/...
+投稿URL（投稿後に記入）: https://qiita.com/Baiyuan/items/58364ae5e030d556f395
 -->
 
 # 生成AI時代の「検索 SEO」の次——GEO（Generative Engine Optimization）の技術体系
