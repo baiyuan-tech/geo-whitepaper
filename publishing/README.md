@@ -4,7 +4,7 @@
 
 ## ディレクトリ構成
 
-```
+```text
 publishing/
 ├── note/       ← note.com 向け記事（CMO/CDO/事業責任者向け、物語的）
 │   ├── 01-brand-disappearing.md
@@ -39,16 +39,20 @@ publishing/
 ## 投稿順序の推奨
 
 **Week 1**：
+
 - [qiita/01-geo-overview.md](./qiita/01-geo-overview.md) ← 入り口記事、GEO 分野の全体像
 - [note/01-brand-disappearing.md](./note/01-brand-disappearing.md) ← ビジネス側の導入
 
 **Week 2**：
+
 - [qiita/02-axp-cloudflare-worker.md](./qiita/02-axp-cloudflare-worker.md) ← AXP 実装詳解（技術深掘り）
 
 **Week 3**：
+
 - [qiita/03-stale-carry-forward.md](./qiita/03-stale-carry-forward.md) ← パターン的な一般化（他分野エンジニアにも届く）
 
 **Week 4**：
+
 - [note/02-japan-b2b-first-mover.md](./note/02-japan-b2b-first-mover.md) ← 日本市場向けの決定版記事
 
 ## 投稿 URL トラッキング
