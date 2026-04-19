@@ -296,25 +296,28 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install XeLaTeX + Japanese CJK fonts + Pandoc
-        # texlive-lang-japanese supplies luatexja / bxjscls helpers; Noto CJK JP
-        # provides the actual glyphs. xeCJK (from texlive-latex-extra) handles
-        # Japanese under XeLaTeX as CJK ideographs.
+        # xeCJK.sty (from texlive-latex-extra) requires ctexhook.sty which ships
+        # in texlive-lang-chinese — needed even for Japanese under xeCJK.
+        # texlive-lang-japanese supplies additional luatexja / bxjscls helpers.
+        # Noto CJK JP provides the actual glyphs.
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            texlive-xetex texlive-lang-japanese texlive-fonts-recommended \
+            texlive-xetex texlive-lang-chinese texlive-lang-japanese \
+            texlive-fonts-recommended \
             texlive-latex-extra texlive-latex-recommended \
             lmodern \
             fonts-noto-cjk fonts-noto-cjk-extra \
             fonts-noto-color-emoji pandoc librsvg2-bin
           sudo fc-cache -fv > /dev/null
 
-      - name: Verify CJK JP font + xeCJK + lmodern presence (hard assert)
+      - name: Verify CJK JP font + xeCJK + ctexhook + lmodern presence (hard assert)
         run: |
           pandoc --version | head -2
           xelatex --version | head -1
           fc-list :lang=ja | grep -qi noto || { echo "FATAL: no Noto CJK JP" >&2; exit 1; }
           kpsewhich xeCJK.sty > /dev/null || { echo "FATAL: xeCJK.sty missing" >&2; exit 1; }
+          kpsewhich ctexhook.sty > /dev/null || { echo "FATAL: ctexhook.sty missing (needs texlive-lang-chinese)" >&2; exit 1; }
           kpsewhich lmodern.sty > /dev/null || { echo "FATAL: lmodern.sty missing" >&2; exit 1; }
           echo "Prerequisites OK."
 
