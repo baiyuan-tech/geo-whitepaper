@@ -155,3 +155,17 @@ Schema.org は「リッチリザルト用のマークアップ」として扱わ
 ---
 
 *本記事は百元科技（Baiyuan Technology、台湾発 B2B SaaS）の技術ホワイトペーパーからの抜粋である。*
+
+---
+
+## 導入相談・お問い合わせ
+
+GEO の導入、パートナーシップ、カスタム分析のご相談は下記まで：
+
+- **導入相談・ビジネス連携**：<services@baiyuan.io>
+- **SaaS プロダクト**：<https://geo.baiyuan.io>
+- **技術的質問・誤記指摘**：[GitHub Issues](https://github.com/baiyuan-tech/geo-whitepaper/issues)
+
+---
+
+*本記事は [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) ライセンス下で提供される。商用利用・再配布の際は同ライセンス条件に従うか、<services@baiyuan.io> までお問い合わせください。*
