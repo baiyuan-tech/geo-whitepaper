@@ -24,7 +24,7 @@ last_modified_at: 2026-04-18T17:28:18Z
 
 # Baiyuan GEO Platform Whitepaper — Executive Summary
 
-> *The full whitepaper (~30,000 characters) is currently published in Traditional Chinese. This English executive summary distills its contributions for international readers. A complete English edition is forthcoming.*
+> *This ~1,400-word executive summary distills the whitepaper's five core contributions for readers short on time. The **full English edition** — 12 chapters + 4 appendices (~28,000 words) — is now available at [`en/ch01-geo-era.md`](./ch01-geo-era.md) onward. A Traditional Chinese edition (~30,000 characters) is the original source.*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Full zh-TW edition](https://img.shields.io/badge/Full_edition-zh--TW_v1.0--draft-green.svg)](../zh-TW/ch01-geo-era.md)
@@ -141,7 +141,7 @@ The whitepaper is deliberate about its limits:
 | Chinese PDF (~1 MB, auto-built from Markdown) | ✅ Available on Releases |
 | GitHub Pages web edition | ✅ Live at [baiyuan-tech.github.io/geo-whitepaper](https://baiyuan-tech.github.io/geo-whitepaper/) |
 | CITATION.cff + BibTeX | ✅ Ready (generic type per CFF 1.2.0 schema) |
-| Full English edition (en/) | 🟡 In progress — this summary is the first installment |
+| Full English edition (en/) | ✅ Complete — Executive Summary + 12 chapters + 4 appendices (~28,000 words) |
 | Zenodo DOI registration | ⚪ Planned for v1.0 final |
 | Inclusion in Google Scholar / Semantic Scholar | ⚪ After DOI |
 
