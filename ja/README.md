@@ -33,28 +33,34 @@ last_updated: 2026-04-18
 ## 日本語版 目次
 
 **Part 1 — 基礎**
+
 - [第1章 — GEO 時代の到来](./ch01-geo-era.md)
 - [第2章 — システム全体像](./ch02-system-overview.md)
 - [第3章 — 7 次元スコアリングアルゴリズム](./ch03-scoring-algorithm.md)
 
 **Part 2 — 可観測性と耐障害性**
+
 - [第4章 — Stale Carry-Forward](./ch04-stale-carry-forward.md)
 - [第5章 — マルチプロバイダ AI ルーティング](./ch05-multi-provider-routing.md)
 
 **Part 3 — 構造化データと AI 統合**
+
 - [第6章 — AXP シャドウドキュメント](./ch06-axp-shadow-doc.md)
 - [第7章 — Schema.org Phase 1](./ch07-schema-org.md)
 - [第8章 — GBP 統合](./ch08-gbp-integration.md)
 
 **Part 4 — クローズドループ修復**
+
 - [第9章 — クローズドループ型ハルシネーション検知と自動修復](./ch09-closed-loop.md)
 - [第10章 — フェーズ・ベースライン試験](./ch10-phase-baseline.md)
 
 **Part 5 — 事例と限界**
+
 - [第11章 — 5 ブランド実地観察](./ch11-case-studies.md)
 - [第12章 — 限界、未解決問題、今後の課題](./ch12-limitations.md)
 
 **付録**
+
 - [付録A — 用語集](./appendix-a-glossary.md)
 - [付録B — 公開API仕様](./appendix-b-api.md)
 - [付録C — 参考文献](./appendix-c-references.md)
