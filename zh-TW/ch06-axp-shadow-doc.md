@@ -433,6 +433,7 @@ await seedBrandRAGKB(brandId, queryFn);  // 平行 seed RAG KB
 ```
 
 關鍵設計考量：
+
 - **非阻塞** — seed 過程不影響 AXP 頁面的即時回應
 - **冪等** — 重複呼叫只補充新文件，不產生重複 KB
 - **Fallback** — 任何 URL 爬取失敗都 gracefully skip，不影響其他 URL
@@ -451,7 +452,7 @@ const question = PAGE_TYPE_QUESTIONS[pageType](brandName) + keywordsHint;
 
 定價頁（`pricing_summary`）與功能頁（`product_features`）特別容易出現「純表格、零關鍵字」，因此 RAG 提示強制要求先生成**關鍵字豐富的開場簡介段落**，再接表格內容：
 
-```
+```text
 1. 開場簡介段落（2-3 句）：說明品牌定位，並自然融入目標關鍵字
 2. 完整定價表格：只列知識庫確認的資料，不得推測或捏造
 ```

@@ -433,6 +433,7 @@ await seedBrandRAGKB(brandId, queryFn);  // parallel: seed RAG KB
 ```
 
 Design principles:
+
 - **Non-blocking** — seeding does not delay the immediate AXP page generation response
 - **Idempotent** — repeated calls only add new documents; no duplicate KB is created
 - **Graceful degradation** — any URL crawl failure is silently skipped; other URLs continue
@@ -451,7 +452,7 @@ const question = PAGE_TYPE_QUESTIONS[pageType](brandName) + keywordsHint;
 
 For `pricing_summary` and `product_features` — page types prone to "pure tables, zero keywords" — the RAG prompt explicitly requires a **keyword-rich introductory paragraph** before the table:
 
-```
+```text
 1. Opening paragraph (2–3 sentences): describe the brand's positioning,
    naturally incorporating the target keywords
 2. Full pricing table: only list data confirmed in the knowledge base;
