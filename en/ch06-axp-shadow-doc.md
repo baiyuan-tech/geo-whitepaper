@@ -34,7 +34,7 @@ last_modified_at: '2026-04-21T13:32:40+08:00'
 
 > The website for humans and the content for AI should not be the same HTML. Forcing one document to serve both leaves both parties worse off.
 
-## Table of Contents
+## Table of Contents {.unnumbered}
 
 - [6.1 Why one HTML cannot serve both](#61-why-one-html-cannot-serve-both)
 - [6.2 AXP: the structure of a shadow document](#62-axp-the-structure-of-a-shadow-document)
@@ -393,7 +393,7 @@ These issues are not AXP-specific, but **AXP amplifies their severity**: AI bots
 
 AXP page quality depends not just on "can AI bots fetch it" but on **how much factual brand knowledge is inside**. Pages generated purely from LLM inference tend to contain hallucinations or vague generalities. Injecting knowledge from the brand's own RAG knowledge base yields a qualitatively different result.
 
-### 6.9.1 Brand isolation: one dedicated KB per brand
+### Brand isolation: one dedicated KB per brand
 
 Baiyuan uses a central shared RAG engine ([§9.4](./ch09-closed-loop.md#94-central-shared-rag-the-key-infrastructure-for-saas-architecture)), but each brand's documents live in a **dedicated Knowledge Base (KB)** identified by `rag_kb_id`:
 
@@ -417,7 +417,7 @@ flowchart LR
 
 *Fig 6-7: Brand-level KB isolation. The engine is shared; the knowledge is not.*
 
-### 6.9.2 `seedBrandRAGKB`: automatic KB creation and seeding on AXP enable
+### `seedBrandRAGKB`: automatic KB creation and seeding on AXP enable
 
 When a brand enables AXP (`enableAXP` API), the system runs three steps asynchronously in the background:
 
@@ -436,7 +436,7 @@ Design principles:
 - **Idempotent** — repeated calls only add new documents; no duplicate KB is created
 - **Graceful degradation** — any URL crawl failure is silently skipped; other URLs continue
 
-### 6.9.3 Keyword injection: giving AXP content a brand voice
+### Keyword injection: giving AXP content a brand voice
 
 `brand.keywords` (the brand's target GEO/SEO keywords) are injected into every RAG query as a `keywordsHint` suffix:
 
@@ -461,15 +461,15 @@ For `pricing_summary` and `product_features` — page types prone to "pure table
 
 | Brand | Keywords | Lowest coverage page | Min coverage | Most pages |
 |-------|---------|---------------------|-------------|-----------|
-| Baiyuan GEO | 13 | pricing_summary | 9/13 | 11–13/13 |
-| Baiyuan RAG KB | 12 | pricing_summary | 7/12 | 11–12/12 |
-| aiLife | 10 | pricing_summary | 7/10 | 9–10/10 |
-| PIF | 12 | faq / pricing | 7/12 | 10–12/12 |
-| Baiyuan Technology | 10 | pricing_summary | 1/10 ★ | 9–10/10 |
+| Brand A | 13 | pricing_summary | 9/13 | 11–13/13 |
+| Brand B | 12 | pricing_summary | 7/12 | 11–12/12 |
+| Brand C | 10 | pricing_summary | 7/10 | 9–10/10 |
+| Brand D | 12 | faq / pricing | 7/12 | 10–12/12 |
+| Brand E | 10 | pricing_summary | 1/10 ★ | 9–10/10 |
 
 ★ Brand website has no public pricing page; RAG correctly refuses to fabricate data — low coverage is expected.
 
-### 6.9.4 `content_preview`: a per-page quality signal
+### `content_preview`: a per-page quality signal
 
 The AXP page list API now includes a `content_preview` field: the first 150 characters of `content_md` after stripping multiline HTML comments.
 
@@ -484,7 +484,7 @@ The regex must use `[\s\S]*?` (dotall) rather than `[^>]*` — the latter fails 
 
 ---
 
-## Key takeaways
+## Key takeaways {.unnumbered}
 
 - A single HTML cannot serve both human experience and AI parseability — AXP is the decoupling mechanism
 - AXP has three layers: pure HTML skeleton + Schema.org JSON-LD + Markdown raw text
@@ -496,7 +496,7 @@ The regex must use `[\s\S]*?` (dotall) rather than `[^>]*` — the latter fails 
 - Each brand has an isolated RAG KB (`rag_kb_id`); `seedBrandRAGKB` automatically uploads a brand profile and website URLs when AXP is enabled — no manual intervention required
 - `brand.keywords` are injected into RAG queries as `keywordsHint`; pricing and feature pages require a keyword-rich intro paragraph; `content_preview` replaces `fingerprint_phrase` as the per-page quality signal
 
-## References
+## References {.unnumbered}
 
 - [Ch 7 — Schema.org Phase 1: 25 industries × three-layer @id](./ch07-schema-org.md)
 - [Ch 8 — GBP API integration strategy](./ch08-gbp-integration.md)
