@@ -52,7 +52,7 @@ last_modified_at: '2026-04-21T14:52:10+08:00'
 
 ---
 
-## 6.1 Why one HTML cannot serve both
+## Why one HTML cannot serve both
 
 A modern website is designed for humans:
 
@@ -84,7 +84,7 @@ flowchart LR
 
 ---
 
-## 6.2 AXP: the structure of a shadow document
+## AXP: the structure of a shadow document
 
 **AXP** (AI-ready eXchange Page) is Baiyuan's name for such shadow documents. Each AXP page has three layers.
 
@@ -155,7 +155,7 @@ All three layers coexist in the same URL response: HTML as the body, JSON-LD in 
 
 ---
 
-## 6.3 Cloudflare Worker injection
+## Cloudflare Worker injection
 
 AXP is delivered by **edge injection**: the CDN layer intercepts requests and chooses the response body based on User-Agent. Our platform uses Cloudflare Workers.
 
@@ -221,7 +221,7 @@ export default {
 
 ---
 
-## 6.4 AI bot UA list and detection strategy
+## AI bot UA list and detection strategy
 
 The platform currently recognizes **25 AI bot UAs**, grouped by function:
 
@@ -290,7 +290,7 @@ The UA list is reviewed quarterly; new crawlers (e.g., `OAI-SearchBot` first obs
 
 ---
 
-## 6.5 Path conflicts for SaaS self-brands
+## Path conflicts for SaaS self-brands
 
 A practical edge case: **when the SaaS platform itself is also a user of the SaaS (dogfooding)**, the same domain needs to serve both *"platform users"* (logged-in product) and *"brand website visitors"* (anonymous content).
 
@@ -319,7 +319,7 @@ flowchart TD
 
 ---
 
-## 6.6 Automatic sitemap generation
+## Automatic sitemap generation
 
 AI bot crawl efficiency depends on `sitemap.xml`. Under AXP, the sitemap must be **dynamically generated in alignment with AXP paths**, otherwise we end up in the confusing state of *"sitemap lists URL X, but the Worker does not inject AXP on path X."*
 
@@ -334,7 +334,7 @@ The sitemap is also served by the Cloudflare Worker; human visitors that hit `/s
 
 ---
 
-## 6.7 JSON-LD flattening pitfalls
+## JSON-LD flattening pitfalls
 
 The Schema.org spec allows **nested arrays**, but in practice the following pattern triggers issues:
 
@@ -375,7 +375,7 @@ Benefits of flattening + `@id` linking:
 
 ---
 
-## 6.8 GSC indexing field notes
+## GSC indexing field notes
 
 A record of issues encountered with Google Search Console (GSC) during 2024–2025 operation:
 
@@ -391,7 +391,7 @@ These issues are not AXP-specific, but **AXP amplifies their severity**: AI bots
 
 ---
 
-## 6.9 RAG knowledge base integration: per-brand KB automation
+## RAG knowledge base integration: per-brand KB automation
 
 AXP page quality depends not just on "can AI bots fetch it" but on **how much factual brand knowledge is inside**. Pages generated purely from LLM inference tend to contain hallucinations or vague generalities. Injecting knowledge from the brand's own RAG knowledge base yields a qualitatively different result.
 
