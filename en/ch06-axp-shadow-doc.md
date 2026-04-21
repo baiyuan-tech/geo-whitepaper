@@ -18,8 +18,8 @@ keywords:
   - AI Bot UA Detection
   - JSON-LD
   - Sitemap
-last_updated: 2026-04-18
-last_modified_at: '2026-04-19T12:46:05Z'
+last_updated: 2026-04-21
+last_modified_at: '2026-04-21T16:00:00Z'
 ---
 
 
@@ -43,6 +43,7 @@ last_modified_at: '2026-04-19T12:46:05Z'
 - [6.6 Automatic sitemap generation](#66-automatic-sitemap-generation)
 - [6.7 JSON-LD flattening pitfalls](#67-json-ld-flattening-pitfalls)
 - [6.8 GSC indexing field notes](#68-gsc-indexing-field-notes)
+- [6.9 RAG knowledge base integration: per-brand KB automation](#69-rag-knowledge-base-integration-per-brand-kb-automation)
 - [Key takeaways](#key-takeaways)
 - [References](#references)
 
@@ -387,6 +388,101 @@ These issues are not AXP-specific, but **AXP amplifies their severity**: AI bots
 
 ---
 
+## 6.9 RAG knowledge base integration: per-brand KB automation
+
+AXP page quality depends not just on "can AI bots fetch it" but on **how much factual brand knowledge is inside**. Pages generated purely from LLM inference tend to contain hallucinations or vague generalities. Injecting knowledge from the brand's own RAG knowledge base yields a qualitatively different result.
+
+### 6.9.1 Brand isolation: one dedicated KB per brand
+
+Baiyuan uses a central shared RAG engine ([§9.4](./ch09-closed-loop.md#94-central-shared-rag-the-key-infrastructure-for-saas-architecture)), but each brand's documents live in a **dedicated Knowledge Base (KB)** identified by `rag_kb_id`:
+
+- Multiple brands under the same tenant (e.g. a cosmetics brand and a food brand) never share knowledge
+- AXP generation passes `kbId` to the query, ensuring only that brand's facts are retrieved
+- When a brand is deleted, its KB can be cleaned up with no residual data risk
+
+```mermaid
+flowchart LR
+    subgraph Tenant["Same tenant"]
+      BrandA["Brand A<br/>rag_kb_id: kb-aaa"]
+      BrandB["Brand B<br/>rag_kb_id: kb-bbb"]
+    end
+    subgraph RAG["Central RAG engine"]
+      KBA["KB: kb-aaa<br/>(Brand A only)"]
+      KBB["KB: kb-bbb<br/>(Brand B only)"]
+    end
+    BrandA -->|askWithKbId| KBA
+    BrandB -->|askWithKbId| KBB
+```
+
+*Fig 6-7: Brand-level KB isolation. The engine is shared; the knowledge is not.*
+
+### 6.9.2 `seedBrandRAGKB`: automatic KB creation and seeding on AXP enable
+
+When a brand enables AXP (`enableAXP` API), the system runs three steps asynchronously in the background:
+
+1. **Create KB** (if absent) — `ragCreateKnowledgeBase` returns a new `kbId`, written to `brand_rag_configs`
+2. **Upload brand profile** (text document) — brand name, industry, description, website, and core keywords are serialised as a structured text document, providing the KB's anchor knowledge
+3. **Upload website page URLs** (up to 20, ordered by `geo_importance` DESC) — the RAG backend crawls and vectorises each page, supplementing static profile knowledge with live site content
+
+```javascript
+// Inside enableAXP setImmediate block (non-blocking)
+await initialCrawl(brandId, tenantId);   // generate AXP pages
+await seedBrandRAGKB(brandId, queryFn);  // parallel: seed RAG KB
+```
+
+Design principles:
+- **Non-blocking** — seeding does not delay the immediate AXP page generation response
+- **Idempotent** — repeated calls only add new documents; no duplicate KB is created
+- **Graceful degradation** — any URL crawl failure is silently skipped; other URLs continue
+
+### 6.9.3 Keyword injection: giving AXP content a brand voice
+
+`brand.keywords` (the brand's target GEO/SEO keywords) are injected into every RAG query as a `keywordsHint` suffix:
+
+```javascript
+// hybridCoordinator.service.js
+const keywordsHint = keywords.length
+  ? `\n\nPlease naturally incorporate the following target keywords (not all need to appear): ${keywords.join(', ')}`
+  : '';
+const question = PAGE_TYPE_QUESTIONS[pageType](brandName) + keywordsHint;
+```
+
+For `pricing_summary` and `product_features` — page types prone to "pure tables, zero keywords" — the RAG prompt explicitly requires a **keyword-rich introductory paragraph** before the table:
+
+```
+1. Opening paragraph (2–3 sentences): describe the brand's positioning,
+   naturally incorporating the target keywords
+2. Full pricing table: only list data confirmed in the knowledge base;
+   do not infer or fabricate
+```
+
+**Observed keyword coverage** (`ILIKE` substring match, 5 brands × 6 page types, 2026-04-21):
+
+| Brand | Keywords | Lowest coverage page | Min coverage | Most pages |
+|-------|---------|---------------------|-------------|-----------|
+| Baiyuan GEO | 13 | pricing_summary | 9/13 | 11–13/13 |
+| Baiyuan RAG KB | 12 | pricing_summary | 7/12 | 11–12/12 |
+| aiLife | 10 | pricing_summary | 7/10 | 9–10/10 |
+| PIF | 12 | faq / pricing | 7/12 | 10–12/12 |
+| Baiyuan Technology | 10 | pricing_summary | 1/10 ★ | 9–10/10 |
+
+★ Brand website has no public pricing page; RAG correctly refuses to fabricate data — low coverage is expected.
+
+### 6.9.4 `content_preview`: a per-page quality signal
+
+The AXP page list API now includes a `content_preview` field: the first 150 characters of `content_md` after stripping multiline HTML comments.
+
+This fixes a practical problem: when all six page types of the same brand displayed the same `fingerprint_phrase`, users could not confirm whether each page had generated correctly.
+
+```sql
+-- Strip multiline HTML comments; take first 150 chars
+LEFT(REGEXP_REPLACE(content_md, '<!--[\s\S]*?-->', '', 'g'), 150) AS content_preview
+```
+
+The regex must use `[\s\S]*?` (dotall) rather than `[^>]*` — the latter fails to match HTML comments that span multiple lines.
+
+---
+
 ## Key takeaways
 
 - A single HTML cannot serve both human experience and AI parseability — AXP is the decoupling mechanism
@@ -396,6 +492,8 @@ These issues are not AXP-specific, but **AXP amplifies their severity**: AI bots
 - SaaS self-brand path conflicts require an admin-maintained classification table; default to conservative pass-through
 - Sitemap must be dynamically generated in alignment with AXP; JSON-LD uses `@id` flattening, not nested arrays
 - GSC issues amplify under AXP — a pre-flight check script in CI is the cheapest preventive control
+- Each brand has an isolated RAG KB (`rag_kb_id`); `seedBrandRAGKB` automatically uploads a brand profile and website URLs when AXP is enabled — no manual intervention required
+- `brand.keywords` are injected into RAG queries as `keywordsHint`; pricing and feature pages require a keyword-rich intro paragraph; `content_preview` replaces `fingerprint_phrase` as the per-page quality signal
 
 ## References
 

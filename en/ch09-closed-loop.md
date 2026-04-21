@@ -227,6 +227,8 @@ The **L2 RAG knowledge base** from §9.3 is not deployed per-tenant. The entire 
 
 These three are analogous to the RLS + app-level double insurance from [§2.5](./ch02-system-overview.md#25-multi-tenant-data-isolation). Any single-layer slip still requires the other two to simultaneously fail before cross-tenant leakage happens.
 
+> **Brand-level isolation (updated 2026-04-21)**: within a tenant, multiple brands are further separated by a per-brand Knowledge Base ID (`rag_kb_id`). AXP generation passes the brand's `kbId` to the query, ensuring that different brands under the same tenant (e.g. a cosmetics brand and a food brand) never share factual knowledge. When a brand enables AXP, `seedBrandRAGKB` automatically creates the KB and uploads a brand profile + website page URLs — see [§6.9](./ch06-axp-shadow-doc.md#69-rag-knowledge-base-integration-per-brand-kb-automation).
+
 ### Fig 9-4: Central shared RAG architecture
 
 ```mermaid
