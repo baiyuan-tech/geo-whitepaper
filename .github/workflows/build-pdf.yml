@@ -95,7 +95,6 @@ jobs:
             --verbose \
             --metadata-file=assets/pdf/metadata-zh-TW.yaml \
             --toc --toc-depth=3 \
-            --number-sections \
             --highlight-style=tango \
             -V documentclass=report \
             -V CJKmainfont="Noto Serif CJK TC" \
@@ -234,7 +233,6 @@ jobs:
             --verbose \
             --metadata-file=assets/pdf/metadata-en.yaml \
             --toc --toc-depth=3 \
-            --number-sections \
             --highlight-style=tango \
             -V documentclass=report \
             -V geometry:a4paper \
@@ -368,7 +366,6 @@ jobs:
             --verbose \
             --metadata-file=assets/pdf/metadata-ja.yaml \
             --toc --toc-depth=3 \
-            --number-sections \
             --highlight-style=tango \
             -V documentclass=report \
             -V CJKmainfont="Noto Serif CJK JP" \
