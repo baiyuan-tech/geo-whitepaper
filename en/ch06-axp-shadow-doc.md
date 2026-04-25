@@ -50,6 +50,7 @@ last_modified_at: '2026-04-26T00:13:53+08:00'
 - [6.7 JSON-LD flattening pitfalls](#67-json-ld-flattening-pitfalls)
 - [6.8 GSC indexing field notes](#68-gsc-indexing-field-notes)
 - [6.9 RAG knowledge base integration: per-brand KB automation](#69-rag-knowledge-base-integration-per-brand-kb-automation)
+- [6.10 Unified pipeline refactor: from 8 fragmented names to 22 categories](#610-unified-pipeline-refactor-from-8-fragmented-names-to-22-categories)
 - [Key takeaways](#key-takeaways)
 - [References](#references)
 
