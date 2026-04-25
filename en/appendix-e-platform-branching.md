@@ -17,7 +17,9 @@ keywords:
   - Platform Branching
 last_updated: 2026-04-25
 canonical: https://baiyuan.io/whitepaper/en/appendix-e-platform-branching
+last_modified_at: '2026-04-26T00:13:53+08:00'
 ---
+
 
 # Appendix E — Platform Branching: Multi-Brand Extension on a Single Codebase
 
