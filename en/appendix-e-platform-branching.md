@@ -17,8 +17,9 @@ keywords:
   - Platform Branching
 last_updated: 2026-04-25
 canonical: https://baiyuan.io/whitepaper/en/appendix-e-platform-branching
-last_modified_at: '2026-04-25T16:14:03Z'
+last_modified_at: '2026-04-25T16:16:59Z'
 ---
+
 
 
 
