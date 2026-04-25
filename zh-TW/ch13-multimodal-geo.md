@@ -20,8 +20,9 @@ keywords:
   - 視覺資產審計
 last_updated: 2026-04-25
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch13-multimodal-geo
-last_modified_at: '2026-04-26T00:13:53+08:00'
+last_modified_at: '2026-04-25T16:14:03Z'
 ---
+
 
 
 # Chapter 13 — 多模態 GEO:從文字到視覺資產的能見度

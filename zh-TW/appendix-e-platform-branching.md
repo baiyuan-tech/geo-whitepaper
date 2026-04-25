@@ -19,8 +19,9 @@ keywords:
   - PostgreSQL Row-Level Filtering
 last_updated: 2026-04-25
 canonical: https://baiyuan.io/whitepaper/zh-TW/appendix-e-platform-branching
-last_modified_at: '2026-04-26T00:13:53+08:00'
+last_modified_at: '2026-04-25T16:14:03Z'
 ---
+
 
 
 # Appendix E — 平台分流架構:同 codebase 多品牌延伸
