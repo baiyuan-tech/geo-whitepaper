@@ -541,6 +541,7 @@ generators/
 ```
 
 每個 generator 滿足三條規則:
+
 1. **單一輸入**:只讀 `brand` + `RAG knowledge` + `pricing API`,不讀 DB scattered tables
 2. **冪等**:同一輸入產生同一輸出(LLM temperature=0)
 3. **可追溯**:輸出含 `source_chunks: [{rag_chunk_id, score}]`,讓客戶看得到引用源
@@ -576,6 +577,7 @@ P1-P3 各 page_type 注入 `Article` / `WebPage`;P8 補完三個進階型:
 | 舊 UI 死碼 | 約 3000 行 | -2997 行(P5 清掉) |
 
 **重構規格 7 條**(P9 強制執行):
+
 1. 同一概念只能一個命名
 2. 沒對應 generator 不能新增 page_type
 3. generator 必須冪等

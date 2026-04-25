@@ -183,6 +183,7 @@ You are a visual SEO expert. Generate alt text for this image (in Traditional Ch
 ```
 
 Key design points:
+
 - **Brand keyword injection** (`brand_visual_configs.brand_keywords`): forces AI to mention customer-specified brand terms in alt text
 - **Length limit 30-80**: too short loses semantic content; too long gets truncated by crawlers
 

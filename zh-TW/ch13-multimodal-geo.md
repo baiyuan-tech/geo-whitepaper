@@ -86,6 +86,7 @@ flowchart LR
 ### 為何不產 PDF
 
 v0.1 刻意**不做 PDF**:
+
 - PDF 渲染成本高(Puppeteer / Playwright + 字型)
 - 客戶不會印,只看線上頁面 + email
 - 漏斗目標是「升級 Tier A」,不是「列印帶回家」
@@ -200,6 +201,7 @@ health_score = round((
 ```
 
 關鍵設計:
+
 - **品牌關鍵字注入**(`brand_visual_configs.brand_keywords`):強制 AI 在 alt 提及客戶要的品牌詞
 - **長度限制 30-80**:太短不夠語意,太長爬蟲會截斷
 
