@@ -58,6 +58,7 @@ last_updated: 2026-04-18
 
 - [第11章 — 5 ブランド実地観察](./ch11-case-studies.md)
 - [第12章 — 限界、未解決問題、今後の課題](./ch12-limitations.md)
+- [第13章 — マルチモーダル GEO:テキストからビジュアル資産の可視性へ](./ch13-multimodal-geo.md) **(v1.1 新規)**
 
 **付録**
 
@@ -65,6 +66,7 @@ last_updated: 2026-04-18
 - [付録B — 公開API仕様](./appendix-b-api.md)
 - [付録C — 参考文献](./appendix-c-references.md)
 - [付録D — 図目録](./appendix-d-figures.md)
+- [付録E — プラットフォーム分岐:単一コードベースでの複数ブランド展開](./appendix-e-platform-branching.md) **(v1.1 新規)**
 
 ## 1. 本書は何か
 

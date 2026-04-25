@@ -473,6 +473,81 @@ regex は `[\s\S]*?`（dotall モード）を使用する必要がある。`[^>]
 
 ---
 
+## 統一パイプライン再構築:8 種の命名断片から 22 カテゴリへ
+
+AXP 稼働 1 年で**断片化**が蓄積:同じ概念に複数の命名(`facts` / `fact_check` / `factCheck`)、セクション命名のドリフト、ジェネレーターロジックが散在。2026 年 4 月に **P1-P9 統一パイプライン再構築**を実施、目標は「1 つのパイプライン、1 つの命名、1 つの出力」。
+
+### Fig 6-10:9 段階
+
+```mermaid
+flowchart LR
+    P1[P1 命名統一<br/>22 page_type] --> P2[P2 ジェネレーター<br/>9 個]
+    P2 --> P3[P3 RAG ループ<br/>欠損 → 自動補完]
+    P3 --> P4[P4 単一ページ UI<br/>Pipeline status]
+    P4 --> P5[P5 旧 UI 廃止<br/>-2997 行]
+    P5 --> P6[P6 brand-create<br/>自動 hook]
+    P6 --> P7[P7 月 06:00<br/>cron rerun-missing]
+    P7 --> P8[P8 Schema.org<br/>FAQPage / Review]
+    P8 --> P9[P9 規格 7 条<br/>完全遵守]
+```
+
+*Fig 6-10: 9 段階。各段階は独立して検証可能、前段階が完了するまで次に進まない。*
+
+### 22 統一 `page_type` カテゴリ
+
+旧システムでは `homepage` / `home` / `brandHome` が同じページを指し、`fact_check` / `factCheck` / `facts` も混用。再構築で **22 種の snake_case カテゴリ**に統一:
+
+| 区分 | 例 | 備考 |
+|------|----|----|
+| 基盤 | `brand_overview`, `faq`, `about` | 全ブランド共通 |
+| 製品 | `product_features`, `pricing`, `competitor_comparison` | B2B 製品 |
+| 信頼 | `fact_check`, `review_aggregate`, `media_coverage` | 第三者検証 |
+| ローカル | `service_area`, `office_address`, `gbp_profile` | 地理結合 |
+| 知識 | `glossary`, `case_study`, `industry_report` | コンテンツ深度 |
+| 個人 IP | `creator_profile`, `talk_topics`, `future_plans` | ME プラットフォーム専用(23 番以降) |
+
+対応するジェネレーターを持たない page_type は**アーキテクチャ的に禁止** — 孤児カテゴリは存在しない。
+
+### 9 ジェネレーターの 3 規則
+
+1. **単一入力源**:`brand` + `RAG knowledge` + `pricing API` のみ読む
+2. **冪等**:同じ入力は同じ出力(LLM temperature=0)
+3. **追跡可能**:出力に `source_chunks: [{rag_chunk_id, score}]` を含む
+
+### RAG クローズドループ:欠損検出 → 自動補完
+
+3 つの cron がエンドツーエンドで連動:
+
+1. **Detector cron(毎日 02:00)**:`detectContentGaps(brandId)` で欠損を `content_gaps` テーブルに記録
+2. **Processor cron(2h ごと)**:`status='pending'` を取得、対応ジェネレーターを実行
+3. **Verifier cron(毎日 06:00)**:24h 以内の出力の文字数 / 構造を検査、未達ならリキュー
+
+5 パイロットブランドで `llms-full.txt` の平均文字数が 8K → **52K(6.5×)**へ向上。「お客様が忘れた」死区を解消。
+
+### Schema.org 多型注入(P8)
+
+P1-P3 で `Article` / `WebPage` を注入、P8 で 3 種を追加:
+
+- **FAQPage**:`faq.js` の Q/A から `FAQPage > mainEntity[Question]`
+- **Review** / **AggregateRating**:GBP 5 つ星評価が `aggregateRating.ratingValue` に直接流れる
+- **Person**(個人 IP 限定):`Person > knowsAbout` + `worksFor` + `award`、AI プラットフォームに人物実体として認識させる
+
+注入戦略は §6.7 のフラット化原則に従う(`@id` 参照、ネスト配列なし)。
+
+### 再構築成果
+
+| 指標 | 再構築前 | 再構築後 |
+|------|----------|----------|
+| 命名種別 | 8 種混用 | 22 snake_case |
+| 重複 / 孤児 page_type | 13 個 | 0 |
+| `llms-full.txt` 平均文字数 | 8K | 52K(6.5×) |
+| お客様手動補完件数 | 多 | 0(自動補完) |
+| 旧 UI デッドコード | 約 3000 行 | -2997 行(P5 削除) |
+
+**再構築規格 7 条**(P9 強制執行):同一概念は 1 命名のみ、対応ジェネレーターなしの page_type 禁止、ジェネレーター冪等、RAG 引用追跡可能、欠損検出エンドツーエンド、旧 UI 廃止に移行パス必須、新章は規格審査を通過必須。
+
+---
+
 ## 要点 {.unnumbered}
 
 - 同一 HTML で人間体験と AI パース可能性を両立させるのは難しい。AXP は分離の必要設計

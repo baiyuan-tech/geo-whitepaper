@@ -49,6 +49,7 @@ last_modified_at: '2026-04-21T06:57:15Z'
 - [6.7 JSON-LD 扁平化的踩坑紀錄](#67-json-ld-扁平化的踩坑紀錄)
 - [6.8 GSC 索引血淚清單](#68-gsc-索引血淚清單)
 - [6.9 RAG 知識庫串接：品牌專屬知識庫自動化](#69-rag-知識庫串接品牌專屬知識庫自動化)
+- [6.10 統一產線重構：從 8 種命名碎片到 22 類規格](#610-統一產線重構從-8-種命名碎片到-22-類規格)
 - [本章要點](#本章要點)
 - [參考資料](#參考資料)
 
@@ -487,6 +488,104 @@ LEFT(REGEXP_REPLACE(content_md, '<!--[\s\S]*?-->', '', 'g'), 150) AS content_pre
 
 ---
 
+## 統一產線重構：從 8 種命名碎片到 22 類規格
+
+AXP 上線一年,自然累積出**碎片化**:同一概念有多個命名(`facts` / `fact_check` / `factCheck`)、章節命名前後不一致、generator 邏輯散落各處。2026 年 4 月做了一次 **P1-P9 統一產線重構**,目標是「同一產線、同一命名、同一輸出」。
+
+### Fig 6-10：統一產線九階段
+
+```mermaid
+flowchart LR
+    P1[P1 命名統一<br/>22 類 page_type] --> P2[P2 generators<br/>9 個生產器]
+    P2 --> P3[P3 RAG 閉環<br/>缺口偵測 → 自動補]
+    P3 --> P4[P4 單頁 UI<br/>Pipeline status]
+    P4 --> P5[P5 舊 UI 下線<br/>-2997 行]
+    P5 --> P6[P6 brand-create<br/>自動 hook]
+    P6 --> P7[P7 週一 06:00<br/>cron rerun-missing]
+    P7 --> P8[P8 Schema.org<br/>FAQPage / Review]
+    P8 --> P9[P9 規格 7 條<br/>全遵守]
+```
+
+*Fig 6-10: P1-P9 九個階段。每階段獨立可驗收,沒做完不進下一階段。*
+
+### 22 類 `page_type` 命名表
+
+舊系統有 `homepage` / `home` / `brandHome` 三個命名指同一頁;`fact_check` / `factCheck` / `facts` 也混用。重構後用 **22 類 snake_case** 一統:
+
+| 類別 | 範例 page_type | 說明 |
+|------|----------------|------|
+| 基礎 | `brand_overview`, `faq`, `about` | 全品牌共有 |
+| 產品 | `product_features`, `pricing`, `competitor_comparison` | B2B 產品 |
+| 信任 | `fact_check`, `review_aggregate`, `media_coverage` | 第三方背書 |
+| 在地 | `service_area`, `office_address`, `gbp_profile` | 地理綁定 |
+| 知識 | `glossary`, `case_study`, `industry_report` | 內容深度 |
+| 個人 IP | `creator_profile`, `talk_topics`, `future_plans` | ME 平台專用(第 23 類起) |
+
+每一類有對應 generator(`generators/brandOverview.js` 等)。沒對應 generator 的 page_type 不能存在 — 從架構上禁止「孤兒類別」。
+
+### 9 個 generators 的職責邊界
+
+```text
+generators/
+  brandOverview.js     — 品牌概述(以 description + keywords 為基底)
+  faq.js               — FAQ(從 RAG 抽 30 個常問題,LLM 改寫)
+  productFeatures.js   — 產品特色(以服務 list + USP 為基底)
+  pricing.js           — 定價說明(直接讀 brand_visual_configs / 訂閱方案)
+  competitorComparison.js — 競品對照(從 ARSPanel 8 維度抽)
+  factCheck.js         — 事實核查(取 RAG ground truth 對外公布)
+  reviewAggregate.js   — 評論聚合(GBP API + 5 評論平台)
+  caseStudy.js         — 案例研究(客戶提供 / RAG 自動萃取)
+  futurePlans.js       — 未來計劃(個人 IP v3.0.0 新增,只給 brand_type=personal_ip)
+```
+
+每個 generator 滿足三條規則:
+1. **單一輸入**:只讀 `brand` + `RAG knowledge` + `pricing API`,不讀 DB scattered tables
+2. **冪等**:同一輸入產生同一輸出(LLM temperature=0)
+3. **可追溯**:輸出含 `source_chunks: [{rag_chunk_id, score}]`,讓客戶看得到引用源
+
+### RAG 閉環:缺口偵測 → 自動補
+
+舊系統靠人工發現「品牌 X 的競品分析寫得太薄」。新系統有**自動缺口偵測**(P3):
+
+1. **Detector cron(每日 02:00)**:跑 `detectContentGaps(brandId)`,比對 22 類 page_type vs 已生成,缺哪類記入 `content_gaps` 表
+2. **Processor cron(每 2h)**:取 `content_gaps WHERE status='pending'`,對應 generator 跑一次,寫回
+3. **Verifier cron(每日 06:00)**:檢查 24h 內生成的內容字數 / 結構,沒達標重排隊
+
+實測 5 個品牌平均 `llms-full.txt` 字數從 8K 提升到 **52K(6.5×)**,主因是 22 類齊全 + 缺口自動補,不再有「客戶忘了補」的死區。
+
+### Schema.org 多型注入(P8)
+
+P1-P3 各 page_type 注入 `Article` / `WebPage`;P8 補完三個進階型:
+
+- **FAQPage**:從 `faq.js` 輸出抽 Q/A pair,生成 `FAQPage > mainEntity[Question]` 結構
+- **Review** / **AggregateRating**:從 `reviewAggregate.js` 輸出注入,GBP 5 顆星評分直接灌進 `aggregateRating.ratingValue`
+- **Person**(個人 IP 限定):`creator_profile.js` 輸出 `Person > knowsAbout` + `worksFor` + `award`,讓 AI 平台把個人 IP 當「人物實體」處理
+
+注入策略沿用 6.7 節的扁平化原則(`@id` 連接而非 nested array),避免 GSC Rich Results Test 噴 nested context 警告。
+
+### 重構成果與守恆律
+
+| 指標 | 重構前 | 重構後 |
+|------|--------|--------|
+| 命名種類 | 8 種混用 | 22 類 snake_case |
+| 重複/孤兒 page_type | 13 個 | 0 |
+| llms-full.txt 平均字數 | 8K | 52K(6.5×) |
+| 客戶手動補頁數量 | 高 | 0(自動補) |
+| 舊 UI 死碼 | 約 3000 行 | -2997 行(P5 清掉) |
+
+**重構規格 7 條**(P9 強制執行):
+1. 同一概念只能一個命名
+2. 沒對應 generator 不能新增 page_type
+3. generator 必須冪等
+4. RAG 引用必須可追溯
+5. 缺口偵測必須跑得起來
+6. 舊 UI 下線必須有遷移路徑
+7. 任何新章節必須先過規格審查
+
+這 7 條把架構腐敗的速度打慢了 — 下一年回看,重構成本明顯降低。
+
+---
+
 ## 本章要點 {.unnumbered}
 
 - 同一份 HTML 難以同時服務人類體驗與 AI 爬蟲，AXP 是解耦的必要設計
@@ -498,6 +597,7 @@ LEFT(REGEXP_REPLACE(content_md, '<!--[\s\S]*?-->', '', 'g'), 150) AS content_pre
 - GSC 索引問題被 AI 爬蟲放大，需 pre-flight 腳本把關
 - 每個品牌有獨立 RAG 知識庫（`rag_kb_id`）；`seedBrandRAGKB` 在 AXP 啟用時自動上傳品牌 Profile 與官網頁面 URL，無需人工干預
 - `brand.keywords` 以 `keywordsHint` 注入 RAG 查詢，定價頁與功能頁強制生成關鍵字豐富的開場段落；`content_preview` 取代 `fingerprint_phrase` 作頁面品質監控
+- P1-P9 統一產線重構把 8 種命名碎片整合為 22 類 `page_type`、9 個 generator、3 道 cron 閉環;`llms-full.txt` 平均字數從 8K 提升到 52K(6.5×),規格 7 條鎖定架構腐敗速度
 
 ## 參考資料 {.unnumbered}
 

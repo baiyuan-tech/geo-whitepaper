@@ -489,6 +489,83 @@ The regex must use `[\s\S]*?` (dotall) rather than `[^>]*` — the latter fails 
 
 ---
 
+## Unified pipeline refactor: from 8 fragmented names to 22 categories
+
+After AXP had been live for a year, **fragmentation** built up: the same concept had multiple names (`facts` / `fact_check` / `factCheck`), section names drifted, generator logic was scattered. In April 2026 we ran a **P1-P9 unified pipeline refactor** with the goal "one pipeline, one naming convention, one output."
+
+### Fig 6-10: The nine stages
+
+```mermaid
+flowchart LR
+    P1[P1 Naming<br/>22 page_type] --> P2[P2 Generators<br/>9 producers]
+    P2 --> P3[P3 RAG loop<br/>gap then auto fill]
+    P3 --> P4[P4 Single-page UI<br/>Pipeline status]
+    P4 --> P5[P5 Old UI sunset<br/>-2997 lines]
+    P5 --> P6[P6 brand-create<br/>auto hook]
+    P6 --> P7[P7 Mon 06:00<br/>cron rerun-missing]
+    P7 --> P8[P8 Schema.org<br/>FAQPage / Review]
+    P8 --> P9[P9 Spec 7 rules<br/>fully enforced]
+```
+
+*Fig 6-10: Nine stages. Each is independently verifiable; we don't move on until the previous one ships.*
+
+### 22 unified `page_type` categories
+
+The old system had `homepage` / `home` / `brandHome` all referring to the same page; `fact_check` / `factCheck` / `facts` were mixed. The refactor consolidated everything into **22 snake_case categories**:
+
+| Bucket | Example page_type | Notes |
+|--------|-------------------|-------|
+| Foundation | `brand_overview`, `faq`, `about` | Universal across brands |
+| Product | `product_features`, `pricing`, `competitor_comparison` | B2B products |
+| Trust | `fact_check`, `review_aggregate`, `media_coverage` | Third-party validation |
+| Local | `service_area`, `office_address`, `gbp_profile` | Geo-bound |
+| Knowledge | `glossary`, `case_study`, `industry_report` | Content depth |
+| Personal IP | `creator_profile`, `talk_topics`, `future_plans` | ME platform only (categories 23+) |
+
+A page_type without a matching generator is **architecturally forbidden** — no orphan categories.
+
+### Nine generators with strict input boundaries
+
+Each of the 9 generators obeys three rules:
+
+1. **Single input source**: reads only `brand` + `RAG knowledge` + `pricing API`; never scattered DB tables
+2. **Idempotent**: same input produces same output (LLM temperature=0)
+3. **Traceable**: output includes `source_chunks: [{rag_chunk_id, score}]` so customers can verify citations
+
+### RAG closed loop: gap detection then auto-fill
+
+Three crons running end-to-end:
+
+1. **Detector cron (daily 02:00)**: runs `detectContentGaps(brandId)`, writes missing categories to `content_gaps`
+2. **Processor cron (every 2h)**: picks `content_gaps WHERE status='pending'`, runs the matching generator
+3. **Verifier cron (daily 06:00)**: checks word count and structure; requeues if below threshold
+
+Across 5 pilot brands, average `llms-full.txt` size grew from 8K to **52K characters (6.5×)** — eliminating "the customer forgot" dead zones.
+
+### Schema.org polymorphic injection (P8)
+
+P1-P3 injected `Article` / `WebPage`; P8 added three advanced types:
+
+- **FAQPage**: extract Q/A pairs from `faq.js` output as `FAQPage > mainEntity[Question]`
+- **Review** / **AggregateRating**: GBP 5-star ratings flow into `aggregateRating.ratingValue`
+- **Person** (personal IP only): `Person > knowsAbout` + `worksFor` + `award`, treating creators as person entities
+
+Injection follows §6.7's flat strategy (`@id` references, not nested arrays).
+
+### Refactor outcome
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Naming variants | 8 mixed | 22 snake_case |
+| Duplicate / orphan page_types | 13 | 0 |
+| Avg `llms-full.txt` size | 8K | 52K (6.5×) |
+| Manual customer fill-in count | High | 0 (auto-fill) |
+| Old UI dead code | ~3000 lines | -2997 lines (P5 cleanup) |
+
+**Refactor spec, 7 rules** (P9 enforced): one naming per concept; no orphan page_types; idempotent generators; traceable RAG citations; gap detection runs end-to-end; old UI sunset has a migration path; any new chapter passes spec review first.
+
+---
+
 ## Key takeaways {.unnumbered}
 
 - A single HTML cannot serve both human experience and AI parseability — AXP is the decoupling mechanism

@@ -129,6 +129,7 @@
 
 - [Ch 11 — 5 品牌真實數據觀察（匿名）](zh-TW/ch11-case-studies.md)
 - [Ch 12 — 限制、未解問題與未來工作](zh-TW/ch12-limitations.md)
+- [Ch 13 — 多模態 GEO:從文字到視覺資產的能見度](zh-TW/ch13-multimodal-geo.md) **(v1.1 新增)**
 
 ### 附錄
 
@@ -136,6 +137,7 @@
 - [B. 公開 API 規格節錄](zh-TW/appendix-b-api.md)
 - [C. 參考文獻](zh-TW/appendix-c-references.md)
 - [D. 配圖總表與製圖規格](zh-TW/appendix-d-figures.md)
+- [E. 平台分流架構:同 codebase 多品牌延伸](zh-TW/appendix-e-platform-branching.md) **(v1.1 新增)**
 
 ---
 
@@ -287,21 +289,22 @@ geo-whitepaper/
 ├── zh-TW/                 ← 繁體中文版（分章）
 │   ├── ch01-geo-era.md
 │   ├── ch02-system-overview.md
-│   ├── ... (至 ch12)
+│   ├── ... (至 ch13)
 │   ├── appendix-a-glossary.md
 │   ├── appendix-b-api.md
 │   ├── appendix-c-references.md
-│   └── appendix-d-figures.md
-├── en/                    ← English edition (complete: Ch 1–12 + Appendix A–D)
+│   ├── appendix-d-figures.md
+│   └── appendix-e-platform-branching.md
+├── en/                    ← English edition (complete: Ch 1–13 + Appendix A–E)
 │   ├── README.md          ← Executive Summary
 │   ├── ch01-geo-era.md
-│   ├── ... (through ch12)
-│   └── appendix-a..d.md
-├── ja/                    ← 日本語版（完了：Ch 1–12 + Appendix A–D）
+│   ├── ... (through ch13)
+│   └── appendix-a..e.md
+├── ja/                    ← 日本語版（完了：Ch 1–13 + Appendix A–E）
 │   ├── README.md          ← エグゼクティブサマリー
 │   ├── ch01-geo-era.md
-│   ├── ... (through ch12)
-│   └── appendix-a..d.md
+│   ├── ... (through ch13)
+│   └── appendix-a..e.md
 ├── assets/
 │   ├── figures/           ← Mermaid 以外的靜態圖
 │   └── pdf/               ← PDF 生產腳本

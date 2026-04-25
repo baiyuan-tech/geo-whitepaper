@@ -35,7 +35,7 @@ last_modified_at: '2026-04-21T06:57:15Z'
 
 # Baiyuan GEO Platform Whitepaper — Executive Summary
 
-> *This ~1,400-word executive summary distills the whitepaper's five core contributions for readers short on time. The **full English edition** — 12 chapters + 4 appendices (~28,000 words) — is now available at [`en/ch01-geo-era.md`](./ch01-geo-era.md) onward. A Traditional Chinese edition (~30,000 characters) is the original source.*
+> *This ~1,400-word executive summary distills the whitepaper's five core contributions for readers short on time. The **full English edition** — 13 chapters + 5 appendices (~28,000 words) — is now available at [`en/ch01-geo-era.md`](./ch01-geo-era.md) onward. A Traditional Chinese edition (~30,000 characters) is the original source.*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Full zh-TW edition](https://img.shields.io/badge/Full_edition-zh--TW_v1.0--draft-green.svg)](../zh-TW/ch01-geo-era.md)
@@ -61,7 +61,7 @@ We call the new discipline **GEO** (Generative Engine Optimization). It is not S
 
 ## 3. Core Technical Contributions
 
-The whitepaper's 12 chapters document five distinct contributions that, to our knowledge, have not been published together elsewhere:
+The whitepaper's 13 chapters document six distinct contributions that, to our knowledge, have not been published together elsewhere (Ch 13 multimodal GEO and Appendix E platform branching are v1.1 additions):
 
 ### 3.1 Seven-Dimension Citation Scoring
 
@@ -152,7 +152,7 @@ The whitepaper is deliberate about its limits:
 | PDF editions (zh-TW / en / ja, auto-built on each main push) | ✅ [Available on Releases](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest) |
 | GitHub Pages web edition | ✅ Live at [baiyuan-tech.github.io/geo-whitepaper](https://baiyuan-tech.github.io/geo-whitepaper/) |
 | CITATION.cff + BibTeX | ✅ Ready (generic type per CFF 1.2.0 schema) |
-| Full English edition (en/) | ✅ Complete — Executive Summary + 12 chapters + 4 appendices (~28,000 words) |
+| Full English edition (en/) | ✅ Complete — Executive Summary + 13 chapters + 5 appendices (~28,000 words) |
 | Zenodo DOI registration | ⚪ Planned for v1.0 final |
 | Inclusion in Google Scholar / Semantic Scholar | ⚪ After DOI |
 
@@ -160,7 +160,7 @@ The full English edition will not be a direct translation; chapter-level adaptat
 
 ## 8. How to Engage
 
-- **Read the Traditional Chinese chapters** at [zh-TW/ch01-geo-era.md](../zh-TW/ch01-geo-era.md) onward (12 chapters, 4 appendices, 44 Mermaid diagrams — GitHub renders them natively)
+- **Read the Traditional Chinese chapters** at [zh-TW/ch01-geo-era.md](../zh-TW/ch01-geo-era.md) onward (13 chapters, 5 appendices, 45+ Mermaid diagrams — GitHub renders them natively)
 - **Download the PDF** — [zh-TW](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-zh-TW.pdf) · [en](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-en.pdf) · [ja](https://github.com/baiyuan-tech/geo-whitepaper/releases/download/v1.0-draft/whitepaper-ja.pdf) (direct) or browse [latest release](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 - **File errata or questions** via [GitHub Issues](https://github.com/baiyuan-tech/geo-whitepaper/issues) — templates provided
 - **Cite** using the repo's native [`Cite this repository`](https://github.com/baiyuan-tech/geo-whitepaper) button (driven by [CITATION.cff](../CITATION.cff)) — defaults to APA 7 and BibTeX
