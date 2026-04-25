@@ -19,7 +19,7 @@ keywords:
   - Claude Vision
   - ビジュアル資産監査
 last_updated: 2026-04-25
-canonical: https://baiyuan.io/whitepaper/ja/ch13-multimodal-geo
+canonical: https://baiyuan-tech.github.io/geo-whitepaper/ja/ch13-multimodal-geo.html
 ---
 
 # 第 13 章 — マルチモーダル GEO:テキストからビジュアル資産の可視性へ

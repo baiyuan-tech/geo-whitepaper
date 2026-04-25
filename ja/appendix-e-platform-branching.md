@@ -16,7 +16,7 @@ keywords:
   - ホスト名ルーティング
   - プラットフォーム分岐
 last_updated: 2026-04-25
-canonical: https://baiyuan.io/whitepaper/ja/appendix-e-platform-branching
+canonical: https://baiyuan-tech.github.io/geo-whitepaper/ja/appendix-e-platform-branching.html
 ---
 
 # 付録 E — プラットフォーム分岐:単一コードベースでの複数ブランド展開

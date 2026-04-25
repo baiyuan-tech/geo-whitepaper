@@ -19,7 +19,7 @@ keywords:
   - Claude Vision
   - 視覺資產審計
 last_updated: 2026-04-25
-canonical: https://baiyuan.io/whitepaper/zh-TW/ch13-multimodal-geo
+canonical: https://baiyuan-tech.github.io/geo-whitepaper/zh-TW/ch13-multimodal-geo.html
 last_modified_at: '2026-04-26T00:37:13+08:00'
 ---
 
