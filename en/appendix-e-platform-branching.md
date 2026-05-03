@@ -17,8 +17,9 @@ keywords:
   - Platform Branching
 last_updated: 2026-04-25
 canonical: https://baiyuan-tech.github.io/geo-whitepaper/en/appendix-e-platform-branching.html
-last_modified_at: '2026-04-26T00:48:46+08:00'
+last_modified_at: '2026-04-25T16:49:05Z'
 ---
+
 
 
 
