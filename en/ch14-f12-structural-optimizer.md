@@ -24,8 +24,9 @@ keywords:
   - Multi-Layer Cache
 last_updated: 2026-05-03
 canonical: https://baiyuan.io/whitepaper/en/ch14-f12-structural-optimizer
-last_modified_at: '2026-05-03T10:25:18+08:00'
+last_modified_at: '2026-05-03T10:45:10+08:00'
 ---
+
 
 
 # Chapter 14 — F12 Three-Layer Structural Optimizer: From Rule-based V1 to Dual-Engine v3.1

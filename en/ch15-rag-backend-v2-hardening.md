@@ -22,8 +22,9 @@ keywords:
   - BullMQ Retention
 last_updated: 2026-05-03
 canonical: https://baiyuan.io/whitepaper/en/ch15-rag-backend-v2-hardening
-last_modified_at: '2026-05-03T10:25:18+08:00'
+last_modified_at: '2026-05-03T10:45:10+08:00'
 ---
+
 
 
 # Chapter 15 — rag-backend-v2 Hardening: Six Defense Layers Against LLM Hallucination
