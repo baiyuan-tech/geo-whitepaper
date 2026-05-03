@@ -18,8 +18,9 @@ keywords:
   - Fallback Pattern
   - Circuit Breaker
 last_updated: 2026-04-18
-last_modified_at: '2026-05-03T03:15:29Z'
+last_modified_at: '2026-05-03T03:24:06Z'
 ---
+
 
 
 
