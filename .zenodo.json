@@ -1,6 +1,6 @@
 {
   "title": "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization",
-  "description": "<p>An engineering whitepaper documenting the construction of <strong>Baiyuan GEO Platform</strong> (2024–2026), a SaaS system for Generative Engine Optimization. The system helps brands be cited accurately and consistently across ChatGPT, Claude, Gemini, Perplexity, DeepSeek, and 15+ AI platforms.</p><p><strong>Coverage</strong>: seven-dimension AI citation-rate scoring algorithm, AI-Bot-friendly shadow document delivery (AXP) on customer-owned domains, Schema.org three-layer entity knowledge graph, closed-loop hallucination detection &amp; auto-remediation, F12 three-layer structural optimizer (V1 rule-based + V3.1 dual-engine AutoGEO + E-GEO), rag-backend-v2 LLM hallucination hardening (six defense layers), and platform SSOT chain (brand_faq / page_type / alerts unification).</p><p><strong>Languages</strong>: Traditional Chinese complete (chapters 1–16, ~45,000 characters); English partial (chapters 14–16, ~12,000 words). Earlier English chapters scheduled for v1.2.</p><p><strong>License</strong>: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).</p>",
+  "description": "<p>An engineering whitepaper documenting the construction of <strong>Baiyuan GEO Platform</strong> (2024–2026), a SaaS system for Generative Engine Optimization. The system helps brands be cited accurately and consistently across ChatGPT, Claude, Gemini, Perplexity, DeepSeek, and 15+ AI platforms.</p><p><strong>Coverage</strong>: seven-dimension AI citation-rate scoring algorithm, AI-Bot-friendly shadow document delivery (AXP) on customer-owned domains, Schema.org three-layer entity knowledge graph, closed-loop hallucination detection &amp; auto-remediation, F12 three-layer structural optimizer (V1 rule-based + V3.1 dual-engine AutoGEO + E-GEO), rag-backend-v2 LLM hallucination hardening (six defense layers), and platform SSOT chain (brand_faq / page_type / alerts unification).</p><p><strong>v1.1.2 (this version)</strong>: substantially expanded chapters 14, 15, 16 in both Traditional Chinese (zh-TW) and English (en) editions — added new sections covering early hand-tuning failure modes, bidirectional rollback design, placeholder guard trigger story, patch order causal chain analysis, cross-tenant cache privacy boundary, breadcrumb 404 ghost incident review (42 days, ~3000 ghost URLs), cross-microservice SSOT boundaries, and 5 engineering lessons (takeaways) per chapter — totaling ~13,000 additional words across 6 chapter files. Also adds LinkedIn launch announcement drafts (4 versions: zh-TW/en/ja personal + zh-TW company).</p><p><strong>Languages</strong>: Traditional Chinese complete (chapters 1–16, ~52,000 characters); English partial (chapters 14–16, ~12,000 words). Earlier English chapters scheduled for v1.2.</p><p><strong>License</strong>: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).</p>",
   "creators": [
     {
       "name": "Lin, Vincent",
@@ -11,7 +11,7 @@
   "upload_type": "publication",
   "publication_type": "report",
   "publication_date": "2026-05-03",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "language": "zho",
   "keywords": [
     "Generative Engine Optimization",
@@ -69,5 +69,5 @@
     "AutoGEO: github.com/cxcscmu/AutoGEO. arXiv:2510.11438",
     "E-GEO: github.com/psbagga17/E-GEO. arXiv:2511.20867"
   ],
-  "notes": "v1.1.1 expansion: adds chapters 14 (F12 three-layer structural optimizer), 15 (rag-backend-v2 hardening, six LLM hallucination defense layers + Wiki Cascade), 16 (platform SSOT chain). English edition initiated covering chapters 14–16. DOI to be assigned by Zenodo upon deposit."
+  "notes": "v1.1.2 expansion: substantially deepened chapters 14–16 in both zh-TW and en editions (~13,000 additional words across 6 files). Added engineering lessons sections (5 takeaways per chapter) covering literal arxiv port vs self-invention, SSOT vs hardcoded, DB-level vs application-level enforcement, observation period as SaaS standard, hook coverage + safety net, LLM silent failures, three-layer fallback, patch order principle, microservice patches/ SSOT, cache invalidation, silent catch as SSOT violation, custom mappings as violations, schema evolution debt, scale's price. Added breadcrumb 404 ghost incident timeline (42 days), Patch order causal chain analysis, cross-microservice SSOT boundaries, host-aware metadata helper, and 5 production violation cases. v1.1.1 baseline established 2026-05-03 publication."
 }
