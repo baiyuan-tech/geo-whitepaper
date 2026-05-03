@@ -6,10 +6,12 @@ part: 5
 word_count: 3800
 lang: zh-TW
 authors:
+
   - name: Vincent Lin
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 keywords:
+
   - Single Source of Truth
   - SSOT
   - brand_faq
@@ -202,7 +204,7 @@ frontend `pageTypeLabel(pt, { brandType, locale })` 同樣 brand_type-aware。RS
 
 平台有 4 種警報來源,UI 統一展示:
 
-```
+```text
 ┌─────────────────────────────┐
 │   /dashboard/alerts UI      │  ← human-facing
 └────────────┬────────────────┘
@@ -226,7 +228,7 @@ PROD 觀察:警報中心顯示「未讀 (165)」但列表完全空白。所有 t
 
 PG 真實 error:
 
-```
+```text
 ERROR: UNION types uuid and bigint cannot be matched
 ```
 

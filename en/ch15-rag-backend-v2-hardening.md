@@ -6,10 +6,12 @@ part: 5
 word_count: 4000
 lang: en
 authors:
+
   - name: Vincent Lin
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 keywords:
+
   - rag-backend-v2
   - LLM Wiki Compiler
   - Wiki Cascade
@@ -73,7 +75,7 @@ But L1 has a precondition: **Wiki compilation must be stable**. Over the month f
 
 When a customer clicks "delete document" in the frontend, we must cascade-clean:
 
-```
+```text
 brand_documents (geo_db)
         │ via central_doc_id UUID
         ▼
@@ -138,7 +140,7 @@ const totalChars = docs.reduce((s, d) => s + (d.content?.length || 0), 0);
 
 **Failure**: Entire KB compile aborted, subsequent docs unprocessed. PROD log:
 
-```
+```text
 [WIKI] Compile error: invalid input syntax for type uuid: "b7bced27"
 ```
 

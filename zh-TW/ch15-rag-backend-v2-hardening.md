@@ -6,10 +6,12 @@ part: 5
 word_count: 4200
 lang: zh-TW
 authors:
+
   - name: Vincent Lin
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 keywords:
+
   - rag-backend-v2
   - LLM Wiki Compiler
   - Wiki Cascade
@@ -75,7 +77,7 @@ V1 RAG 只有 chunks(L2 向量檢索)+ pgvector + BM25 + RRF。L1 layer 是 2026
 
 當客戶在前端按「刪除文件」,我們需要連帶清掉:
 
-```
+```text
 brand_documents (geo_db)
         │ via central_doc_id UUID
         ▼
@@ -140,7 +142,7 @@ const totalChars = docs.reduce((s, d) => s + (d.content?.length || 0), 0);
 
 **失敗形態**:整個 KB 的 compile 中斷,後續 docs 全沒編。PROD log:
 
-```
+```text
 [WIKI] Compile error: invalid input syntax for type uuid: "b7bced27"
 ```
 

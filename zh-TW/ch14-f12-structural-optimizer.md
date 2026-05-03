@@ -6,10 +6,12 @@ part: 5
 word_count: 4500
 lang: zh-TW
 authors:
+
   - name: Vincent Lin
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 keywords:
+
   - F12
   - TLSO
   - Three-Layer Structural Optimizer
@@ -80,7 +82,7 @@ V1 的分析器是**純規則式**:正規表達 + AST 解析 + 統計密度,沒�
 
 評分若 < 70,**自動排隊**走 LLM Optimizer:
 
-```
+```text
 [低分頁] → 抓 axp_pages.content_md → 餵 LLM
        → 給定:原文 + 三層分析 issues + 可參考 templates
        → 要求:重寫使分數提升 ≥ 20,但 cosine 相似度 ≥ 0.90 不能離題
@@ -129,7 +131,7 @@ V1 走了 4 個月後,我們從 2026 年 5 月發表的兩篇 arxiv 論文找到
 
 ### 14.3.2 三引擎架構
 
-```
+```text
                  ┌──────────────────┐
                  │ adaptiveRouter   │ ← 依 brand tier / page_type / use case 路由
                  └─────────┬────────┘
@@ -163,6 +165,7 @@ V1 走了 4 個月後,我們從 2026 年 5 月發表的兩篇 arxiv 論文找到
 ### 14.3.4 真實 arxiv 對齊
 
 `autogeo_rules` 表 25 條皆 `source = 'arXiv:2510.11438'`,含真實:
+
 - `target_engine ∈ {gemini, gpt, claude}`
 - `target_domain ∈ {researchy_geo, geo_bench, ecommerce}`
 - `paper_table_ref` 全 NULL(arxiv 沒給逐條 mapping,憲法 #1 不偽造)
@@ -180,7 +183,7 @@ V3.1 在 9 個 batch 鋪設了規模化基礎設施(v3.21 → v3.27 跨 8 天):
 
 ### 14.4.1 配額與計費(spec §4.3 + §4.4)
 
-```
+```text
 TenantQuotaService(monthly_optimizations / max_content_size_kb)
   starter:  100 ops, 50 KB
   pro:      1000, 200
@@ -210,7 +213,7 @@ sync_api:               false        true      true           true
 
 ### 14.4.3 Multi-Layer Cache(spec §5.2)
 
-```
+```text
 L1 Redis (5 min TTL)        ← 同 content + decision 重複 query
 L2 PG f12_result_cache (7d) ← 跨 process / 跨 instance
 L3 S3 hook (TBD Phase 3)    ← cross-region replication 需要時

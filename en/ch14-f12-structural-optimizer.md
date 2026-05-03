@@ -6,10 +6,12 @@ part: 5
 word_count: 4200
 lang: en
 authors:
+
   - name: Vincent Lin
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 keywords:
+
   - F12
   - TLSO
   - Three-Layer Structural Optimizer
@@ -78,7 +80,7 @@ V1 analyzer is **purely rule-based**: regex + AST parsing + statistical density,
 
 Pages scoring < 70 are **automatically queued** to LLM Optimizer:
 
-```
+```text
 [Low-score page] → fetch axp_pages.content_md → feed LLM
               → input: original + 3-layer issues + reference templates
               → require: rewrite to gain ≥ 20 score, but cosine similarity ≥ 0.90 (no topic drift)
@@ -129,7 +131,7 @@ We **literally** ported (line-by-line) both sources into the system, **without f
 
 ### 13.3.2 Three-Engine Architecture
 
-```
+```text
                  ┌──────────────────┐
                  │ adaptiveRouter   │ ← routes by brand tier / page_type / use case
                  └─────────┬────────┘
@@ -163,6 +165,7 @@ All four engines emit a **standardized EngineResult** schema (content + score + 
 ### 13.3.4 Real-arxiv Alignment
 
 `autogeo_rules` 25 entries all `source = 'arXiv:2510.11438'`, with real:
+
 - `target_engine ∈ {gemini, gpt, claude}`
 - `target_domain ∈ {researchy_geo, geo_bench, ecommerce}`
 - `paper_table_ref` all NULL (paper has no per-rule mapping; constitution #1 forbids fabrication)
@@ -180,7 +183,7 @@ V3.1 laid down 10K-tenant infrastructure in 9 batches (v3.21 → v3.27 spanning 
 
 ### 13.4.1 Quota and Billing (spec §4.3 + §4.4)
 
-```
+```text
 TenantQuotaService (monthly_optimizations / max_content_size_kb)
   starter:  100 ops, 50 KB
   pro:      1000, 200
@@ -210,7 +213,7 @@ Non-Enterprise + `whitepaper` / `case_study` / `fact-*` content forced to E-GEO 
 
 ### 13.4.3 Multi-Layer Cache (spec §5.2)
 
-```
+```text
 L1 Redis (5 min TTL)        ← repeated query with same content + decision
 L2 PG f12_result_cache (7d) ← cross-process / cross-instance
 L3 S3 hook (TBD Phase 3)    ← cross-region replication if needed

@@ -6,10 +6,12 @@ part: 5
 word_count: 3600
 lang: en
 authors:
+
   - name: Vincent Lin
     affiliation: Baiyuan Technology
 license: CC-BY-NC-4.0
 keywords:
+
   - Single Source of Truth
   - SSOT
   - brand_faq
@@ -202,7 +204,7 @@ frontend `pageTypeLabel(pt, { brandType, locale })` is similarly brand_type-awar
 
 The platform has 4 alert sources unified in UI:
 
-```
+```text
 ┌─────────────────────────────┐
 │   /dashboard/alerts UI      │  ← human-facing
 └────────────┬────────────────┘
@@ -226,7 +228,7 @@ PROD observation: alert center showed "unread (165)" but list completely empty. 
 
 PG real error:
 
-```
+```text
 ERROR: UNION types uuid and bigint cannot be matched
 ```
 
