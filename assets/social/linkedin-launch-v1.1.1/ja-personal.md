@@ -63,4 +63,5 @@ GitHub: https://github.com/baiyuan-tech/geo-whitepaper
 
 この領域で仕事をしている方、ぜひ意見交換しましょう。
 
+<!-- markdownlint-disable-next-line MD018 -->
 #GenerativeEngineOptimization #GEO #AISearch #SaaS #LLM #OpenScience #Zenodo #SchemaOrg #Multitenant #PostgreSQL #BullMQ #Cloudflare #生成AI

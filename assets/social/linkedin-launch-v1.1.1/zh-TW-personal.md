@@ -60,4 +60,5 @@ CC BY-NC 4.0 開源,歡迎引用、改寫、翻譯。GitHub 倉庫接 Issue 討�
 
 如果你做相關領域,我們約聊聊?
 
+<!-- markdownlint-disable-next-line MD018 -->
 #GenerativeEngineOptimization #GEO #AISearch #SaaS #LLM #OpenScience #Zenodo #百原科技 #台灣工程 #生成式AI #SchemaOrg #Multitenant

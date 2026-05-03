@@ -63,4 +63,5 @@ Licensed CC BY-NC 4.0. Free to cite, adapt, translate. GitHub issues open for di
 
 If you work in this space, let's talk.
 
+<!-- markdownlint-disable-next-line MD018 -->
 #GenerativeEngineOptimization #GEO #AISearch #SaaS #LLM #OpenScience #Zenodo #SchemaOrg #Multitenant #PostgreSQL #BullMQ #Cloudflare
