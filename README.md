@@ -4,8 +4,9 @@
 >
 > *A Whitepaper on Building a SaaS for Generative Engine Optimization*
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19994035.svg)](https://doi.org/10.5281/zenodo.19994035)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-[![Status: Draft](https://img.shields.io/badge/Status-Draft%20v1.0-yellow.svg)](#修訂記錄)
+[![Status: v1.1.1](https://img.shields.io/badge/Status-v1.1.1-blue.svg)](#修訂記錄)
 [![zh-TW](https://img.shields.io/badge/zh--TW-complete-green.svg)](zh-TW/)
 [![en](https://img.shields.io/badge/en-complete-green.svg)](en/)
 [![ja](https://img.shields.io/badge/ja-complete-green.svg)](ja/)
@@ -163,8 +164,14 @@
 
 若本書內容對您的研究、文章、產品設計有幫助，請引用：
 
+**DOI**(透過 Zenodo,所有版本):
+
+- Concept DOI(版本無關,常駐永久連結):[`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)
+- v1.1.1 DOI:[`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)
+
 **APA 7**
-> Lin, V. (2026). *Baiyuan GEO Platform: A whitepaper on building a SaaS for generative engine optimization*. Baiyuan Technology. https://github.com/baiyuan-tech/geo-whitepaper
+
+> Lin, V. (2026). *Baiyuan GEO Platform: A whitepaper on building a SaaS for generative engine optimization* (Version 1.1.1) [Report]. Zenodo. https://doi.org/10.5281/zenodo.19994035
 
 **BibTeX**
 
@@ -174,12 +181,14 @@
   title       = {Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization},
   institution = {Baiyuan Technology},
   year        = {2026},
-  url         = {https://github.com/baiyuan-tech/geo-whitepaper},
-  note        = {v1.0}
+  version     = {1.1.1},
+  doi         = {10.5281/zenodo.19994035},
+  url         = {https://doi.org/10.5281/zenodo.19994035},
+  note        = {Concept DOI; latest version 1.1.1 at 10.5281/zenodo.19994059}
 }
 ```
 
-GitHub 會根據 [`CITATION.cff`](CITATION.cff) 自動顯示「Cite this repository」按鈕，支援複製 APA / BibTeX 等多種格式。
+GitHub 會根據 [`CITATION.cff`](CITATION.cff) 自動顯示「Cite this repository」按鈕,支援複製 APA / BibTeX / DOI 等多種格式。
 
 ---
 
@@ -328,6 +337,7 @@ geo-whitepaper/
 | 2026-04-19 | v1.0 draft | **ja/ 日本語エグゼクティブサマリー公開** — 日本市場向け第一弾（約 1,400 日文字）|
 | 2026-04-19 | v1.0 draft | **ja/ 日本語完全版上線** — エグゼクティブサマリー + Ch 1–12 + Appendix A–D（約 30,000 日文字、である文体、事例章は日本市場向け在地化コメント付き）|
 | 2026-05-03 | **v1.1.0** | **新增 Ch 14(F12 三層結構優化器)/ Ch 15(rag-backend-v2 加固 6 層)/ Ch 16(平台 SSOT 全鏈)**;zh-TW + en 雙語同步;加 `.zenodo.json` 預備 DOI deposit;CITATION.cff ORCID 0009-0004-8264-368X 已填 |
+| 2026-05-03 | **v1.1.1** | Zenodo DOI 取得 — Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) / Version DOI [`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)。CITATION.cff identifiers 補上 DOI;README 加 DOI badge + APA/BibTeX 引用範本同步 |
 
 ---
 

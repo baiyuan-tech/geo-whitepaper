@@ -49,6 +49,12 @@ keywords:
   - Single Source of Truth
   - 10K-tenant readiness
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.19994035"
+    description: "Concept DOI (version-independent, always resolves to latest version)"
+  - type: doi
+    value: "10.5281/zenodo.19994059"
+    description: "Version DOI (v1.1.1)"
   - type: url
     value: "https://github.com/baiyuan-tech/geo-whitepaper"
     description: "GitHub repository"
@@ -58,8 +64,6 @@ identifiers:
   - type: url
     value: "https://www.linkedin.com/company/112980572"
     description: "LinkedIn (Baiyuan Technology)"
-  # - type: doi
-  #   value: "10.xxxx/xxxx"  # TODO: request DOI via Zenodo upon v1.0 release
 preferred-citation:
   type: report
   title: "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization"
