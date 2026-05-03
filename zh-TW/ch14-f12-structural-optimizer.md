@@ -26,8 +26,9 @@ keywords:
   - Scale-up Trigger
 last_updated: 2026-05-03
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch14-f12-structural-optimizer
-last_modified_at: '2026-05-03T12:34:01+08:00'
+last_modified_at: '2026-05-03T04:34:12Z'
 ---
+
 
 
 # Chapter 14 — F12 三層結構優化器:從規則 V1 到雙引擎 v3.1
