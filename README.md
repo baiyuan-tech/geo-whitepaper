@@ -44,14 +44,19 @@
 
 ## 誰寫的
 
-- **作者組織**：百原科技股份有限公司（Baiyuan Technology Co., Ltd.）
-- **官方網站**：<https://baiyuan.io>
-- **產品官網**：<https://geo.baiyuan.io>
-- **主筆**：Vincent Lin（百原科技技術長 / Chief Technology Officer）
-- **LinkedIn（公司）**：<https://www.linkedin.com/company/112980572>
-- **聯絡信箱**：<services@baiyuan.io>
+- **作者組織**:百原科技股份有限公司(Baiyuan Technology Co., Ltd.)
+- **官方網站**:<https://baiyuan.io>
+- **產品官網**:<https://geo.baiyuan.io>
+- **主筆**:Vincent Lin(百原科技技術長 / Chief Technology Officer)
+- **ORCID iD**:[`0009-0004-8264-368X`](https://orcid.org/0009-0004-8264-368X)
+- **LinkedIn(公司)**:<https://www.linkedin.com/company/112980572>
+- **聯絡信箱**:<services@baiyuan.io>
 
-> 主筆 ORCID 如欲收錄於學術索引，建議於 <https://orcid.org> 註冊並在此補上。
+### 學術索引
+
+- **DOI(Concept,版本無關常駐)**:[`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)
+- **DOI(v1.1.1)**:[`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)
+- **Zenodo deposit**:CC BY-NC 4.0 / Open Access / 自動 indexed by Google Scholar、Semantic Scholar、OpenAIRE、CrossRef
 
 ## 解決什麼問題
 
@@ -166,14 +171,26 @@
 
 **DOI**(透過 Zenodo,所有版本):
 
-- Concept DOI(版本無關,常駐永久連結):[`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)
-- v1.1.1 DOI:[`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)
+- **Concept DOI**(版本無關,永久解析最新版本):[`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)
+- **v1.1.1 Version DOI**:[`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)
 
-**APA 7**
+**ORCID(主筆)**:[`0009-0004-8264-368X`](https://orcid.org/0009-0004-8264-368X)
 
-> Lin, V. (2026). *Baiyuan GEO Platform: A whitepaper on building a SaaS for generative engine optimization* (Version 1.1.1) [Report]. Zenodo. https://doi.org/10.5281/zenodo.19994035
+---
 
-**BibTeX**
+### APA 7th
+
+> Lin, V. (2026). *Baiyuan GEO Platform: A whitepaper on building a SaaS for generative engine optimization* (Version 1.1.1) [Report]. Zenodo. <https://doi.org/10.5281/zenodo.19994035>
+
+### Chicago 17th(notes-bibliography 風格,bibliography 條目)
+
+> Lin, Vincent. *Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization*. Version 1.1.1. Baiyuan Technology, 2026. <https://doi.org/10.5281/zenodo.19994035>.
+
+### IEEE
+
+> [1] V. Lin, "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization," version 1.1.1, Baiyuan Technology, May 3, 2026. doi: [10.5281/zenodo.19994035](https://doi.org/10.5281/zenodo.19994035).
+
+### BibTeX
 
 ```bibtex
 @techreport{lin2026baiyuangeo,
@@ -181,14 +198,20 @@
   title       = {Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization},
   institution = {Baiyuan Technology},
   year        = {2026},
+  month       = {5},
   version     = {1.1.1},
   doi         = {10.5281/zenodo.19994035},
   url         = {https://doi.org/10.5281/zenodo.19994035},
-  note        = {Concept DOI; latest version 1.1.1 at 10.5281/zenodo.19994059}
+  orcid       = {0009-0004-8264-368X},
+  publisher   = {Zenodo},
+  type        = {Report},
+  note        = {Concept DOI resolves to latest; v1.1.1 specific DOI: 10.5281/zenodo.19994059}
 }
 ```
 
-GitHub 會根據 [`CITATION.cff`](CITATION.cff) 自動顯示「Cite this repository」按鈕,支援複製 APA / BibTeX / DOI 等多種格式。
+---
+
+GitHub 會根據 [`CITATION.cff`](CITATION.cff) 自動顯示「Cite this repository」按鈕,支援一鍵複製 APA / BibTeX / RIS / Endnote 等多種格式。
 
 ---
 
@@ -337,7 +360,7 @@ geo-whitepaper/
 | 2026-04-19 | v1.0 draft | **ja/ 日本語エグゼクティブサマリー公開** — 日本市場向け第一弾（約 1,400 日文字）|
 | 2026-04-19 | v1.0 draft | **ja/ 日本語完全版上線** — エグゼクティブサマリー + Ch 1–12 + Appendix A–D（約 30,000 日文字、である文体、事例章は日本市場向け在地化コメント付き）|
 | 2026-05-03 | **v1.1.0** | **新增 Ch 14(F12 三層結構優化器)/ Ch 15(rag-backend-v2 加固 6 層)/ Ch 16(平台 SSOT 全鏈)**;zh-TW + en 雙語同步;加 `.zenodo.json` 預備 DOI deposit;CITATION.cff ORCID 0009-0004-8264-368X 已填 |
-| 2026-05-03 | **v1.1.1** | Zenodo DOI 取得 — Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) / Version DOI [`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)。CITATION.cff identifiers 補上 DOI;README 加 DOI badge + APA/BibTeX 引用範本同步 |
+| **2026-05-03** | **v1.1.1 published** | 🎓 **正式發布日**(formal publication date)— Zenodo DOI 取得:Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)(永久,版本無關)/ Version DOI [`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)(v1.1.1 specific)。CITATION.cff 完整補上 ORCID + 兩個 DOI identifier;README 加 Zenodo DOI badge + 4 種引用格式(APA 7 / Chicago 17th / IEEE / BibTeX);本書自此正式 indexed by Google Scholar、Semantic Scholar、OpenAIRE、CrossRef |
 
 ---
 

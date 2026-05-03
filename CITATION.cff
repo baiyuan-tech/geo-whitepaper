@@ -71,10 +71,12 @@ preferred-citation:
     - family-names: Lin
       given-names: Vincent
       affiliation: "Baiyuan Technology"
+      orcid: https://orcid.org/0009-0004-8264-368X
   institution:
     name: "Baiyuan Technology"
     website: "https://baiyuan.io"
   year: 2026
-  month: 4
-  url: "https://github.com/baiyuan-tech/geo-whitepaper"
-  version: "1.0-draft"
+  month: 5
+  url: "https://doi.org/10.5281/zenodo.19994035"
+  doi: "10.5281/zenodo.19994035"
+  version: "1.1.1"
