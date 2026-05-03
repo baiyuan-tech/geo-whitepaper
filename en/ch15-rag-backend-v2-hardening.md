@@ -23,8 +23,9 @@ keywords:
   - PostgreSQL pgvector
 last_updated: 2026-05-03
 canonical: https://baiyuan.io/whitepaper/en/ch15-rag-backend-v2-hardening
-last_modified_at: '2026-05-03T13:32:26+08:00'
+last_modified_at: '2026-05-03T05:32:38Z'
 ---
+
 
 
 # Chapter 15 — rag-backend-v2 Hardening: Defensive Design for Six Layers of LLM Hallucination Failure Modes
