@@ -11,7 +11,7 @@
   "upload_type": "publication",
   "publication_type": "report",
   "publication_date": "2026-05-03",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "language": "zho",
   "keywords": [
     "Generative Engine Optimization",
@@ -69,5 +69,5 @@
     "AutoGEO: github.com/cxcscmu/AutoGEO. arXiv:2510.11438",
     "E-GEO: github.com/psbagga17/E-GEO. arXiv:2511.20867"
   ],
-  "notes": "v1.1.0 expansion: adds chapters 14 (F12 three-layer structural optimizer), 15 (rag-backend-v2 hardening, six LLM hallucination defense layers + Wiki Cascade), 16 (platform SSOT chain). English edition initiated covering chapters 14–16. DOI to be assigned by Zenodo upon deposit."
+  "notes": "v1.1.1 expansion: adds chapters 14 (F12 three-layer structural optimizer), 15 (rag-backend-v2 hardening, six LLM hallucination defense layers + Wiki Cascade), 16 (platform SSOT chain). English edition initiated covering chapters 14–16. DOI to be assigned by Zenodo upon deposit."
 }
