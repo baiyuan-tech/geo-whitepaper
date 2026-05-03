@@ -130,6 +130,9 @@
 - [Ch 11 — 5 品牌真實數據觀察（匿名）](zh-TW/ch11-case-studies.md)
 - [Ch 12 — 限制、未解問題與未來工作](zh-TW/ch12-limitations.md)
 - [Ch 13 — 多模態 GEO:從文字到視覺資產的能見度](zh-TW/ch13-multimodal-geo.md) **(v1.1 新增)**
+- [Ch 14 — F12 三層結構優化器:從規則 V1 到雙引擎 v3.1](zh-TW/ch14-f12-structural-optimizer.md) **(v1.1.0 新增)**
+- [Ch 15 — rag-backend-v2 加固:六層 LLM hallucination 失敗模式的防禦設計](zh-TW/ch15-rag-backend-v2-hardening.md) **(v1.1.0 新增)**
+- [Ch 16 — 平台 SSOT 全鏈:從 brand_faq 到 page_type 到 alerts 的單一事實源](zh-TW/ch16-platform-ssot-chain.md) **(v1.1.0 新增)**
 
 ### 附錄
 
@@ -324,6 +327,7 @@ geo-whitepaper/
 | 2026-04-19 | v1.0 draft | **en/ 英文版完整版上線** — Executive Summary + Ch 1–12 + Appendix A–D（約 28,000 英文字）|
 | 2026-04-19 | v1.0 draft | **ja/ 日本語エグゼクティブサマリー公開** — 日本市場向け第一弾（約 1,400 日文字）|
 | 2026-04-19 | v1.0 draft | **ja/ 日本語完全版上線** — エグゼクティブサマリー + Ch 1–12 + Appendix A–D（約 30,000 日文字、である文体、事例章は日本市場向け在地化コメント付き）|
+| 2026-05-03 | **v1.1.0** | **新增 Ch 14(F12 三層結構優化器)/ Ch 15(rag-backend-v2 加固 6 層)/ Ch 16(平台 SSOT 全鏈)**;zh-TW + en 雙語同步;加 `.zenodo.json` 預備 DOI deposit;CITATION.cff ORCID 0009-0004-8264-368X 已填 |
 
 ---
 

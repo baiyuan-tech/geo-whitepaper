@@ -6,19 +6,22 @@ abstract: >-
   Baiyuan GEO Platform (2024-2026), a SaaS system for Generative Engine
   Optimization. Covers a seven-dimension AI citation-rate scoring algorithm,
   AI-Bot-friendly shadow document delivery (AXP), Schema.org three-layer
-  entity knowledge graph, and closed-loop hallucination detection &
-  auto-remediation. Published in Traditional Chinese (~30,000 characters);
-  English version forthcoming.
-type: software
+  entity knowledge graph, closed-loop hallucination detection &
+  auto-remediation, F12 three-layer structural optimizer (V1 rule-based +
+  V3.1 dual-engine AutoGEO + E-GEO), rag-backend-v2 LLM hallucination
+  hardening (six defense layers), and platform SSOT chain (brand_faq /
+  page_type / alerts). Traditional Chinese complete (chapters 1-16,
+  ~50,000 characters); English chapters 1-16 (1-13 from v1.0, 14-16 added in v1.1).
+type: report
 authors:
   - family-names: Lin
     given-names: Vincent
     email: services@baiyuan.io
     affiliation: "Baiyuan Technology"
-    # orcid: https://orcid.org/0000-0000-0000-0000  # TODO: add ORCID once registered
+    orcid: https://orcid.org/0009-0004-8264-368X
     website: https://baiyuan.io
-version: "1.1"
-date-released: 2026-04-26
+version: "1.1.0"
+date-released: 2026-05-03
 url: "https://github.com/baiyuan-tech/geo-whitepaper"
 repository-code: "https://github.com/baiyuan-tech/geo-whitepaper"
 license: CC-BY-NC-4.0
@@ -37,6 +40,14 @@ keywords:
   - Multi-Tenant SaaS
   - PostgreSQL
   - pgvector
+  - BullMQ
+  - F12
+  - TLSO
+  - AutoGEO
+  - E-GEO
+  - LLM Wiki Compiler
+  - Single Source of Truth
+  - 10K-tenant readiness
 identifiers:
   - type: url
     value: "https://github.com/baiyuan-tech/geo-whitepaper"
@@ -50,9 +61,7 @@ identifiers:
   # - type: doi
   #   value: "10.xxxx/xxxx"  # TODO: request DOI via Zenodo upon v1.0 release
 preferred-citation:
-  # CFF 1.2.0 schema does not include "report" in reference type enum;
-  # "generic" is the correct value for a standalone whitepaper.
-  type: generic
+  type: report
   title: "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization"
   authors:
     - family-names: Lin

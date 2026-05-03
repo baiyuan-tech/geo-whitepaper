@@ -1,0 +1,73 @@
+{
+  "title": "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization",
+  "description": "<p>An engineering whitepaper documenting the construction of <strong>Baiyuan GEO Platform</strong> (2024–2026), a SaaS system for Generative Engine Optimization. The system helps brands be cited accurately and consistently across ChatGPT, Claude, Gemini, Perplexity, DeepSeek, and 15+ AI platforms.</p><p><strong>Coverage</strong>: seven-dimension AI citation-rate scoring algorithm, AI-Bot-friendly shadow document delivery (AXP) on customer-owned domains, Schema.org three-layer entity knowledge graph, closed-loop hallucination detection &amp; auto-remediation, F12 three-layer structural optimizer (V1 rule-based + V3.1 dual-engine AutoGEO + E-GEO), rag-backend-v2 LLM hallucination hardening (six defense layers), and platform SSOT chain (brand_faq / page_type / alerts unification).</p><p><strong>Languages</strong>: Traditional Chinese complete (chapters 1–16, ~45,000 characters); English partial (chapters 14–16, ~12,000 words). Earlier English chapters scheduled for v1.2.</p><p><strong>License</strong>: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).</p>",
+  "creators": [
+    {
+      "name": "Lin, Vincent",
+      "affiliation": "Baiyuan Technology",
+      "orcid": "0009-0004-8264-368X"
+    }
+  ],
+  "upload_type": "publication",
+  "publication_type": "report",
+  "publication_date": "2026-05-03",
+  "version": "1.1.0",
+  "language": "zho",
+  "keywords": [
+    "Generative Engine Optimization",
+    "GEO",
+    "AI Citation Rate",
+    "Schema.org",
+    "Structured Data",
+    "Knowledge Graph",
+    "Multi-Provider AI Routing",
+    "Hallucination Detection",
+    "Closed-Loop Remediation",
+    "Cloudflare Workers",
+    "AXP",
+    "Multi-Tenant SaaS",
+    "PostgreSQL",
+    "pgvector",
+    "BullMQ",
+    "F12",
+    "TLSO",
+    "AutoGEO",
+    "E-GEO",
+    "LLM Wiki Compiler",
+    "Single Source of Truth",
+    "10K-tenant readiness"
+  ],
+  "communities": [
+    { "identifier": "open-science" }
+  ],
+  "license": "CC-BY-NC-4.0",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/baiyuan-tech/geo-whitepaper",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://geo.baiyuan.io",
+      "relation": "isDocumentedBy",
+      "resource_type": "other"
+    },
+    {
+      "identifier": "arXiv:2510.11438",
+      "relation": "cites",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "arXiv:2511.20867",
+      "relation": "cites",
+      "resource_type": "publication-article"
+    }
+  ],
+  "references": [
+    "Lin, V. (2026). Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization. Version 1.1. Baiyuan Technology. https://github.com/baiyuan-tech/geo-whitepaper",
+    "AutoGEO: github.com/cxcscmu/AutoGEO. arXiv:2510.11438",
+    "E-GEO: github.com/psbagga17/E-GEO. arXiv:2511.20867"
+  ],
+  "notes": "v1.1.0 expansion: adds chapters 14 (F12 three-layer structural optimizer), 15 (rag-backend-v2 hardening, six LLM hallucination defense layers + Wiki Cascade), 16 (platform SSOT chain). English edition initiated covering chapters 14–16. DOI to be assigned by Zenodo upon deposit."
+}
