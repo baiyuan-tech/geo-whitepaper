@@ -253,17 +253,70 @@ https://api.geo.baiyuan.io/v1
 
 ---
 
-## 5. Hallucinations
+## 5. Hallucination Repair(完整功能模組)
+
+對應 [Ch 9 — Hallucination Repair:Closed-Loop 幻覺偵測與自動修復](./ch09-closed-loop.md)。
+所有 endpoints 走 `authenticate` + `brandScope` + `requireBrandTypeMatch` 三層多租戶守。
+
+### 5.1 Legacy hallucinations endpoints(v1 維持向後兼容)
 
 ### GET `/brands/:id/hallucinations`
 
 列出已偵測到的幻覺。
 
-**Query params**：`severity`（critical/major/minor/info）、`status`（open/resolving/resolved）。
+**Query params**:`severity`(critical/major/minor/info)、`status`(open/resolving/resolved)。
 
 ### POST `/brands/:id/hallucinations/:hid/repair`
 
 觸發修復流程。
+
+### 5.2 Hallucination Repair v2 endpoints(`/v1/hallucination-repair/*`)
+
+完整 10 個 endpoints,對應 PROD `backend/src/routes/addons.routes.js`:
+
+**Ground Truth CRUD**:
+
+```text
+GET    /v1/hallucination-repair/brands/:brandId/ground-truths        # 列 ground truth
+POST   /v1/hallucination-repair/brands/:brandId/ground-truths        # 新增單筆
+POST   /v1/hallucination-repair/brands/:brandId/ground-truths/import # 批次匯入
+DELETE /v1/hallucination-repair/brands/:brandId/ground-truths/:id    # 刪除
+```
+
+**Detection 查詢 + 統計**:
+
+```text
+GET    /v1/hallucination-repair/brands/:brandId/detections           # 列偵測紀錄
+GET    /v1/hallucination-repair/brands/:brandId/stats                # 統計總覽
+```
+
+**Action endpoints**:
+
+```text
+PUT    /v1/hallucination-repair/detections/:id/false-positive        # 客戶標「這不是幻覺」
+POST   /v1/hallucination-repair/detections/:id/repair                # 手動觸發 autoRepair
+POST   /v1/hallucination-repair/detections/:id/reverify              # 手動觸發 reverify
+POST   /v1/hallucination-repair/brands/:brandId/scan                 # 手動觸發整批偵測掃描
+PUT    /v1/hallucination-repair/detections/:id/user-action           # 通用 user action
+```
+
+### 5.3 Detection response schema
+
+```json
+{
+  "id": "uuid",
+  "brand_id": "uuid",
+  "platform": "ChatGPT|Claude|Gemini|Perplexity|...",
+  "claim_text": "AI 宣稱的事實內容",
+  "ground_truth_value": "修正後正確值(若已知)",
+  "severity": "critical|major|minor|info",
+  "error_type": "entity_misidentification|business_fact_error|industry_miscategory|temporal_spatial_error|attribute_error",
+  "status": "detected|repair_queued|repair_applied|verified_fixed|awaiting_model_update|dismissed_by_user",
+  "rag_confidence": 0.85,
+  "cross_platform_count": 3,
+  "created_at": "ISO 8601"
+}
+```
 
 ---
 

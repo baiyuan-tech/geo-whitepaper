@@ -20,9 +20,9 @@
 
 ## 摘要 / Abstract
 
-**中文**：本書記錄百原科技於 2024–2026 年開發「百原GEO Platform」的工程實踐。百原GEO Platform 是一套針對**生成式引擎優化（Generative Engine Optimization, GEO）**的 SaaS 系統，目標是協助品牌在 ChatGPT、Claude、Gemini、Perplexity 等生成式 AI 的回答中被正確、持續、準確地提及。本書涵蓋一套七維度 AI 引用率評分演算法、一個對 AI Bot 友善的影子文檔（AXP）交付機制、Schema.org 三層實體知識圖、以及一個幻覺自動偵測與修復的閉環系統。總篇幅約 30,000 字（繁體中文版），採 CC BY-NC 4.0 授權公開。
+**中文**：本書記錄百原科技於 2024–2026 年開發「百原GEO Platform」的工程實踐。百原GEO Platform 是一套針對**生成式引擎優化（Generative Engine Optimization, GEO）**的 SaaS 系統，目標是協助品牌在 ChatGPT、Claude、Gemini、Perplexity 等生成式 AI 的回答中被正確、持續、準確地提及。本書涵蓋一套七維度 AI 引用率評分演算法、一個對 AI Bot 友善的影子文檔（AXP）交付機制、Schema.org 三層實體知識圖、以及 **Hallucination Repair（幻覺修復）**核心模組——六階段全自動化閉環系統（NLI 三分類 + Chainpoll 投票 + 6 階層 authority chain，PROD 實證收斂率 86%）。總篇幅約 30,000 字（繁體中文版），採 CC BY-NC 4.0 授權公開。
 
-**English**：This whitepaper documents the engineering practice of Baiyuan Technology in developing "Baiyuan GEO Platform" (2024–2026), a SaaS system targeting **Generative Engine Optimization (GEO)**. The platform helps brands be cited accurately and consistently in responses from generative AI services (ChatGPT, Claude, Gemini, Perplexity, etc.). The book presents a seven-dimension citation-rate scoring algorithm, an AI-Bot-friendly shadow document delivery mechanism (AXP), a Schema.org three-layer entity knowledge graph, and a closed-loop hallucination detection & auto-remediation system. Approximately 30,000 Traditional Chinese characters, published under CC BY-NC 4.0.
+**English**：This whitepaper documents the engineering practice of Baiyuan Technology in developing "Baiyuan GEO Platform" (2024–2026), a SaaS system targeting **Generative Engine Optimization (GEO)**. The platform helps brands be cited accurately and consistently in responses from generative AI services (ChatGPT, Claude, Gemini, Perplexity, etc.). The book presents a seven-dimension citation-rate scoring algorithm, an AI-Bot-friendly shadow document delivery mechanism (AXP), a Schema.org three-layer entity knowledge graph, and the **Hallucination Repair** module — a six-stage fully-automated closed-loop system (NLI three-way classification + Chainpoll voting + six-tier authority chain, with 86% PROD-verified convergence). Approximately 30,000 Traditional Chinese characters, published under CC BY-NC 4.0.
 
 ---
 
@@ -398,8 +398,9 @@ geo-whitepaper/
     "AI Citation Rate",
     "Schema.org Structured Data",
     "Multi-Provider AI Fault Tolerance",
-    "Hallucination Detection"
+    "Hallucination Detection",
+    "Hallucination Repair"
   ],
-  "keywords": "GEO, Generative Engine Optimization, AI citation, Schema.org, Cloudflare Workers, PostgreSQL, multi-tenant SaaS, hallucination detection, knowledge graph"
+  "keywords": "GEO, Generative Engine Optimization, AI citation, Schema.org, Cloudflare Workers, PostgreSQL, multi-tenant SaaS, Hallucination Repair, hallucination detection, knowledge graph, NLI, Chainpoll, six-tier authority chain"
 }
 </script>

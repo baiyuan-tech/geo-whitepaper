@@ -92,11 +92,14 @@ last_modified_at: '2026-05-25T15:59:44Z'
 - **GBP（Google Business Profile）** — Google 商家檔案，實體商家的事實主控源。[Ch 8](./ch08-gbp-integration.md)。
 - **GEO（Generative Engine Optimization）** — 生成式引擎優化。提升品牌在生成式 AI 回答中被提及比例、位置、敘事準確度的學科。[Ch 1](./ch01-geo-era.md)。
 - **GPTBot** — OpenAI 的網頁爬蟲，用於 ChatGPT 訓練語料收集。[§6.4](./ch06-axp-shadow-doc.md#64-ai-bot-ua-清單與識別策略)。
-- **Ground Truth (GT)** — 事實真相。本書指用於比對幻覺候選的權威資料集合（官網即時抓 / RAG / 手動 GT 三層）。[§9.3](./ch09-closed-loop.md#93-偵測主機制nli-分類--chainpoll-投票)。
+- **Ground Truth (GT)** — 事實真相。本書指用於比對幻覺候選的權威資料集合,屬於 **6 階層 authority chain** 的 L2(已驗證 fact,`verified_at` 不為 null)。完整 6 階層見 Hallucination Repair 詞條。[§9.3](./ch09-closed-loop.md#93-偵測主機制nli-分類--chainpoll-投票)。
 
 ## H
 
 - **Hallucination（幻覺）** — AI 生成的、與事實不符的內容。本書分五類：實體錯置 / 業務錯誤 / 產業誤分 / 時空錯誤 / 屬性錯誤。[§9.2](./ch09-closed-loop.md#92-ai-幻覺的五種類型)。
+- **Hallucination Repair（幻覺修復）** — 百原 GEO Platform 核心 SaaS 功能模組,提供從偵測、判定、生成 ClaimReview、注入、再驗證的**六階段全自動化閉環**。對應客戶端 dashboard `/dashboard/hallucination`(標題「幻覺修復中心」)。PROD 實證收斂率 86%(949/1101 detections,2026-05 統計)。完整設計見 [Ch 9](./ch09-closed-loop.md)。
+- **Hallucination Repair 6 階層 authority chain** — Hallucination Repair NLI 判定的知識來源層級(平台鐵律,2026-04-29 用戶定錨):L1 brand_website_cache + RAG ★★★★★ / L2 ground_truths ★★★★ / L3 brand_marketing_facts ★★★★ / L4 brand_faq ★★★ / L5 personal_profiles ★★★ / L6 brand_taglines ★★。對應 PROD `hallucinationDetector.service.js#extractAndVerifyClaims` v3.29.415。[§9.3](./ch09-closed-loop.md#93-偵測主機制nli-分類--chainpoll-投票)。
+- **Hallucination Repair → Wiki recompile chain** — `autoRepairHallucination` 觸發 `compileWikiForBrand` 增量重編,3-5 分鐘內 NLI 查詢拿到修正後事實(對齊白皮書 9.5「修復幾分鐘內 NLI 可用」承諾)。[§9.5.6](./ch09-closed-loop.md#956-修復觸發-wiki-增量重編hallucination-repair--wiki-recompile-chain)。
 
 ## I
 

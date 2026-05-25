@@ -534,7 +534,7 @@ flowchart LR
 |------|----------------|------|
 | 基礎 | `brand_overview`, `faq`, `about` | 全品牌共有 |
 | 產品 | `product_features`, `pricing`, `competitor_comparison` | B2B 產品 |
-| 信任 | `fact_check`, `review_aggregate`, `media_coverage` | 第三方背書 |
+| 信任 | `fact_check`, `review_aggregate`, `media_coverage` | 第三方背書(`fact_check` 是 [**Hallucination Repair**](./ch09-closed-loop.md) 路徑 A 主要修復目的地) |
 | 在地 | `service_area`, `office_address`, `gbp_profile` | 地理綁定 |
 | 知識 | `glossary`, `case_study`, `industry_report` | 內容深度 |
 | 個人 IP | `creator_profile`, `talk_topics`, `future_plans` | ME 平台專用(第 23 類起) |
@@ -550,7 +550,7 @@ generators/
   productFeatures.js   — 產品特色(以服務 list + USP 為基底)
   pricing.js           — 定價說明(直接讀 brand_visual_configs / 訂閱方案)
   competitorComparison.js — 競品對照(從 ARSPanel 8 維度抽)
-  factCheck.js         — 事實核查(取 RAG ground truth 對外公布)
+  factCheck.js         — 事實核查(取 RAG ground truth 對外公布,**Hallucination Repair** ClaimReview 注入主目的地,見 [§9.6](./ch09-closed-loop.md#96-修復claimreview-生成與多路徑注入))
   reviewAggregate.js   — 評論聚合(GBP API + 5 評論平台)
   caseStudy.js         — 案例研究(客戶提供 / RAG 自動萃取)
   futurePlans.js       — 未來計劃(個人 IP v3.0.0 新增,只給 brand_type=personal_ip)
