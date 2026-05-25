@@ -707,17 +707,27 @@ xychart-beta
 
 頑固幻覺的處理往往需要人工介入，這是目前自動化閉環的邊界。誠實承認這個邊界，比假裝全自動更負責任。
 
-### PROD 實證:86% verified_fixed 收斂率
+### PROD 實證:> 70% verified_fixed 收斂率(歷次 snapshot)
 
-**Hallucination Repair** 自動化閉環在 PROD 環境的實測收斂率(2026-05-16 sprint R3-r3 audit P2 統計):
+**Hallucination Repair** 自動化閉環在 PROD 環境的實測收斂率歷次 sprint snapshot:
 
-- **總偵測量**:1,101 detections(跨多 brand × 多平台 30 天累計)
-- **`verified_fixed` 狀態**:949 detections(**86%**)
-- **未收斂**(`detected` / `pending_review` / `manual_review`):152 detections(14%)
-  - 大多為跨 5+ 平台 systemic claim 或訓練型平台尚在 `awaiting_model_update` 等待週期
+| 統計時點 | 總偵測量 | verified_fixed | 收斂率 | 備註 |
+|---|---|---|---|---|
+| 2026-05-16(R3-r3 P2 audit)| 1,101 | 949 | **86%** | 早期樣本(含較多易修 single-platform 案例)|
+| 2026-05-26(R4P PROD audit)| 3,366 | 2,472 | **73.4%** | 樣本擴大 3 倍後 baseline |
 
-這個 86% 數據驗證:**閉環設計真實 work**,不是只有架構圖的紙面功夫。
-未收斂的 14% 對應 [§9.8 頑固幻覺] 段,誠實標示需人工介入邊界。
+樣本量擴大 3 倍後收斂率自然回落(包含更多 cross-platform systemic 與訓練型平台等待 case),但**仍 > 70% 全自動收斂**:
+
+- **`verified_fixed`**:2,472 detections(73.4%)
+- **`detected` 未進修復**:892 detections(26.5%)— 包含 confidence < 0.5 跳過 + Chainpoll 未達 2/3 共識
+- **`repair_applied` 等待重驗**:2 detections(0.1%)
+
+> **設計取捨說明**:**Hallucination Repair** 故意採保守策略,寧可放過 confidence 模糊地帶(`detected` 留作客戶端 review)也不誤觸發修復。
+> 這代表「**自動修復 ≠ 全自動修補一切**」,而是「**> 70% 高信心地帶全自動,剩 30% 模糊地帶交給客戶 Dashboard review**」。
+
+這個 73.4% baseline 數據驗證:**閉環設計真實 work**,不是只有架構圖的紙面功夫。
+真實 PROD 收斂率會隨樣本量、平台組成、客戶 FP feedback 動態變動,**> 70% 全自動收斂率是穩定 baseline**。
+未收斂的 26.6% 對應 [§9.8 頑固幻覺] 段,誠實標示需人工 review / 客戶補 SSOT 的邊界。
 
 ### Audit trail:`repair_actions` 表全程記錄
 
@@ -737,7 +747,7 @@ xychart-beta
 
 | Tab | 路徑 | 對應 API | 用途 |
 |---|---|---|---|
-| **總覽**(Overview)| `?tab=overview` | `/v1/hallucination-repair/brands/:brandId/stats` | 偵測量趨勢圖 + severity 分布 + 收斂率 86% 卡片 + 跨平台 heatmap |
+| **總覽**(Overview)| `?tab=overview` | `/v1/hallucination-repair/brands/:brandId/stats` | 偵測量趨勢圖 + severity 分布 + 收斂率(PROD baseline > 70%)卡片 + 跨平台 heatmap |
 | **偵測紀錄**(Detections)| `?tab=detections` | `/v1/hallucination-repair/brands/:brandId/detections` | error_type × severity 雙維度 filter + 每筆 detection 含 false-positive 按鈕 |
 | **修復歷史**(Repair History)| `?tab=repair-history` | `repair_actions` 表 query | 完整 audit trail(timeline + 修復路徑 + 結果)|
 
@@ -792,7 +802,7 @@ PUT    /v1/hallucination-repair/detections/:id/user-action          # 通用 use
 - **Platform-aware re-verification**:`platform_repair_strategies` SSOT 動態查每平台週期(訓練型 7d / 混合型 48h / 即時型 6-12h)
 - **Brand closed-loop overrides**(Enterprise+):客戶可開高頻 sentinel(預設 4h 可調 1-12h),適合危機公關 / VIP SLA
 - **Repair audit trail**:`repair_actions` 表記錄每次修復(source_type / repair_channel / status),客戶端「修復歷史」tab 直接 query
-- **PROD 實證**:86% verified_fixed(949/1101 detections,2026-05 sprint 統計),非紙面架構
+- **PROD 實證**:> 70% verified_fixed 穩定 baseline(2026-05 多次 snapshot:1101→3366 detections / 86%→73.4%),非紙面架構
 - 頑固幻覺仍需人工介入,此為目前 **Hallucination Repair** 自動化的邊界,誠實承認
 
 ## 參考資料
