@@ -20,8 +20,9 @@ keywords:
   - Visual Asset Audit
 last_updated: 2026-04-25
 canonical: https://baiyuan-tech.github.io/geo-whitepaper/en/ch13-multimodal-geo.html
-last_modified_at: '2026-05-25T15:59:44Z'
+last_modified_at: '2026-05-25T16:06:48Z'
 ---
+
 
 
 
