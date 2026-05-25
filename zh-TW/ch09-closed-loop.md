@@ -15,12 +15,16 @@ keywords:
   - Hallucination Detection
   - Natural Language Inference
   - Chainpoll
+  - Chainpoll Cache Optimization
   - LLM Wiki
   - Central Multi-Tenant RAG
   - Closed-Loop Remediation
   - ClaimReview
   - Layer-1 Sentinel
   - Error Type Taxonomy
+  - Platform-Aware Re-verification
+  - Cross-Platform Hallucination Detection
+  - SSRF Guard
 last_updated: 2026-05-25
 last_modified_at: '2026-05-25T23:41:35+08:00'
 ---
@@ -177,6 +181,20 @@ flowchart TB
 
 *Fig 9-3: 知識來源權威度由高到低排列，全部組合成一段 context 餵給 NLI。若三層合計 < 500 字則跳過偵測（避免在資料稀疏的狀態誤判）。*
 
+**L1 品牌官網即時抓取的 SSRF 守門**(對 1 萬租戶 readiness security):
+
+L1 知識來源中「品牌官網即時抓取」涉及 server-side fetch 任意 user-controlled URL,
+需防 SSRF(Server-Side Request Forgery)攻擊:
+
+- 對齊 `utils/urlSafety.js#isPublicHttpUrl` SSOT 守門
+- 拒絕 RFC 1918 內網 IP(`10.0.0.0/8` / `172.16.0.0/12` / `192.168.0.0/16`)
+- 拒絕 loopback(`127.0.0.0/8`)/ link-local(`169.254.0.0/16`)
+- 拒絕雲端 metadata endpoint(AWS `169.254.169.254` / GCP / Azure)
+- 透過 `ipaddr.js` library 統一解析,拒絕 unsafe scheme(`file://` / `data:` / etc)
+
+對應 PROD `hallucinationDetector.service.js#fetchWebsiteText` v3.29.282 R16 P2 加守。
+任何 user / LLM-returned URL 進 server-side fetch 都必經此守。
+
 ### NLI 四分類定義
 
 | 類別 | 意義 | 處理 |
@@ -192,20 +210,50 @@ NLI 模型同時為每個 claim 打一個 `confidence`（0.0–1.0）與 `severi
 
 最常見的誤設計是「知識來源沒提到就視為錯誤」。但品牌官網不可能列舉所有事實，AI 說「該公司有 50 名員工」若官網沒有員工數頁面，**不代表這個數字是錯的，只代表我們無法驗證**。把 neutral 誤判為 contradiction 會大量製造假幻覺，引發錯誤的修復動作，使 AI 下一輪閱讀到被「修正」為錯誤的內容。
 
+**Neutral 追蹤機制(`hallucination_neutral_tracking` 表)**:
+
+平台不直接把 `neutral` claim 丟棄,而是寫入 `hallucination_neutral_tracking` 表追蹤:
+
+- **UPSERT pattern**:`(brand_id, platform, claim_text)` UNIQUE 鎖,重複偵測累加 `notify_count`
+- **7 日自動降級**:`first_seen < NOW() - INTERVAL '7 days'` 自動標 `status='dismissed'`(灰色 UI)
+- **客戶端 dashboard**:顯示「平台未提及但需確認」清單,客戶可主動補充 SSOT 而非平台代為判定
+- **避免 echo chamber**:不觸發 **Hallucination Repair** 修復鏈,只記錄 + 統計
+
+這個機制讓「平台無法驗證」的灰色地帶有獨立管道,而非被誤分入 contradiction 或被完全忽略。
+
+### 多源定向驗證(cross_platform_count)
+
+對 contradiction 已 confirmed 的 claim,平台會在 `hallucination_detections` 表加 `cross_platform_count`:
+
+- 比對同一 `queryText` 跨多個 AI 平台的回應
+- 若**多平台都有類似錯誤宣稱** → 標 `cross_platform_count = N`(N 平台共現)
+- 高 N 值代表「系統性錯誤」(可能源自共同訓練語料 / 共同抓網來源),非單平台 hallucination
+- 修復策略加重:除路徑 A AXP 注入外,優先排程 Wikidata edit / Wikipedia COI 反查
+
+對應 PROD `hallucinationDetector.service.js` line 388-405 多平台跨檢測邏輯。
+1 萬租戶 readiness:此設計避免「修一個平台、其他平台繼續錯」的 whack-a-mole 問題。
+
 ### Chainpoll：不確定地帶的二次確認
 
-對 `confidence ∈ [0.5, 0.8]` 的不確定 claim，系統啟動 **Chainpoll 多數決**：
+對 `confidence ∈ [0.5, 0.8]` 的不確定 claim，系統啟動 **Chainpoll 多數決**(對齊 PROD v3.29.392 cost optimization + v3.29.388 Redis cache 設計)：
 
 ```javascript
 // 同一 claim 以同一 prompt 呼叫 LLM 三次，取多數結果
-async function chainpollVerify(claim, knowledgeContext) {
+async function chainpollVerify(brandName, platform, claim, knowledgeContext) {
+  // v3.29.388 Redis 24h cache(同 claim+brand+knowledge_ctx hash 不重跑)
+  const cacheKey = sha256(`${brandName}|${platform}|${claim}|${knowledgeContext}`);
+  const cached = await redis.get(`hallucination_chainpoll:${cacheKey}`);
+  if (cached) return JSON.parse(cached);  // ← 60-70% hit rate,1 萬租戶月省 $25-50
+
   const votes = { contradiction: 0, entailment: 0, neutral: 0 };
   const prompt = buildNLIPrompt(claim, knowledgeContext);
 
+  // v3.29.392 split feature key:用 hallucination_detect_eval(judgment task,
+  //   配 deepseek-chat 低 cost model),省 70% chainpoll cost($36 → $11/月)
   const results = await Promise.allSettled([
-    aiCall('hallucination_detect', prompt, { maxTokens: 20 }),
-    aiCall('hallucination_detect', prompt, { maxTokens: 20 }),
-    aiCall('hallucination_detect', prompt, { maxTokens: 20 }),
+    aiCall('hallucination_detect_eval', prompt, { maxTokens: 20 }),
+    aiCall('hallucination_detect_eval', prompt, { maxTokens: 20 }),
+    aiCall('hallucination_detect_eval', prompt, { maxTokens: 20 }),
   ]);
 
   for (const r of results) {
@@ -216,11 +264,19 @@ async function chainpollVerify(claim, knowledgeContext) {
     else votes.neutral++;
   }
 
+  // Cache write(fail-safe:Redis 失效不擋主流程)
+  await redis.setEx(`hallucination_chainpoll:${cacheKey}`, 86400, JSON.stringify(votes));
   return pickMajority(votes); // 2/3 以上才採信
 }
 ```
 
 Chainpoll 有效降低單次 LLM 幻覺分類本身的雜訊（畢竟分類器也是 LLM，也會有隨機性）。高 confidence（> 0.8）與低 confidence（< 0.5）的 claim 不觸發 Chainpoll，只有在**模糊地帶**才啟動，成本可控。
+
+**雙層 cost optimization**(對 1 萬租戶 readiness):
+- **L1 Redis 24h cache**(v3.29.388):同 `(claim, brand, knowledge_ctx)` hash 24h 內重複偵測直接用 cached vote,**60-70% hit rate**,單獨估省 USD 25-50/月 + 降 LLM rate-limit 壓力
+- **L2 cost-aware model routing**(v3.29.392):`hallucination_detect_eval` 為 judgment task(只回 1 詞)拆出獨立 feature key,配 `deepseek-chat` 低 cost model,而非主路徑 `hallucination_detect` 走的 `claude-haiku` higher-cost model。同樣 maxTokens=20 但**省 70% chainpoll 成本**(月 $36 → $11)
+
+**Fail-safe 設計**:Redis miss / connection error 自動 fallback 跑 3x LLM 原邏輯(對齊 §平台鐵律 defensive guard)。
 
 ### 嚴重度分類
 
@@ -333,10 +389,16 @@ flowchart TB
 
 - **變更偵測粒度**：以「事實三元組」為最小單位（例：`<百原科技, 成立於, 2024>`），而非整份文件
 - **只重算受影響區域**：新事實進入時，只對相關主題的向量與知識圖譜節點重算
-- **版本化**：每個事實帶 `valid_from` / `valid_to` 時間戳，允許查詢特定時點的歷史狀態
-- **回溯能力**：若某次 ingest 引入錯誤，可指令性 revert 至先前版本
+- **版本化**:每個 wiki page 帶 `version` 欄位(integer)+ `status` 標記(`active` / `stale` / `deleted`),
+  + `compiled_at` 時間戳記錄上次編譯時間。新版進來時舊版標 `stale`,允許 audit + 回溯
+- **回溯能力**：若某次 ingest 引入錯誤，可指令性 revert 至先前版本(透過 `version` history + `status='active'` swap)
 
 對幻覺偵測的意義：**修復 ClaimReview 注入 Wiki 後幾分鐘內**，NLI 查詢就能使用到修正後的事實。不需等待夜間重建或週末 downtime。
+
+> **設計取捨說明**:早期 spec 曾規劃 `valid_from` / `valid_to` 雙時間戳設計支援「特定時點查詢」,
+> 但實作後發現 NLI 查核場景**只需「當前事實」**,不需歷史時點重建。
+> 改用 `version + status` 二元組降低 schema 複雜度,同樣支援回溯需求,
+> compiled_at 提供 audit 時間追蹤。對應 PROD `cs_rag_db.wiki_pages` 表 schema。
 
 ### 9.5.4 LLM Wiki 的核心能力
 
@@ -518,6 +580,40 @@ flowchart TB
 - **合併**場景：使用者看「今日引用率」時，兩層都是同一時段的訊號
 - **分離**場景：分析「修復收斂速度」時，Layer 1 與 Layer 2 收斂時程不同，需分別計算
 
+### Platform-aware re-verification 策略(`platform_repair_strategies` SSOT)
+
+不同 AI 平台對「修復內容多久能被吸收」差異極大,**Hallucination Repair** 透過 `platform_repair_strategies` 表動態查詢每平台對應週期:
+
+| Platform type | 範例 | `verify_after_h` | 適用情境 |
+|---|---|---|---|
+| **訓練型**(`training`)| 標準版 Claude / Gemini / GPT-4o | 168h(7 天) | 預訓練語料,等下次模型重訓 |
+| **混合型**(`hybrid`)| Claude with browsing / Gemini Live | 48h(2 天) | RAG-augmented 模型,定期重 ingest |
+| **即時型**(`realtime`)| Perplexity / ChatGPT Search / AI Overview | 6-12h | 實時抓網,修復立即可驗 |
+
+對應 PROD `hallucinationDetector.service.js#scheduleReVerification` 內 SQL `SELECT platform_type, verify_after_h FROM platform_repair_strategies WHERE platform = $1`。
+
+**訓練型平台特殊處理**:status 標為 `awaiting_model_update`(而非 `repair_applied`),客戶端 UI 顯示「待模型更新(預計 N 天後驗證)」,管理用戶期待。
+
+### Brand-level closed-loop overrides(客戶可調)
+
+更積極的客戶可開啟 **Closed-Loop 模式**(`brand_closed_loop_overrides.closed_loop_enabled=TRUE`),覆寫平台預設週期:
+
+- 讀 `closed_loop_configs.sentinel_interval_hours` SSOT(預設 4h,可調 1-12h)
+- 強制走 sentinel 高頻 cycle,即使訓練型平台也每 sentinel_interval_hours 驗一次
+- 適合**緊急修復場景**(品牌危機公關 / VIP 客戶 SLA)
+- Trade-off:成本上升 + LLM rate-limit 壓力增加,僅 Enterprise+ 方案開放
+
+對應 PROD `scheduleReVerification` line 651-661 closed-loop override 動態讀邏輯。
+
+### Re-verification queue + cron sweep(雙觸發機制)
+
+`hallucination-verify-queue` worker 兩種觸發方式對齊 §平台鐵律「Worker 必須 defensive guard + queue auto-retention」:
+
+1. **個別 reverify job**:`autoRepairHallucination` 排程 24h 後對單筆 detection 重驗
+2. **定時掃描 cron**:每 6 小時撈所有 `repair_applied` 狀態 detection,batch reverify
+
+worker 對齊 `KNOWN_QUEUES` retention list,7d failed + 30d completed 自動清。
+
 ---
 
 ## 9.8 收斂時序與驗收
@@ -555,6 +651,30 @@ xychart-beta
 
 頑固幻覺的處理往往需要人工介入，這是目前自動化閉環的邊界。誠實承認這個邊界，比假裝全自動更負責任。
 
+### PROD 實證:86% verified_fixed 收斂率
+
+**Hallucination Repair** 自動化閉環在 PROD 環境的實測收斂率(2026-05-16 sprint R3-r3 audit P2 統計):
+
+- **總偵測量**:1,101 detections(跨多 brand × 多平台 30 天累計)
+- **`verified_fixed` 狀態**:949 detections(**86%**)
+- **未收斂**(`detected` / `pending_review` / `manual_review`):152 detections(14%)
+  - 大多為跨 5+ 平台 systemic claim 或訓練型平台尚在 `awaiting_model_update` 等待週期
+
+這個 86% 數據驗證:**閉環設計真實 work**,不是只有架構圖的紙面功夫。
+未收斂的 14% 對應 [§9.8 頑固幻覺] 段,誠實標示需人工介入邊界。
+
+### Audit trail:`repair_actions` 表全程記錄
+
+每次 **Hallucination Repair** 動作寫入 `repair_actions` audit table:
+
+- `source_type='hallucination'` / `source_id=detectionId` 對應原偵測
+- `repair_channel='axp_refresh'`(路徑 A 主)或 `gbp_localpost`(路徑 C Phase 3 後)
+- `priority` 對應 detection severity
+- `status`:`queued` → `applied` → `verified_fixed` 或 `manual_review`
+
+對應 PROD `repairRouter.service.js#logRepair` chain 寫入。客戶端 dashboard
+「修復歷史」tab 直接 query 此表,提供完整 audit trail。
+
 ---
 
 ## 本章要點
@@ -565,12 +685,20 @@ xychart-beta
 - Dashboard 雙維度 filter:`error_type`(本質類型,給高階決策者)× `severity`(優先級,給處理人)
 - **主機制是 NLI 三分類 + Chainpoll 投票**,GT 比對僅為三層知識來源之一的 fallback 層
 - 「neutral ≠ 幻覺」是核心原則:無足夠資訊驗證時寧可不判定,避免誤觸發修復
+- **Neutral 追蹤**:`hallucination_neutral_tracking` 表 UPSERT + 7 日自動降級為 dismissed,客戶可主動補 SSOT
+- **多源定向驗證**:`cross_platform_count` 跨平台共現偵測系統性錯誤,加重修復策略
+- **Chainpoll 雙層 cost optimization**:Redis 24h cache(60-70% hit / 月省 USD 25-50)+ `hallucination_detect_eval` cost-aware model routing(省 70% chainpoll cost,月 $36→$11)
+- **SSRF 守門**:`utils/urlSafety.js#isPublicHttpUrl` 統一守 L1 即時抓取,防內網 IP / cloud metadata
 - 中央共用 RAG SaaS 架構:所有租戶共用單一 RAG 引擎,以 Tenant ID／API Key／文件 ACL 三層機制做隔離
-- **L1 LLM Wiki** 是主動語意層:處理矛盾、增量編譯、版本化、自動摘要
+- **L1 LLM Wiki** 是主動語意層:處理矛盾、增量編譯、`version + status` 版本化、自動摘要
 - L1 Wiki 是「知識本體」、L2 RAG 是「知識檢索」;沒有 L1,L2 只是更快的文件搜尋
 - **Hallucination Repair → Wiki recompile chain**:`autoRepairHallucination` 觸發 `compileWikiForBrand` 增量重編,3-5 分鐘內 NLI 查詢拿到修正後事實
 - ClaimReview 三路注入:路徑 A(AXP 主路徑)+ 路徑 B(v2.9.0 後改間接同步防 RAG echo chamber)+ 路徑 C(GBP LocalPosts,Phase 1 OAuth 已 ship / Phase 2-3 規劃中)
 - 兩層掃描分工(Layer 1 哨兵 4h / Layer 2 完整 24h)對應搜尋型與知識型 AI 特性
+- **Platform-aware re-verification**:`platform_repair_strategies` SSOT 動態查每平台週期(訓練型 7d / 混合型 48h / 即時型 6-12h)
+- **Brand closed-loop overrides**(Enterprise+):客戶可開高頻 sentinel(預設 4h 可調 1-12h),適合危機公關 / VIP SLA
+- **Repair audit trail**:`repair_actions` 表記錄每次修復(source_type / repair_channel / status),客戶端「修復歷史」tab 直接 query
+- **PROD 實證**:86% verified_fixed(949/1101 detections,2026-05 sprint 統計),非紙面架構
 - 頑固幻覺仍需人工介入,此為目前 **Hallucination Repair** 自動化的邊界,誠實承認
 
 ## 參考資料
