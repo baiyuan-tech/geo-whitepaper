@@ -24,8 +24,9 @@ keywords:
   - PostgreSQL pgvector
 last_updated: 2026-05-03
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch15-rag-backend-v2-hardening
-last_modified_at: '2026-05-03T05:53:02Z'
+last_modified_at: '2026-05-25T15:41:49Z'
 ---
+
 
 
 
