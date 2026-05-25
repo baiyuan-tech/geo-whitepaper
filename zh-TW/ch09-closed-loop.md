@@ -632,10 +632,19 @@ flowchart TB
 
 ### Layer 1 與 Layer 2 資料共享
 
-兩層的結果都寫入同一張 `scan_results` 表，透過 `scan_layer` 欄位區分。下游分析（儀表板趨勢、競品比較）會依需求**合併或分離**兩層資料：
+Layer 1 / Layer 2 各自寫不同表(R5 v3.29.417 對齊真實 PROD schema):
 
-- **合併**場景：使用者看「今日引用率」時，兩層都是同一時段的訊號
-- **分離**場景：分析「修復收斂速度」時，Layer 1 與 Layer 2 收斂時程不同，需分別計算
+- **`closed_loop_cycles.layer`** — Layer 1 / Layer 2 每輪 cycle 紀錄
+- **`scans` 表** — 個別掃描 metadata
+- **`platform_results`** — 各平台回應結果(scan_id 關聯)
+- **`closed_loop_cycles.layer`** 欄位區分 1 / 2(real schema,白皮書早期描述「scan_results」是舊命名)
+
+下游分析(儀表板趨勢、競品比較)會依需求**合併或分離**兩層資料:
+
+- **合併**場景:使用者看「今日引用率」時,兩層都是同一時段的訊號
+- **分離**場景:分析「修復收斂速度」時,Layer 1 與 Layer 2 收斂時程不同,需分別計算
+
+> **PROD schema correction(R5 PROD-side audit 揭發)**:早期 spec 寫的「`scan_results` 表 + `scan_layer` 欄位」是設計時暫名,實作落地時改為 `closed_loop_cycles.layer`(對應每輪 cycle 而非每個 scan row)。客戶端 dashboard 仍走 `scans` + `platform_results` 表查詢,Layer 1/2 區分透過 `closed_loop_cycles.layer` 反查。
 
 ### Platform-aware re-verification 策略(`platform_repair_strategies` SSOT)
 
