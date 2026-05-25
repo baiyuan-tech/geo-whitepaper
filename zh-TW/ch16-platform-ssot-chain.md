@@ -22,8 +22,9 @@ keywords:
   - Multi-Tenant Consistency
 last_updated: 2026-05-03
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch16-platform-ssot-chain
-last_modified_at: '2026-05-25T15:50:49Z'
+last_modified_at: '2026-05-25T15:59:44Z'
 ---
+
 
 
 
