@@ -548,6 +548,24 @@ function isHallucination(claim, groundTruth) {
 
 ClaimReview 是 Schema.org 正式 property，Google、Facebook、Twitter 等平台都支援解析。它不是百原自定格式，而是與全球 fact-checking 生態系相容的標準[^claimreview]。
 
+### Addon 訂閱前提(R6 對齊 PROD 實作揭發)
+
+**Hallucination Repair** 自動偵測需以下兩個條件同時滿足才會觸發:
+
+1. **客戶有效訂閱**:`tenant_addons.addon_key = 'hallucination_repair'` 且 `status IN ('active','trial')`(且 trial 未過期)
+2. **品牌有 Ground Truth**:`ground_truths WHERE verified_at IS NOT NULL` 至少 1 筆(closedLoop sentinel 條件)
+
+兩者任一不滿足 → closedLoop worker 雖然按 cron 跑(sentinel 4h / full 24h),但 `runPostScanDetection` 直接 return 不做幻覺判定。
+
+**例外**:`users.billing_exempt = TRUE` 的平台自家 user(geo-baiyuan / me-baiyuan 等 demo brand)不需訂閱也自動跑。
+
+**對應 PROD R6 audit 發現(2026-05-26)**:tenant_addons 表 0 rows 訂閱 hallucination_repair → 雖然 closedLoop 14 天累計 339 cycles,但**全 0 detection**。對齊 §9.8 PROD baseline 統計樣本來源:歷史 3366 detections 來自有訂閱 + GT 的 brand,訂閱失效後新增 0。
+
+**對 1 萬租戶 readiness 設計取捨**:
+- Pro+ plan 內含 hallucination_repair addon(對應 [migration 261](https://github.com/VincentLinB/GEO/blob/main/backend/src/db/migrations/261_plan_feature_matrix_hallucination_repair.sql))
+- 客戶若降級至 starter 或取消訂閱 → 自動失效,closedLoop 不再為此 brand 跑 detection
+- v3.29.418 R6 加 closedLoop sweep filter 防無效 cycle:無 addon 訂閱的 brand 不入 queue,節省每 4h 339 cycles 的浪費
+
 ### 三條注入路徑
 
 ```mermaid
