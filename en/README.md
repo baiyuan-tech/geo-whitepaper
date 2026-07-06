@@ -58,7 +58,7 @@ last_modified_at: '2026-05-25T16:53:14Z'
 
 # Baiyuan GEO Platform Whitepaper — Executive Summary
 
-> *This ~1,400-word executive summary distills the whitepaper's five core contributions for readers short on time. The **full English edition** — 13 chapters + 5 appendices (~28,000 words) — is now available at [`en/ch01-geo-era.md`](./ch01-geo-era.md) onward. A Traditional Chinese edition (~30,000 characters) is the original source.*
+> *This ~1,400-word executive summary distills the whitepaper's five core contributions for readers short on time. The **full English edition** — 19 chapters + 5 appendices — is now available at [`en/ch01-geo-era.md`](./ch01-geo-era.md) onward. A Traditional Chinese edition is the original source.*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Full zh-TW edition](https://img.shields.io/badge/Full_edition-zh--TW_v1.0--draft-green.svg)](../zh-TW/ch01-geo-era.md)
@@ -84,7 +84,7 @@ We call the new discipline **GEO** (Generative Engine Optimization). It is not S
 
 ## 3. Core Technical Contributions
 
-The whitepaper's 13 chapters document six distinct contributions that, to our knowledge, have not been published together elsewhere (Ch 13 multimodal GEO and Appendix E platform branching are v1.1 additions):
+The whitepaper's 19 chapters document distinct contributions that, to our knowledge, have not been published together elsewhere (Ch 13 multimodal GEO and Appendix E are v1.1 additions; Ch 17 cross-border China GEO, Ch 18 AXP HTML Mirror-First, and Ch 19 five-layer cache invalidation are v1.2 additions):
 
 ### 3.1 Seven-Dimension Citation Scoring
 

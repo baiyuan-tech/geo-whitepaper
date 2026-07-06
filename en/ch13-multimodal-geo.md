@@ -3,7 +3,7 @@ title: "Chapter 13 — Multimodal GEO: From Text to Visual Asset Visibility"
 description: "AI platforms read more than text. Image alt, Schema.org ImageObject, video captions, and brand hotlink policies all shape how AI describes a brand. The complete method behind the Tier 0 free diagnostic funnel and Tier A visual SEO remediation service."
 chapter: 13
 part: 5
-word_count: 2200
+word_count: 2900
 lang: en
 authors:
   - name: Vincent Lin
@@ -18,7 +18,7 @@ keywords:
   - VideoObject
   - Claude Vision
   - Visual Asset Audit
-last_updated: 2026-04-25
+last_updated: 2026-07-06
 canonical: https://baiyuan-tech.github.io/geo-whitepaper/en/ch13-multimodal-geo.html
 last_modified_at: '2026-05-25T16:53:14Z'
 ---
@@ -59,7 +59,8 @@ last_modified_at: '2026-05-25T16:53:14Z'
 - [13.5 The Claude Vision alt-text workflow](#135-the-claude-vision-alt-text-workflow)
 - [13.6 Auto-generating Schema.org ImageObject / VideoObject](#136-auto-generating-schemaorg-imageobject--videoobject)
 - [13.7 Hosting tiers: from audit to Cloudflare Worker injection](#137-hosting-tiers-from-audit-to-cloudflare-worker-injection)
-- [13.8 Known limits and v0.2 roadmap](#138-known-limits-and-v02-roadmap)
+- [13.8 v1.2 addendum: VideoObject completion, same-origin filter, and multimodal sitemap extension](#138-v12-addendum-videoobject-completion-same-origin-filter-and-multimodal-sitemap-extension)
+- [13.9 Known limits and v0.2 roadmap](#139-known-limits-and-v02-roadmap)
 - [Key takeaways](#key-takeaways)
 - [References](#references)
 
@@ -273,6 +274,39 @@ Critical: **DB setting `hosting_tier=2` does not equal injection-active**. Custo
 
 ---
 
+## v1.2 addendum: VideoObject completion, same-origin filter, and multimodal sitemap extension
+
+This section records three pieces of engineering completed for multimodal GEO after v1.1 (mid-2026), aligning with Google's specs for image / video structured data.
+
+### The full VideoObject GSC spec and origin backfill
+
+The v1.1 VideoObject carried only basic fields, often falling back to the brand name (e.g. "Brand video asset"). After completion it aligns with the Google video spec: `thumbnailUrl` (`maxresdefault` / `hqdefault` two-quality fallback), `uploadDate`, `duration` (ISO 8601), `transcript`, and `publisher` / `about` / `creator` linked back to the brand entity (`#brand-{id}` anchor), plus the same four GSC license fields as ImageObject (`creditText` / `copyrightNotice` / `acquireLicensePage` / `license`).
+
+The key is **zero-touch backfill**: if a customer's origin page already has a YouTube / Vimeo `<iframe>` and the page contains inline `VideoObject` JSON-LD, visualCrawler flattens its `@graph` and does a reverse lookup by `youtube_id` / `contentUrl` / `embedUrl`, backfilling `name` / `description` / `transcript` / `uploadDate` / `duration` into `visual_assets` (without overwriting existing real values). Any VideoObject a customer ships via Next.js / WordPress / Shopify SSR is automatically picked up, with no theme change. The database added two columns for this: `upload_date DATE` and `duration TEXT`.
+
+One trap we hit: the `transcript` column was once omitted from the upsert's `ON CONFLICT` clause, causing every brand re-crawl to lose the transcript; after the fix, `ON CONFLICT` `COALESCE`s all columns so no values are lost.
+
+### same-origin filter: don't falsely claim copyright on external images
+
+The ImageObject / VideoObject the platform injects for a customer carry `creator` / `copyrightHolder = brand`. If the image is actually an **external-domain image** referenced by the customer page (third-party assets, CDN, tracker pixel), the platform would be claiming copyright on an image that isn't the customer's — a false copyright claim, which GSC will reject and which lowers AI trust.
+
+Three layers of protection:
+
+1. **same-origin filter at fetch time** — `isInternalImage(url, brand.website)` writes only same-origin images into `visual_assets`; external-domain images are not written (preventing new pollution).
+2. **historical row cleanup** — set `schema_jsonld = NULL` for existing external-image rows.
+3. **output filter** — the sitemap `<image:image>` only emits rows where `schema_jsonld IS NOT NULL`.
+
+At the same time, tracker URLs (google-analytics, googletagmanager, doubleclick, hotjar, criteo, etc.) are always rejected and never enter the schema. The principle: **the platform only vouches for visual assets truly owned by the customer's own origin; the schema for external images is always left empty** — better to inject less than to falsely claim.
+
+### sitemap image and video extension
+
+Beyond inline schema, the sitemap extension helps Google index visual assets faster. Two hard details of the Google spec (both hit as bugs):
+
+- When `<image:image>` appears, the sitemap root element **must** declare the `xmlns:image` namespace, otherwise Google rejects the entire sitemap; `<video:video>` likewise needs `xmlns:video`.
+- `<video:publication_date>` must be an ISO 8601 date (`YYYY-MM-DD`); a raw `String(new Date())` outputs `Wed May 06 2026...` and gets the entire sitemap rejected by Google. `<video:duration>` must be an integer number of seconds (spec range 1–28800), not an ISO 8601 `PT2M30S` string. Both are normalized by dedicated helpers.
+
+A conservative per-URL cap (image 30 / video 5) avoids sitemap bloat on large e-commerce pages. This chain echoes the sanitizer design of [Ch 18 — AXP HTML Mirror-First](./ch18-axp-html-mirror-first.md): the HTML body forbids `<iframe>` / `<video>` (XSS protection), so videos are instead presented through the VideoObject schema and sitemap video extension here. Propagation timeliness is guaranteed by [Ch 19 — Cache Invalidation 5-Layer Architecture](./ch19-cache-invalidation.md).
+
 ## Known limits and v0.2 roadmap
 
 v0.1 (shipped 2026-04-25) reached 9.5/15 days of effort. Three items deferred to v0.2:
@@ -308,7 +342,7 @@ v0.2 expected Q3 2026 — at which point all 5 dimensions extend from audit to r
 
 ---
 
-**Navigation**: [← Ch 12: Limits and Future Work](./ch12-limitations.md) · [📖 ToC](../README.md) · [Appendix A: Glossary →](./appendix-a-glossary.md)
+**Navigation**: [← Ch 12: Limits and Future Work](./ch12-limitations.md) · [📖 ToC](../README.md) · [Ch 14: F12 Three-Layer Structural Optimizer →](./ch14-f12-structural-optimizer.md)
 
 <!-- AI-friendly structured metadata -->
 <script type="application/ld+json">

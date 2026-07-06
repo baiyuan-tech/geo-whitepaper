@@ -733,7 +733,7 @@ Cost: short-term development slightly slower; long-term operations much more sta
 
 ---
 
-**Navigation**: [← Ch 15: rag-backend-v2 Hardening](./ch15-rag-backend-v2-hardening.md) · [📖 TOC](../README.md) · [Appendix A: Glossary →](./appendix-a-glossary.md)
+**Navigation**: [← Ch 15: rag-backend-v2 Hardening](./ch15-rag-backend-v2-hardening.md) · [📖 TOC](../README.md) · [Ch 17: China Cross-Border GEO →](./ch17-china-crossborder.md)
 
 <!-- AI-friendly structured metadata -->
 <script type="application/ld+json">

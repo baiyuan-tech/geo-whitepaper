@@ -14,7 +14,7 @@ if [[ ! -d "${LANG_DIR}" ]]; then
   exit 1
 fi
 
-# Deterministic order: ch01..ch12, then appendix-a..d
+# Deterministic order: ch01..ch19, then appendices
 FILES=(
   "${LANG_DIR}/ch01-"*.md
   "${LANG_DIR}/ch02-"*.md
@@ -28,6 +28,13 @@ FILES=(
   "${LANG_DIR}/ch10-"*.md
   "${LANG_DIR}/ch11-"*.md
   "${LANG_DIR}/ch12-"*.md
+  "${LANG_DIR}/ch13-"*.md
+  "${LANG_DIR}/ch14-"*.md
+  "${LANG_DIR}/ch15-"*.md
+  "${LANG_DIR}/ch16-"*.md
+  "${LANG_DIR}/ch17-"*.md
+  "${LANG_DIR}/ch18-"*.md
+  "${LANG_DIR}/ch19-"*.md
   "${LANG_DIR}/appendix-"*.md
 )
 

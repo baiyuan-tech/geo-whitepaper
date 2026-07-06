@@ -22,7 +22,7 @@ last_updated: 2026-04-18
 
 # Baiyuan GEO Platform ホワイトペーパー — エグゼクティブサマリー
 
-> *本書の完全版は繁体字中国語版（約 30,000 字）、英語版（約 28,000 語）、日本語版（約 30,000 字）で公開済み。本エグゼクティブサマリーは時間の限られた読者向けに主要な貢献を 5 項目に凝縮したものである。**完全な日本語版**（12 章 + 4 付録）は [`ja/ch01-geo-era.md`](./ch01-geo-era.md) 以降から読める。*
+> *本書の完全版は繁体字中国語版（約 30,000 字）、英語版（約 28,000 語）、日本語版（約 30,000 字）で公開済み。本エグゼクティブサマリーは時間の限られた読者向けに主要な貢献を 5 項目に凝縮したものである。**完全な日本語版**（19 章 + 5 付録）は [`ja/ch01-geo-era.md`](./ch01-geo-era.md) 以降から読める。*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Full zh-TW](https://img.shields.io/badge/zh--TW-complete-green.svg)](../zh-TW/ch01-geo-era.md)
@@ -59,6 +59,15 @@ last_updated: 2026-04-18
 - [第11章 — 5 ブランド実地観察](./ch11-case-studies.md)
 - [第12章 — 限界、未解決問題、今後の課題](./ch12-limitations.md)
 - [第13章 — マルチモーダル GEO:テキストからビジュアル資産の可視性へ](./ch13-multimodal-geo.md) **(v1.1 新規)**
+- [第14章 — F12 三層構造オプティマイザ:ルール V1 から双エンジン v3.1 へ](./ch14-f12-structural-optimizer.md) **(v1.2 新規)**
+- [第15章 — rag-backend-v2 の堅牢化:6 層の LLM ハルシネーション防御設計](./ch15-rag-backend-v2-hardening.md) **(v1.2 新規)**
+- [第16章 — プラットフォーム SSOT チェーン:brand_faq から page_type、alerts まで](./ch16-platform-ssot-chain.md) **(v1.2 新規)**
+
+**Part 6 — 拡張能力（v1.2 新規）**
+
+- [第17章 — 越境中国 GEO:香港エッジノードと双方向 AI 可視性](./ch17-china-crossborder.md) **(v1.2 新規)**
+- [第18章 — AXP HTML Mirror-First:Markdown からセマンティック HTML へのシャドウドキュメント進化](./ch18-axp-html-mirror-first.md) **(v1.2 新規)**
+- [第19章 — キャッシュ無効化 5 層アーキテクチャ:1 万テナントの zero-touch 伝播](./ch19-cache-invalidation.md) **(v1.2 新規)**
 
 **付録**
 

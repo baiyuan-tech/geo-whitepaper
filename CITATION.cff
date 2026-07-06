@@ -9,9 +9,14 @@ abstract: >-
   entity knowledge graph, closed-loop hallucination detection &
   auto-remediation, F12 three-layer structural optimizer (V1 rule-based +
   V3.1 dual-engine AutoGEO + E-GEO), rag-backend-v2 LLM hallucination
-  hardening (six defense layers), and platform SSOT chain (brand_faq /
-  page_type / alerts). Traditional Chinese complete (chapters 1-16,
-  ~50,000 characters); English chapters 1-16 (1-13 from v1.0, 14-16 added in v1.1).
+  hardening (six defense layers), platform SSOT chain (brand_faq /
+  page_type / alerts), cross-border China GEO (Hong Kong edge node,
+  UA routing, ICP-free central compliance, bidirectional AI visibility),
+  AXP HTML Mirror-First (semantic HTML shadow docs mirroring customer
+  origin), multimodal GEO (zero-touch ImageObject / VideoObject injection),
+  and a five-layer cache-invalidation architecture for zero-touch
+  propagation. Traditional Chinese and English complete (chapters 1-19,
+  ~60,000 characters); Japanese complete (chapters 1-19).
 type: report
 authors:
   - family-names: Lin
@@ -20,8 +25,8 @@ authors:
     affiliation: "Baiyuan Technology"
     orcid: https://orcid.org/0009-0004-8264-368X
     website: https://baiyuan.io
-version: "1.1.2"
-date-released: 2026-05-03
+version: "1.2.0"
+date-released: 2026-07-06
 url: "https://github.com/baiyuan-tech/geo-whitepaper"
 repository-code: "https://github.com/baiyuan-tech/geo-whitepaper"
 license: CC-BY-NC-4.0
@@ -48,6 +53,13 @@ keywords:
   - LLM Wiki Compiler
   - Single Source of Truth
   - 10K-tenant readiness
+  - Cross-Border GEO
+  - China AI Visibility
+  - Multimodal GEO
+  - ImageObject
+  - VideoObject
+  - Cache Invalidation
+  - Edge Purge
 identifiers:
   - type: doi
     value: "10.5281/zenodo.19994035"
@@ -57,7 +69,7 @@ identifiers:
     description: "Version DOI (v1.1.1)"
   - type: doi
     value: "10.5281/zenodo.19996656"
-    description: "Version DOI (v1.1.2 — current)"
+    description: "Version DOI (v1.1.2)"
   - type: url
     value: "https://github.com/baiyuan-tech/geo-whitepaper"
     description: "GitHub repository"
@@ -79,7 +91,7 @@ preferred-citation:
     name: "Baiyuan Technology"
     website: "https://baiyuan.io"
   year: 2026
-  month: 5
+  month: 7
   url: "https://doi.org/10.5281/zenodo.19994035"
   doi: "10.5281/zenodo.19994035"
-  version: "1.1.2"
+  version: "1.2.0"

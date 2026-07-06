@@ -6,7 +6,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19994035.svg)](https://doi.org/10.5281/zenodo.19994035)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-[![Status: v1.1.2](https://img.shields.io/badge/Status-v1.1.2-blue.svg)](#修訂記錄)
+[![Status: v1.2.0](https://img.shields.io/badge/Status-v1.2.0-blue.svg)](#修訂記錄)
 [![zh-TW](https://img.shields.io/badge/zh--TW-complete-green.svg)](zh-TW/)
 [![en](https://img.shields.io/badge/en-complete-green.svg)](en/)
 [![ja](https://img.shields.io/badge/ja-complete-green.svg)](ja/)
@@ -139,6 +139,12 @@
 - [Ch 14 — F12 三層結構優化器:從規則 V1 到雙引擎 v3.1](zh-TW/ch14-f12-structural-optimizer.md) **(v1.1.0 新增)**
 - [Ch 15 — rag-backend-v2 加固:六層 LLM hallucination 失敗模式的防禦設計](zh-TW/ch15-rag-backend-v2-hardening.md) **(v1.1.0 新增)**
 - [Ch 16 — 平台 SSOT 全鏈:從 brand_faq 到 page_type 到 alerts 的單一事實源](zh-TW/ch16-platform-ssot-chain.md) **(v1.1.0 新增)**
+
+### Part VI — 擴充能力（v1.2 新增）
+
+- [Ch 17 — 中國跨境 GEO:香港邊緣節點與雙向 AI 能見度](zh-TW/ch17-china-crossborder.md) **(v1.2 新增)**
+- [Ch 18 — AXP HTML Mirror-First:從 Markdown 到語意 HTML 的影子文檔演進](zh-TW/ch18-axp-html-mirror-first.md) **(v1.2 新增)**
+- [Ch 19 — 快取失效 5 層架構:1 萬租戶的 zero-touch 傳播](zh-TW/ch19-cache-invalidation.md) **(v1.2 新增)**
 
 ### 附錄
 
@@ -362,6 +368,7 @@ geo-whitepaper/
 | 2026-05-03 | **v1.1.0** | **新增 Ch 14(F12 三層結構優化器)/ Ch 15(rag-backend-v2 加固 6 層)/ Ch 16(平台 SSOT 全鏈)**;zh-TW + en 雙語同步;加 `.zenodo.json` 預備 DOI deposit;CITATION.cff ORCID 0009-0004-8264-368X 已填 |
 | **2026-05-03** | **v1.1.1 published** | 🎓 **正式發布日**(formal publication date)— Zenodo DOI 取得:Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)(永久,版本無關)/ Version DOI [`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)(v1.1.1 specific)。CITATION.cff 完整補上 ORCID + 兩個 DOI identifier;README 加 Zenodo DOI badge + 4 種引用格式(APA 7 / Chicago 17th / IEEE / BibTeX);本書自此正式 indexed by Google Scholar、Semantic Scholar、OpenAIRE、CrossRef |
 | **2026-05-03** | **v1.1.2** | **Ch 14 / 15 / 16 雙語深度擴充**(zh-TW + en 兩版各 6 個檔案,新增 ~13,000 字 / ~12,300 英文字)— 加入 5 條工程教訓 / 章 × 3 章 = 15 條 takeaway,涵蓋字面 port arxiv vs 自家發明、SSOT vs 寫死、DB-level vs application-level、觀察期、hook + safety net、LLM silent failure、三層 fallback、patch 順序原理、cache invalidation、silent catch、custom mapping 違憲、schema 演化歷史債、規模化代價;新增段落涵蓋 breadcrumb 404 ghost 事件 42 天時間線、Patch 順序因果鏈、跨微服務 SSOT 邊界、host-aware metadata helper、cache 跨租戶隱私邊界、LLM 確定性假設;同時收尾 LinkedIn 4 份發文草稿(zh-TW 個人 / en 個人 / ja 個人 / zh 公司)。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;**新版 Version DOI [`10.5281/zenodo.19996656`](https://doi.org/10.5281/zenodo.19996656) 已由 Zenodo 自動分配** |
+| **2026-07-06** | **v1.2.0** | **新增 Part VI 擴充能力 3 章**:Ch 17(中國跨境 GEO — 香港邊緣節點 UA 分流 + 中央合規免 ICP + `X-Original-Host` 鐵律 + 雙向對稱曝光 + 站長平台驗證)/ Ch 18(AXP HTML Mirror-First — origin 鏡射語意 HTML + SSRF 守 + sanitizer allowlist + 雙 Schema 路徑同步)/ Ch 19(快取失效 5 層架構 — L1 Redis + L3 CF edge purge + 頻率感知 TTL SSOT + scanner 自動失效 + daily polling zero-touch);zh-TW + en 三新章同步;**ja 日本語版補齊 Ch 14-16 並新增 Ch 17-19**(ja 自此涵蓋 Ch 1-19 全篇);Ch 13(多模態 GEO)三語增補 VideoObject 完整 GSC 化 + origin 倒灌 / same-origin filter 不偽稱版權 / sitemap 影像影片 extension。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;新版 Version DOI 由 Zenodo 於 release tag 後自動分配 |
 
 ---
 
@@ -391,7 +398,7 @@ geo-whitepaper/
     "url": "https://baiyuan.io"
   },
   "datePublished": "2026-04-18",
-  "inLanguage": ["zh-TW", "en"],
+  "inLanguage": ["zh-TW", "en", "ja"],
   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "about": [
     "Generative Engine Optimization",
@@ -399,8 +406,11 @@ geo-whitepaper/
     "Schema.org Structured Data",
     "Multi-Provider AI Fault Tolerance",
     "Hallucination Detection",
-    "Hallucination Repair"
+    "Hallucination Repair",
+    "Cross-Border AI Visibility",
+    "Multimodal GEO",
+    "Edge Cache Invalidation"
   ],
-  "keywords": "GEO, Generative Engine Optimization, AI citation, Schema.org, Cloudflare Workers, PostgreSQL, multi-tenant SaaS, Hallucination Repair, hallucination detection, knowledge graph, NLI, Chainpoll, six-tier authority chain"
+  "keywords": "GEO, Generative Engine Optimization, AI citation, Schema.org, Cloudflare Workers, PostgreSQL, multi-tenant SaaS, Hallucination Repair, hallucination detection, knowledge graph, NLI, Chainpoll, six-tier authority chain, cross-border China AI, ImageObject, VideoObject, cache invalidation, zero-touch propagation"
 }
 </script>
