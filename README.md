@@ -12,9 +12,9 @@
 [![ja](https://img.shields.io/badge/ja-complete-green.svg)](ja/)
 [![PDF](https://img.shields.io/badge/PDF-download-red.svg)](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 
-> **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)** or jump to **[Ch 1 (en)](en/ch01-geo-era.md)**. Full English edition (12 chapters + 4 appendices, ~28k words) is complete.
+> **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)** or jump to **[Ch 1 (en)](en/ch01-geo-era.md)**. Full English edition (19 chapters + 5 appendices) is complete.
 >
-> **日本語の読者** → **[エグゼクティブサマリー（ja/README.md）](ja/README.md)** または直接 **[第 1 章 (ja)](ja/ch01-geo-era.md)** へ。完全な日本語版（12 章 + 4 付録、約 30,000 字）を公開済み。
+> **日本語の読者** → **[エグゼクティブサマリー（ja/README.md）](ja/README.md)** または直接 **[第 1 章 (ja)](ja/ch01-geo-era.md)** へ。完全な日本語版（19 章 + 5 付録）を公開済み。
 
 ---
 
@@ -55,6 +55,7 @@
 ### 學術索引
 
 - **DOI(Concept,版本無關常駐)**:[`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)
+- **DOI(v1.2.0,current)**:[`10.5281/zenodo.21222575`](https://doi.org/10.5281/zenodo.21222575)
 - **DOI(v1.1.1)**:[`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)
 - **Zenodo deposit**:CC BY-NC 4.0 / Open Access / 自動 indexed by Google Scholar、Semantic Scholar、OpenAIRE、CrossRef
 
@@ -178,6 +179,7 @@
 **DOI**(透過 Zenodo,所有版本):
 
 - **Concept DOI**(版本無關,永久解析最新版本):[`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)
+- **v1.2.0 Version DOI(current)**:[`10.5281/zenodo.21222575`](https://doi.org/10.5281/zenodo.21222575)
 - **v1.1.1 Version DOI**:[`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)
 
 **ORCID(主筆)**:[`0009-0004-8264-368X`](https://orcid.org/0009-0004-8264-368X)
@@ -186,15 +188,15 @@
 
 ### APA 7th
 
-> Lin, V. (2026). *Baiyuan GEO Platform: A whitepaper on building a SaaS for generative engine optimization* (Version 1.1.1) [Report]. Zenodo. <https://doi.org/10.5281/zenodo.19994035>
+> Lin, V. (2026). *Baiyuan GEO Platform: A whitepaper on building a SaaS for generative engine optimization* (Version 1.2.0) [Report]. Zenodo. <https://doi.org/10.5281/zenodo.19994035>
 
 ### Chicago 17th(notes-bibliography 風格,bibliography 條目)
 
-> Lin, Vincent. *Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization*. Version 1.1.1. Baiyuan Technology, 2026. <https://doi.org/10.5281/zenodo.19994035>.
+> Lin, Vincent. *Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization*. Version 1.2.0. Baiyuan Technology, 2026. <https://doi.org/10.5281/zenodo.19994035>.
 
 ### IEEE
 
-> [1] V. Lin, "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization," version 1.1.1, Baiyuan Technology, May 3, 2026. doi: [10.5281/zenodo.19994035](https://doi.org/10.5281/zenodo.19994035).
+> [1] V. Lin, "Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization," version 1.2.0, Baiyuan Technology, July 6, 2026. doi: [10.5281/zenodo.19994035](https://doi.org/10.5281/zenodo.19994035).
 
 ### BibTeX
 
@@ -204,14 +206,14 @@
   title       = {Baiyuan GEO Platform: A Whitepaper on Building a SaaS for Generative Engine Optimization},
   institution = {Baiyuan Technology},
   year        = {2026},
-  month       = {5},
-  version     = {1.1.1},
+  month       = {7},
+  version     = {1.2.0},
   doi         = {10.5281/zenodo.19994035},
   url         = {https://doi.org/10.5281/zenodo.19994035},
   orcid       = {0009-0004-8264-368X},
   publisher   = {Zenodo},
   type        = {Report},
-  note        = {Concept DOI resolves to latest; v1.1.1 specific DOI: 10.5281/zenodo.19994059}
+  note        = {Concept DOI resolves to latest; v1.2.0 specific DOI: 10.5281/zenodo.21222575}
 }
 ```
 
@@ -368,7 +370,7 @@ geo-whitepaper/
 | 2026-05-03 | **v1.1.0** | **新增 Ch 14(F12 三層結構優化器)/ Ch 15(rag-backend-v2 加固 6 層)/ Ch 16(平台 SSOT 全鏈)**;zh-TW + en 雙語同步;加 `.zenodo.json` 預備 DOI deposit;CITATION.cff ORCID 0009-0004-8264-368X 已填 |
 | **2026-05-03** | **v1.1.1 published** | 🎓 **正式發布日**(formal publication date)— Zenodo DOI 取得:Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)(永久,版本無關)/ Version DOI [`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)(v1.1.1 specific)。CITATION.cff 完整補上 ORCID + 兩個 DOI identifier;README 加 Zenodo DOI badge + 4 種引用格式(APA 7 / Chicago 17th / IEEE / BibTeX);本書自此正式 indexed by Google Scholar、Semantic Scholar、OpenAIRE、CrossRef |
 | **2026-05-03** | **v1.1.2** | **Ch 14 / 15 / 16 雙語深度擴充**(zh-TW + en 兩版各 6 個檔案,新增 ~13,000 字 / ~12,300 英文字)— 加入 5 條工程教訓 / 章 × 3 章 = 15 條 takeaway,涵蓋字面 port arxiv vs 自家發明、SSOT vs 寫死、DB-level vs application-level、觀察期、hook + safety net、LLM silent failure、三層 fallback、patch 順序原理、cache invalidation、silent catch、custom mapping 違憲、schema 演化歷史債、規模化代價;新增段落涵蓋 breadcrumb 404 ghost 事件 42 天時間線、Patch 順序因果鏈、跨微服務 SSOT 邊界、host-aware metadata helper、cache 跨租戶隱私邊界、LLM 確定性假設;同時收尾 LinkedIn 4 份發文草稿(zh-TW 個人 / en 個人 / ja 個人 / zh 公司)。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;**新版 Version DOI [`10.5281/zenodo.19996656`](https://doi.org/10.5281/zenodo.19996656) 已由 Zenodo 自動分配** |
-| **2026-07-06** | **v1.2.0** | **新增 Part VI 擴充能力 3 章**:Ch 17(中國跨境 GEO — 香港邊緣節點 UA 分流 + 中央合規免 ICP + `X-Original-Host` 鐵律 + 雙向對稱曝光 + 站長平台驗證)/ Ch 18(AXP HTML Mirror-First — origin 鏡射語意 HTML + SSRF 守 + sanitizer allowlist + 雙 Schema 路徑同步)/ Ch 19(快取失效 5 層架構 — L1 Redis + L3 CF edge purge + 頻率感知 TTL SSOT + scanner 自動失效 + daily polling zero-touch);zh-TW + en 三新章同步;**ja 日本語版補齊 Ch 14-16 並新增 Ch 17-19**(ja 自此涵蓋 Ch 1-19 全篇);Ch 13(多模態 GEO)三語增補 VideoObject 完整 GSC 化 + origin 倒灌 / same-origin filter 不偽稱版權 / sitemap 影像影片 extension。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;新版 Version DOI 由 Zenodo 於 release tag 後自動分配 |
+| **2026-07-06** | **v1.2.0** | **新增 Part VI 擴充能力 3 章**:Ch 17(中國跨境 GEO — 香港邊緣節點 UA 分流 + 中央合規免 ICP + `X-Original-Host` 鐵律 + 雙向對稱曝光 + 站長平台驗證)/ Ch 18(AXP HTML Mirror-First — origin 鏡射語意 HTML + SSRF 守 + sanitizer allowlist + 雙 Schema 路徑同步)/ Ch 19(快取失效 5 層架構 — L1 Redis + L3 CF edge purge + 頻率感知 TTL SSOT + scanner 自動失效 + daily polling zero-touch);zh-TW + en 三新章同步;**ja 日本語版補齊 Ch 14-16 並新增 Ch 17-19**(ja 自此涵蓋 Ch 1-19 全篇);Ch 13(多模態 GEO)三語增補 VideoObject 完整 GSC 化 + origin 倒灌 / same-origin filter 不偽稱版權 / sitemap 影像影片 extension。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;v1.2.0 Version DOI [`10.5281/zenodo.21222575`](https://doi.org/10.5281/zenodo.21222575) 已由 Zenodo 自動分配 |
 
 ---
 
