@@ -23,7 +23,9 @@ keywords:
   - Doubao
 last_updated: 2026-07-06
 canonical: https://baiyuan.io/whitepaper/en/ch17-china-crossborder
+last_modified_at: '2026-07-06T22:25:40+08:00'
 ---
+
 
 # Chapter 17 — China Cross-Border GEO: A Hong Kong Edge Node and Bidirectional AI Visibility
 

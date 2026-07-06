@@ -22,7 +22,9 @@ keywords:
   - Markdown to HTML
 last_updated: 2026-07-06
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch18-axp-html-mirror-first
+last_modified_at: '2026-07-06T22:25:40+08:00'
 ---
+
 
 # Chapter 18 — AXP HTML Mirror-First:從 Markdown 到語意 HTML 的影子文檔演進
 

@@ -21,7 +21,9 @@ keywords:
   - Content Freshness
 last_updated: 2026-07-06
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch19-cache-invalidation
+last_modified_at: '2026-07-06T22:25:40+08:00'
 ---
+
 
 # Chapter 19 — 快取失效 5 層架構:1 萬租戶的 zero-touch 傳播
 

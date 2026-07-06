@@ -23,7 +23,9 @@ keywords:
   - Doubao
 last_updated: 2026-07-06
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch17-china-crossborder
+last_modified_at: '2026-07-06T22:25:40+08:00'
 ---
+
 
 # Chapter 17 — 中國跨境 GEO:香港邊緣節點與雙向 AI 能見度
 
