@@ -131,6 +131,7 @@ const faqs = await fetch(`/api/v1/brands/${brandId}/faq`).then(r => r.json());
 `HomepageJsonLd.tsx`(Server Component)は `headers().get('host')` で現在の host を検知 → `HOST_TO_SLUG` map → `fetch('/api/v1/c/' + slug + '/brand-faq.json')` → `<script type="application/ld+json">` FAQPage @graph を注入する。
 
 {% raw %}
+
 ```typescript
 // frontend/src/app/HomepageJsonLd.tsx (server component)
 import { headers } from 'next/headers';
@@ -164,6 +165,7 @@ export async function HomepageJsonLd() {
   }} />;
 }
 ```
+
 {% endraw %}
 
 2 つの重要な設計:
