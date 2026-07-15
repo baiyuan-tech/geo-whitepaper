@@ -21,8 +21,9 @@ keywords:
   - Content Freshness
 last_updated: 2026-07-06
 canonical: https://baiyuan.io/whitepaper/en/ch19-cache-invalidation
-last_modified_at: '2026-07-06T14:25:55Z'
+last_modified_at: '2026-07-06T14:32:13Z'
 ---
+
 
 
 
