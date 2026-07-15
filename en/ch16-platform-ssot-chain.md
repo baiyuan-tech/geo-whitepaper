@@ -146,6 +146,7 @@ const faqs = await fetch(`/api/v1/brands/${brandId}/faq`).then(r => r.json());
 
 `HomepageJsonLd.tsx` (Server Component) uses `headers().get('host')` to detect current host → `HOST_TO_SLUG` map → `fetch('/api/v1/c/' + slug + '/brand-faq.json')` → injects `<script type="application/ld+json">` FAQPage @graph.
 
+{% raw %}
 ```typescript
 // frontend/src/app/HomepageJsonLd.tsx (server component)
 import { headers } from 'next/headers';
@@ -179,6 +180,7 @@ export async function HomepageJsonLd() {
   }} />;
 }
 ```
+{% endraw %}
 
 Two critical designs:
 

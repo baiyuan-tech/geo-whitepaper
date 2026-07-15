@@ -54,6 +54,8 @@ for f in "${FILES[@]}"; do
     /^<script type="application\/ld\+json">/ { inld=1; next }
     inld==1 && /^<\/script>/ { inld=0; next }
     inld==1 { next }
+    /^\{% raw %\}[[:space:]]*$/ { next }
+    /^\{% endraw %\}[[:space:]]*$/ { next }
     /^\*\*導覽\*\*/ { next }
     /^\*\*Navigation\*\*/ { next }
     /^\*\*ナビゲーション\*\*/ { next }
