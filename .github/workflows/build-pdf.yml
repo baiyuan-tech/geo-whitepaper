@@ -55,21 +55,45 @@ jobs:
           bash assets/pdf/concat.sh zh-TW > whitepaper-zh-TW.md
           wc -l whitepaper-zh-TW.md
 
-      - name: Preprocess for XeLaTeX compatibility
-        # Mermaid blocks → placeholder text (diagrams stay rendered on GitHub web).
+      - name: Install mermaid-cli (diagram rendering; best-effort, falls back to placeholder)
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2t64 \
+            libpangocairo-1.0-0 libgtk-3-0 libxshmfence1 libxdamage1 libxcomposite1 \
+            libxrandr2 libxkbcommon0 libxfixes3 fonts-noto-cjk fonts-noto-color-emoji || true
+          npm install -g @mermaid-js/mermaid-cli@11 || echo "mmdc install failed"
+          printf '{"args":["--no-sandbox","--disable-gpu","--disable-dev-shm-usage"]}' > /tmp/puppeteer.json
+          mmdc --version || echo "mmdc unavailable — diagrams will use placeholder text"
+
+      - name: Preprocess for XeLaTeX compatibility (render mermaid to PNG, fall back to placeholder)
+        # Mermaid blocks → rendered PNG embedded in the PDF (falls back to placeholder text if mmdc fails).
         # Emoji stripped (CJK fonts don't cover them; decorative only).
         # Variation selectors and ZWJ removed (confuse fontspec).
         run: |
           python3 <<'PY'
           import re
+          import subprocess, os
           p = 'whitepaper-zh-TW.md'
+          PLACEHOLDER = '*[Mermaid diagram — see web version on GitHub]*'
           text = open(p, 'r', encoding='utf-8').read()
 
-          text = re.sub(
-            r'```mermaid\s*\n.*?\n```',
-            '*[Mermaid diagram — see web version on GitHub]*',
-            text, flags=re.DOTALL,
-          )
+          _n = [0]
+          def _render_mermaid(m):
+              src = m.group(1); i = _n[0]; _n[0] += 1
+              mmd, png = f'diagram_{i}.mmd', f'diagram_{i}.png'
+              open(mmd, 'w', encoding='utf-8').write(src)
+              try:
+                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '2',
+                                      '--puppeteerConfigFile', '/tmp/puppeteer.json'],
+                                     capture_output=True, timeout=180)
+                  if r.returncode == 0 and os.path.exists(png) and os.path.getsize(png) > 1000:
+                      print(f'[mermaid] rendered {png}')
+                      return f'\n\n![]({png}){{width=78%}}\n\n'
+                  print(f'[mermaid] mmdc rc={r.returncode} for diagram {i} -> placeholder')
+              except Exception as e:
+                  print(f'[mermaid] exception for diagram {i}: {e} -> placeholder')
+              return PLACEHOLDER
+          text = re.sub(r'```mermaid\s*\n(.*?)\n```', _render_mermaid, text, flags=re.DOTALL)
 
           emoji_ranges = (
             (0x1F300, 0x1F64F), (0x1F680, 0x1F6FF), (0x1F700, 0x1F77F),
@@ -198,18 +222,42 @@ jobs:
           bash assets/pdf/concat.sh en > whitepaper-en.md
           wc -l whitepaper-en.md
 
-      - name: Preprocess for XeLaTeX compatibility
+      - name: Install mermaid-cli (diagram rendering; best-effort, falls back to placeholder)
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2t64 \
+            libpangocairo-1.0-0 libgtk-3-0 libxshmfence1 libxdamage1 libxcomposite1 \
+            libxrandr2 libxkbcommon0 libxfixes3 fonts-noto-cjk fonts-noto-color-emoji || true
+          npm install -g @mermaid-js/mermaid-cli@11 || echo "mmdc install failed"
+          printf '{"args":["--no-sandbox","--disable-gpu","--disable-dev-shm-usage"]}' > /tmp/puppeteer.json
+          mmdc --version || echo "mmdc unavailable — diagrams will use placeholder text"
+
+      - name: Preprocess for XeLaTeX compatibility (render mermaid to PNG, fall back to placeholder)
         run: |
           python3 <<'PY'
           import re
+          import subprocess, os
           p = 'whitepaper-en.md'
+          PLACEHOLDER = '*[Mermaid diagram — see web version on GitHub]*'
           text = open(p, 'r', encoding='utf-8').read()
 
-          text = re.sub(
-            r'```mermaid\s*\n.*?\n```',
-            '*[Mermaid diagram — see web version on GitHub]*',
-            text, flags=re.DOTALL,
-          )
+          _n = [0]
+          def _render_mermaid(m):
+              src = m.group(1); i = _n[0]; _n[0] += 1
+              mmd, png = f'diagram_{i}.mmd', f'diagram_{i}.png'
+              open(mmd, 'w', encoding='utf-8').write(src)
+              try:
+                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '2',
+                                      '--puppeteerConfigFile', '/tmp/puppeteer.json'],
+                                     capture_output=True, timeout=180)
+                  if r.returncode == 0 and os.path.exists(png) and os.path.getsize(png) > 1000:
+                      print(f'[mermaid] rendered {png}')
+                      return f'\n\n![]({png}){{width=78%}}\n\n'
+                  print(f'[mermaid] mmdc rc={r.returncode} for diagram {i} -> placeholder')
+              except Exception as e:
+                  print(f'[mermaid] exception for diagram {i}: {e} -> placeholder')
+              return PLACEHOLDER
+          text = re.sub(r'```mermaid\s*\n(.*?)\n```', _render_mermaid, text, flags=re.DOTALL)
 
           emoji_ranges = (
             (0x1F300, 0x1F64F), (0x1F680, 0x1F6FF), (0x1F700, 0x1F77F),
@@ -333,18 +381,42 @@ jobs:
           bash assets/pdf/concat.sh ja > whitepaper-ja.md
           wc -l whitepaper-ja.md
 
-      - name: Preprocess for XeLaTeX compatibility
+      - name: Install mermaid-cli (diagram rendering; best-effort, falls back to placeholder)
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2t64 \
+            libpangocairo-1.0-0 libgtk-3-0 libxshmfence1 libxdamage1 libxcomposite1 \
+            libxrandr2 libxkbcommon0 libxfixes3 fonts-noto-cjk fonts-noto-color-emoji || true
+          npm install -g @mermaid-js/mermaid-cli@11 || echo "mmdc install failed"
+          printf '{"args":["--no-sandbox","--disable-gpu","--disable-dev-shm-usage"]}' > /tmp/puppeteer.json
+          mmdc --version || echo "mmdc unavailable — diagrams will use placeholder text"
+
+      - name: Preprocess for XeLaTeX compatibility (render mermaid to PNG, fall back to placeholder)
         run: |
           python3 <<'PY'
           import re
+          import subprocess, os
           p = 'whitepaper-ja.md'
+          PLACEHOLDER = '*[Mermaid ダイアグラム — GitHub の Web 版を参照]*'
           text = open(p, 'r', encoding='utf-8').read()
 
-          text = re.sub(
-            r'```mermaid\s*\n.*?\n```',
-            '*[Mermaid ダイアグラム — GitHub の Web 版を参照]*',
-            text, flags=re.DOTALL,
-          )
+          _n = [0]
+          def _render_mermaid(m):
+              src = m.group(1); i = _n[0]; _n[0] += 1
+              mmd, png = f'diagram_{i}.mmd', f'diagram_{i}.png'
+              open(mmd, 'w', encoding='utf-8').write(src)
+              try:
+                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '2',
+                                      '--puppeteerConfigFile', '/tmp/puppeteer.json'],
+                                     capture_output=True, timeout=180)
+                  if r.returncode == 0 and os.path.exists(png) and os.path.getsize(png) > 1000:
+                      print(f'[mermaid] rendered {png}')
+                      return f'\n\n![]({png}){{width=78%}}\n\n'
+                  print(f'[mermaid] mmdc rc={r.returncode} for diagram {i} -> placeholder')
+              except Exception as e:
+                  print(f'[mermaid] exception for diagram {i}: {e} -> placeholder')
+              return PLACEHOLDER
+          text = re.sub(r'```mermaid\s*\n(.*?)\n```', _render_mermaid, text, flags=re.DOTALL)
 
           emoji_ranges = (
             (0x1F300, 0x1F64F), (0x1F680, 0x1F6FF), (0x1F700, 0x1F77F),
