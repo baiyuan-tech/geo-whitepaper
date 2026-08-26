@@ -14,7 +14,7 @@ if [[ ! -d "${LANG_DIR}" ]]; then
   exit 1
 fi
 
-# Deterministic order: ch01..ch20, then appendices
+# Deterministic order: ch01..ch21, then appendices
 FILES=(
   "${LANG_DIR}/ch01-"*.md
   "${LANG_DIR}/ch02-"*.md
@@ -36,6 +36,7 @@ FILES=(
   "${LANG_DIR}/ch18-"*.md
   "${LANG_DIR}/ch19-"*.md
   "${LANG_DIR}/ch20-"*.md
+  "${LANG_DIR}/ch21-"*.md
   "${LANG_DIR}/appendix-"*.md
 )
 
@@ -55,8 +56,6 @@ for f in "${FILES[@]}"; do
     /^<script type="application\/ld\+json">/ { inld=1; next }
     inld==1 && /^<\/script>/ { inld=0; next }
     inld==1 { next }
-    /^\{% raw %\}[[:space:]]*$/ { next }
-    /^\{% endraw %\}[[:space:]]*$/ { next }
     /^\*\*導覽\*\*/ { next }
     /^\*\*Navigation\*\*/ { next }
     /^\*\*ナビゲーション\*\*/ { next }

@@ -15,10 +15,12 @@ abstract: >-
   AXP HTML Mirror-First (semantic HTML shadow docs mirroring customer
   origin), multimodal GEO (zero-touch ImageObject / VideoObject injection),
   and a five-layer cache-invalidation architecture for zero-touch
-  propagation, and programmatic supply of the scan engine (pull-based
-  executor, exactly-once delivery, zero-infra market view). Traditional
-  Chinese and English complete (chapters 1-20, ~62,000 characters);
-  Japanese complete (chapters 1-20).
+  propagation, programmatic supply of the scan engine (pull-based
+  executor, exactly-once delivery, zero-infra market view), and
+  customer-domain AXP delivery (CF Worker vs subdomain CNAME via
+  Cloudflare for SaaS, delivery_mode SSOT). Traditional Chinese and
+  English complete (chapters 1-21, ~64,000 characters); Japanese
+  complete (chapters 1-21).
 type: report
 authors:
   - family-names: Lin

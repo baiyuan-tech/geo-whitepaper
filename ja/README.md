@@ -22,7 +22,7 @@ last_updated: 2026-04-18
 
 # Baiyuan GEO Platform ホワイトペーパー — エグゼクティブサマリー
 
-> *本書の完全版は繁体字中国語版（約 30,000 字）、英語版（約 28,000 語）、日本語版（約 30,000 字）で公開済み。本エグゼクティブサマリーは時間の限られた読者向けに主要な貢献を 5 項目に凝縮したものである。**完全な日本語版**（20 章 + 5 付録）は [`ja/ch01-geo-era.md`](./ch01-geo-era.md) 以降から読める。*
+> *本書の完全版は繁体字中国語版（約 30,000 字）、英語版（約 28,000 語）、日本語版（約 30,000 字）で公開済み。本エグゼクティブサマリーは時間の限られた読者向けに主要な貢献を 5 項目に凝縮したものである。**完全な日本語版**（21 章 + 5 付録）は [`ja/ch01-geo-era.md`](./ch01-geo-era.md) 以降から読める。*
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Full zh-TW](https://img.shields.io/badge/zh--TW-complete-green.svg)](../zh-TW/ch01-geo-era.md)
@@ -69,6 +69,7 @@ last_updated: 2026-04-18
 - [第18章 — AXP HTML Mirror-First:Markdown からセマンティック HTML へのシャドウドキュメント進化](./ch18-axp-html-mirror-first.md) **(v1.2 新規)**
 - [第19章 — キャッシュ無効化 5 層アーキテクチャ:1 万テナントの zero-touch 伝播](./ch19-cache-invalidation.md) **(v1.2 新規)**
 - [第20章 — スキャンエンジンのプログラマティック供給:pull executor、exactly-once 配信、ゼロインフラの市場視点](./ch20-scan-engine-api.md) **(v1.3 新規)**
+- [第21章 — 顧客自有ドメインへの AXP 配信:CF Worker とサブドメイン CNAME](./ch21-axp-delivery-modes.md) **(v1.3 新規)**
 
 **付録**
 
