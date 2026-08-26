@@ -21,8 +21,9 @@ keywords:
   - Multi-Tenant SaaS
 last_updated: 2026-08-26
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch21-axp-delivery-modes
-last_modified_at: '2026-08-26T12:00:00+08:00'
+last_modified_at: '2026-08-26T10:37:33+08:00'
 ---
+
 
 
 # Chapter 21 — 客戶自有網域的 AXP 交付:CF Worker(委派 DNS)與子網域 CNAME(不委派)

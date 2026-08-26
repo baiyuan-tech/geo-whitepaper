@@ -21,8 +21,9 @@ keywords:
   - Multi-Tenant SaaS
 last_updated: 2026-08-26
 canonical: https://baiyuan.io/whitepaper/en/ch21-axp-delivery-modes
-last_modified_at: '2026-08-26T12:00:00+08:00'
+last_modified_at: '2026-08-26T10:37:33+08:00'
 ---
+
 
 
 # Chapter 21 — AXP Delivery on the Customer's Own Domain: CF Worker (Delegated DNS) vs Subdomain CNAME (No Delegation)
