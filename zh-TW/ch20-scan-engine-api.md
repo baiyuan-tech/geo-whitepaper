@@ -21,8 +21,9 @@ keywords:
   - Market-view Localization
 last_updated: 2026-08-26
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch20-scan-engine-api
-last_modified_at: '2026-08-26T10:30:00+08:00'
+last_modified_at: '2026-08-26T10:07:12+08:00'
 ---
+
 
 
 # Chapter 20 — 掃描引擎的程式化供給:pull executor、exactly-once 交付與零基建市場視角
