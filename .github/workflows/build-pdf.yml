@@ -184,11 +184,15 @@ jobs:
           retention-days: 90
           if-no-files-found: warn
 
-      - name: Attach PDF to v1.0-draft Release
+      - name: Attach PDF to release (rolling draft on main)
+        # 原本 tag_name 寫死 v1.0-draft —— release 事件時 PDF 仍被塞進草稿 tag,
+        # 該 release 本身沒有 PDF。姊妹專案 pif-whitepaper 踩過同一個雷
+        # (v0.2.x 各 release 都沒 PDF,2026-06 修),此處同步修法:
+        # release 事件用觸發它的 tag,main push 才維持滾動草稿。
         if: (github.event_name == 'release' || github.ref == 'refs/heads/main') && success()
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: v1.0-draft
+          tag_name: ${{ github.event_name == 'release' && github.event.release.tag_name || 'v1.0-draft' }}
           files: whitepaper-zh-TW.pdf
           fail_on_unmatched_files: true
 
@@ -336,11 +340,15 @@ jobs:
           retention-days: 90
           if-no-files-found: warn
 
-      - name: Attach PDF to v1.0-draft Release
+      - name: Attach PDF to release (rolling draft on main)
+        # 原本 tag_name 寫死 v1.0-draft —— release 事件時 PDF 仍被塞進草稿 tag,
+        # 該 release 本身沒有 PDF。姊妹專案 pif-whitepaper 踩過同一個雷
+        # (v0.2.x 各 release 都沒 PDF,2026-06 修),此處同步修法:
+        # release 事件用觸發它的 tag,main push 才維持滾動草稿。
         if: (github.event_name == 'release' || github.ref == 'refs/heads/main') && success()
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: v1.0-draft
+          tag_name: ${{ github.event_name == 'release' && github.event.release.tag_name || 'v1.0-draft' }}
           files: whitepaper-en.pdf
           fail_on_unmatched_files: true
 
@@ -503,11 +511,15 @@ jobs:
           retention-days: 90
           if-no-files-found: warn
 
-      - name: Attach PDF to v1.0-draft Release
+      - name: Attach PDF to release (rolling draft on main)
+        # 原本 tag_name 寫死 v1.0-draft —— release 事件時 PDF 仍被塞進草稿 tag,
+        # 該 release 本身沒有 PDF。姊妹專案 pif-whitepaper 踩過同一個雷
+        # (v0.2.x 各 release 都沒 PDF,2026-06 修),此處同步修法:
+        # release 事件用觸發它的 tag,main push 才維持滾動草稿。
         if: (github.event_name == 'release' || github.ref == 'refs/heads/main') && success()
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: v1.0-draft
+          tag_name: ${{ github.event_name == 'release' && github.event.release.tag_name || 'v1.0-draft' }}
           files: whitepaper-ja.pdf
           fail_on_unmatched_files: true
 
