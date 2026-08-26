@@ -6,15 +6,15 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19994035.svg)](https://doi.org/10.5281/zenodo.19994035)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-[![Status: v1.2.0](https://img.shields.io/badge/Status-v1.2.0-blue.svg)](#修訂記錄)
+[![Status: v1.3.0](https://img.shields.io/badge/Status-v1.3.0-blue.svg)](#修訂記錄)
 [![zh-TW](https://img.shields.io/badge/zh--TW-complete-green.svg)](zh-TW/)
 [![en](https://img.shields.io/badge/en-complete-green.svg)](en/)
 [![ja](https://img.shields.io/badge/ja-complete-green.svg)](ja/)
 [![PDF](https://img.shields.io/badge/PDF-download-red.svg)](https://github.com/baiyuan-tech/geo-whitepaper/releases/latest)
 
-> **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)** or jump to **[Ch 1 (en)](en/ch01-geo-era.md)**. Full English edition (19 chapters + 5 appendices) is complete.
+> **English reader?** → Start with the **[Executive Summary (en/README.md)](en/README.md)** or jump to **[Ch 1 (en)](en/ch01-geo-era.md)**. Full English edition (20 chapters + 5 appendices) is complete.
 >
-> **日本語の読者** → **[エグゼクティブサマリー（ja/README.md）](ja/README.md)** または直接 **[第 1 章 (ja)](ja/ch01-geo-era.md)** へ。完全な日本語版（19 章 + 5 付録）を公開済み。
+> **日本語の読者** → **[エグゼクティブサマリー（ja/README.md）](ja/README.md)** または直接 **[第 1 章 (ja)](ja/ch01-geo-era.md)** へ。完全な日本語版（20 章 + 5 付録）を公開済み。
 
 ---
 
@@ -146,6 +146,7 @@
 - [Ch 17 — 中國跨境 GEO:香港邊緣節點與雙向 AI 能見度](zh-TW/ch17-china-crossborder.md) **(v1.2 新增)**
 - [Ch 18 — AXP HTML Mirror-First:從 Markdown 到語意 HTML 的影子文檔演進](zh-TW/ch18-axp-html-mirror-first.md) **(v1.2 新增)**
 - [Ch 19 — 快取失效 5 層架構:1 萬租戶的 zero-touch 傳播](zh-TW/ch19-cache-invalidation.md) **(v1.2 新增)**
+- [Ch 20 — 掃描引擎的程式化供給:pull executor、exactly-once 交付與零基建市場視角](zh-TW/ch20-scan-engine-api.md) **(v1.3 新增)**
 
 ### 附錄
 
@@ -371,6 +372,7 @@ geo-whitepaper/
 | **2026-05-03** | **v1.1.1 published** | 🎓 **正式發布日**(formal publication date)— Zenodo DOI 取得:Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035)(永久,版本無關)/ Version DOI [`10.5281/zenodo.19994059`](https://doi.org/10.5281/zenodo.19994059)(v1.1.1 specific)。CITATION.cff 完整補上 ORCID + 兩個 DOI identifier;README 加 Zenodo DOI badge + 4 種引用格式(APA 7 / Chicago 17th / IEEE / BibTeX);本書自此正式 indexed by Google Scholar、Semantic Scholar、OpenAIRE、CrossRef |
 | **2026-05-03** | **v1.1.2** | **Ch 14 / 15 / 16 雙語深度擴充**(zh-TW + en 兩版各 6 個檔案,新增 ~13,000 字 / ~12,300 英文字)— 加入 5 條工程教訓 / 章 × 3 章 = 15 條 takeaway,涵蓋字面 port arxiv vs 自家發明、SSOT vs 寫死、DB-level vs application-level、觀察期、hook + safety net、LLM silent failure、三層 fallback、patch 順序原理、cache invalidation、silent catch、custom mapping 違憲、schema 演化歷史債、規模化代價;新增段落涵蓋 breadcrumb 404 ghost 事件 42 天時間線、Patch 順序因果鏈、跨微服務 SSOT 邊界、host-aware metadata helper、cache 跨租戶隱私邊界、LLM 確定性假設;同時收尾 LinkedIn 4 份發文草稿(zh-TW 個人 / en 個人 / ja 個人 / zh 公司)。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;**新版 Version DOI [`10.5281/zenodo.19996656`](https://doi.org/10.5281/zenodo.19996656) 已由 Zenodo 自動分配** |
 | **2026-07-06** | **v1.2.0** | **新增 Part VI 擴充能力 3 章**:Ch 17(中國跨境 GEO — 香港邊緣節點 UA 分流 + 中央合規免 ICP + `X-Original-Host` 鐵律 + 雙向對稱曝光 + 站長平台驗證)/ Ch 18(AXP HTML Mirror-First — origin 鏡射語意 HTML + SSRF 守 + sanitizer allowlist + 雙 Schema 路徑同步)/ Ch 19(快取失效 5 層架構 — L1 Redis + L3 CF edge purge + 頻率感知 TTL SSOT + scanner 自動失效 + daily polling zero-touch);zh-TW + en 三新章同步;**ja 日本語版補齊 Ch 14-16 並新增 Ch 17-19**(ja 自此涵蓋 Ch 1-19 全篇);Ch 13(多模態 GEO)三語增補 VideoObject 完整 GSC 化 + origin 倒灌 / same-origin filter 不偽稱版權 / sitemap 影像影片 extension。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;v1.2.0 Version DOI [`10.5281/zenodo.21222575`](https://doi.org/10.5281/zenodo.21222575) 已由 Zenodo 自動分配 |
+| **2026-08-26** | **v1.3.0** | **新增 Ch 20(掃描引擎的程式化供給)**:把既有多平台掃描引擎以 pull-based executor 對外供給 —— 不開對內攻擊面(executor 而非 endpoint)/ pass-through 執行 / 批發 track 五維隔離不污染核心資料 / exactly-once 交付狀態機(冪等 + `submitting` in-doubt + 計費補償 sweep)/ 誠實記帳(成本與服務費脫鉤,cache 與失敗不計)/ 有界並發 `p-limit(N)` / 零基建市場視角(提示層注入取代地區 IP,並顯式區分「語言指示 ≠ 市場視角」誠實界線)。zh-TW + en + ja 三語同步(自此三語皆涵蓋 Ch 1-20 全篇)。Concept DOI [`10.5281/zenodo.19994035`](https://doi.org/10.5281/zenodo.19994035) 不變;新版 Version DOI 於 release 時由 Zenodo 自動分配 |
 
 ---
 
