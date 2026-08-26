@@ -67,6 +67,9 @@ jobs:
 
       - name: Preprocess for XeLaTeX compatibility (render mermaid to PNG, fall back to placeholder)
         # Mermaid blocks → rendered PNG embedded in the PDF (falls back to placeholder text if mmdc fails).
+        # -s 1.5(原為 2):mermaid 圖以 2x 算圖時單張可達 1270x2268,50 張合計 3.74 MB,
+        # 佔 zh-TW PDF 的 69%,使整份超過 5 MB —— Google Scholar 對過大檔案可能不完整索引。
+        # 1.5x 對 A4 版面仍遠高於 300dpi 所需,肉眼無差。(2026-08-26 實測)
         # Emoji stripped (CJK fonts don't cover them; decorative only).
         # Variation selectors and ZWJ removed (confuse fontspec).
         run: |
@@ -83,7 +86,7 @@ jobs:
               mmd, png = f'diagram_{i}.mmd', f'diagram_{i}.png'
               open(mmd, 'w', encoding='utf-8').write(src)
               try:
-                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '2',
+                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '1.5',
                                       '--puppeteerConfigFile', '/tmp/puppeteer.json'],
                                      capture_output=True, timeout=180)
                   if r.returncode == 0 and os.path.exists(png) and os.path.getsize(png) > 1000:
@@ -251,7 +254,7 @@ jobs:
               mmd, png = f'diagram_{i}.mmd', f'diagram_{i}.png'
               open(mmd, 'w', encoding='utf-8').write(src)
               try:
-                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '2',
+                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '1.5',
                                       '--puppeteerConfigFile', '/tmp/puppeteer.json'],
                                      capture_output=True, timeout=180)
                   if r.returncode == 0 and os.path.exists(png) and os.path.getsize(png) > 1000:
@@ -414,7 +417,7 @@ jobs:
               mmd, png = f'diagram_{i}.mmd', f'diagram_{i}.png'
               open(mmd, 'w', encoding='utf-8').write(src)
               try:
-                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '2',
+                  r = subprocess.run(['mmdc', '-i', mmd, '-o', png, '-b', 'white', '-s', '1.5',
                                       '--puppeteerConfigFile', '/tmp/puppeteer.json'],
                                      capture_output=True, timeout=180)
                   if r.returncode == 0 and os.path.exists(png) and os.path.getsize(png) > 1000:
