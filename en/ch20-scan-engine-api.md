@@ -170,7 +170,7 @@ When a consumer has many downstream clients simultaneously sending queries for d
 The scaling design turns serial into **bounded concurrency**:
 
 - **`p-limit(N)` in-cycle parallelism**: N is decided by provider rate limit and our own resources, replacing one-by-one serial processing.
-- **Two-tier rate-limit separation**: pulls / submits to the consumer gateway share a ≤5-QPS token bucket; AI providers get a separate per-platform concurrency / RPM limit — different platforms are split so a slow platform does not drag a fast one.
+- **Two-tier rate-limit separation**: pulls / submits to the consumer gateway share a <=5-QPS token bucket; AI providers get a separate per-platform concurrency / RPM limit — different platforms are split so a slow platform does not drag a fast one.
 - **Per-cycle budget**: each round sets a time / task cap and wraps up early on overrun, so the next round takes tasks fairly (preventing a slow partner / platform from starving others).
 - **Fair scheduling**: multi-platform round-robin, so a slow platform in front does not monopolize a whole round.
 - **Correctness unchanged**: the idempotent unique index guarantees no re-execution / double billing even under concurrency; post-delivery accounting isolation and reaper reclamation are unaffected by concurrency.

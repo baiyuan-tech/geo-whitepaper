@@ -170,7 +170,7 @@ stateDiagram-v2
 規模化設計把序列改成**有界並發**:
 
 - **cycle 內 `p-limit(N)` 平行**:N 依 provider rate limit 與自身資源決定,取代逐一序列。
-- **兩層限流分離**:對消費方網關的拉取 / 回推共用一個 ≤5 QPS 的 token bucket;對 AI provider 另設 per-platform 的併發 / RPM 限——不同平台分流,慢平台不拖累快平台。
+- **兩層限流分離**:對消費方網關的拉取 / 回推共用一個 <=5 QPS 的 token bucket;對 AI provider 另設 per-platform 的併發 / RPM 限——不同平台分流,慢平台不拖累快平台。
 - **per-cycle 預算**:每輪設時間 / 任務上限,超時提前收尾,讓下一輪公平取任務(避免慢夥伴 / 慢平台餓死其他)。
 - **公平排程**:多平台 round-robin,避免前面的慢平台壟斷整輪。
 - **正確性不變**:冪等唯一索引保證並發下仍不重複執行 / 計費;交付後記帳隔離與 reaper 回收不受並發影響。
