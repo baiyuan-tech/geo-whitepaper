@@ -77,6 +77,9 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.21222575"
     description: "Version DOI (v1.2.0)"
+  - type: doi
+    value: "10.5281/zenodo.22105080"
+    description: "Version DOI (v1.3.0 — current)"
   - type: url
     value: "https://github.com/baiyuan-tech/geo-whitepaper"
     description: "GitHub repository"
