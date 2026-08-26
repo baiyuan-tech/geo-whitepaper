@@ -24,8 +24,9 @@ keywords:
   - Multi-Layer Cache
 last_updated: 2026-05-03
 canonical: https://baiyuan.io/whitepaper/en/ch14-f12-structural-optimizer
-last_modified_at: '2026-07-15T04:02:30Z'
+last_modified_at: '2026-08-26T02:08:03Z'
 ---
+
 
 
 

@@ -23,8 +23,9 @@ keywords:
   - Doubao
 last_updated: 2026-07-06
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch17-china-crossborder
-last_modified_at: '2026-07-15T04:02:30Z'
+last_modified_at: '2026-08-26T02:08:03Z'
 ---
+
 
 
 

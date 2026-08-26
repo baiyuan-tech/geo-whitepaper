@@ -22,8 +22,9 @@ keywords:
   - Markdown to HTML
 last_updated: 2026-07-06
 canonical: https://baiyuan.io/whitepaper/en/ch18-axp-html-mirror-first
-last_modified_at: '2026-07-15T04:02:30Z'
+last_modified_at: '2026-08-26T02:08:03Z'
 ---
+
 
 
 

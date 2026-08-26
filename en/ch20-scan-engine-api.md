@@ -21,8 +21,9 @@ keywords:
   - Market-view Localization
 last_updated: 2026-08-26
 canonical: https://baiyuan.io/whitepaper/en/ch20-scan-engine-api
-last_modified_at: '2026-08-26T10:07:12+08:00'
+last_modified_at: '2026-08-26T10:12:58+08:00'
 ---
+
 
 
 

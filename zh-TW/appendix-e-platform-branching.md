@@ -19,8 +19,9 @@ keywords:
   - PostgreSQL Row-Level Filtering
 last_updated: 2026-04-25
 canonical: https://baiyuan-tech.github.io/geo-whitepaper/zh-TW/appendix-e-platform-branching.html
-last_modified_at: '2026-07-15T04:02:30Z'
+last_modified_at: '2026-08-26T02:08:03Z'
 ---
+
 
 
 
