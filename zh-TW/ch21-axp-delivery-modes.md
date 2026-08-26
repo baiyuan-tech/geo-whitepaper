@@ -21,8 +21,9 @@ keywords:
   - Multi-Tenant SaaS
 last_updated: 2026-08-26
 canonical: https://baiyuan.io/whitepaper/zh-TW/ch21-axp-delivery-modes
-last_modified_at: '2026-08-26T10:37:33+08:00'
+last_modified_at: '2026-08-26T10:57:01+08:00'
 ---
+
 
 
 
