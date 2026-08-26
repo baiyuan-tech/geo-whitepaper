@@ -47,7 +47,7 @@ canonical: https://baiyuan.io/whitepaper/ja/ch21-axp-delivery-modes
 - **既存 CDN 契約**:メインサイトが既に Akamai / Fastly / CloudFront 上にあり、さらに CF proxy を重ねられない。
 - **企業 IT ポリシー**:apex / メインホスト名の変更には長い変更管理プロセスが必要。
 
-結果として、これらの顧客には「CF Worker + Google Search Console 可視」ルートが塞がる。目標はそこで 2 つになる:① AI クローラーが顧客ドメイン(またはサブドメイン)を訪れたとき AXP コンテンツを得る;② そのドメイン上に sitemap / robots があり、検証可能な GSC プロパティがある。そして — 鍵となるビジネス制約 — **代替案の顧客側設定量は「CF DNS を委譲する」より明らかに少なくなければならない。さもなくば CF DNS を直接使うのと変わらない。**
+結果として、これらの顧客には「CF Worker + Google Search Console 可視」ルートが塞がる。目標はそこで 2 つになる:(1) AI クローラーが顧客ドメイン(またはサブドメイン)を訪れたとき AXP コンテンツを得る;(2) そのドメイン上に sitemap / robots があり、検証可能な GSC プロパティがある。そして — 鍵となるビジネス制約 — **代替案の顧客側設定量は「CF DNS を委譲する」より明らかに少なくなければならない。さもなくば CF DNS を直接使うのと変わらない。**
 
 ---
 

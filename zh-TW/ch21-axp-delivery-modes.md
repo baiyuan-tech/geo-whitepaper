@@ -52,7 +52,7 @@ last_modified_at: '2026-08-26T10:37:33+08:00'
 - **既有 CDN 合約**:主站已在 Akamai / Fastly / CloudFront 上,不能再疊一層 CF proxy。
 - **企業 IT 政策**:apex / 主 hostname 的變更需要冗長的變更管理流程。
 
-結果:對這些客戶,「CF Worker + Google Search Console 可見」那條路走不通。目標因此變成兩件事:① AI 爬蟲造訪客戶網域(或其子網域)時仍拿到 AXP 內容;② GSC 上該網域有 sitemap / robots、property 可驗證。而且——關鍵的商業約束——**替代方案的客戶端設定量必須明顯少於「直接委派 CF DNS」,否則不如直接走 CF DNS**。
+結果:對這些客戶,「CF Worker + Google Search Console 可見」那條路走不通。目標因此變成兩件事:(1) AI 爬蟲造訪客戶網域(或其子網域)時仍拿到 AXP 內容;(2) GSC 上該網域有 sitemap / robots、property 可驗證。而且——關鍵的商業約束——**替代方案的客戶端設定量必須明顯少於「直接委派 CF DNS」,否則不如直接走 CF DNS**。
 
 ---
 
