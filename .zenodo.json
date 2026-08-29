@@ -45,7 +45,9 @@
     "Edge Purge"
   ],
   "communities": [
-    { "identifier": "open-science" }
+    {
+      "identifier": "open-science"
+    }
   ],
   "license": "CC-BY-NC-4.0",
   "access_right": "open",
@@ -69,6 +71,16 @@
       "identifier": "arXiv:2511.20867",
       "relation": "cites",
       "resource_type": "publication-article"
+    },
+    {
+      "identifier": "10.5281/zenodo.19994787",
+      "relation": "references",
+      "resource_type": "publication-report"
+    },
+    {
+      "identifier": "10.5281/zenodo.22138951",
+      "relation": "references",
+      "resource_type": "publication-report"
     }
   ],
   "references": [
