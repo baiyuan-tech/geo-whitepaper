@@ -20,8 +20,9 @@ keywords:
   - 視覺資產審計
 last_updated: 2026-07-06
 canonical: https://baiyuan-tech.github.io/geo-whitepaper/zh-TW/ch13-multimodal-geo.html
-last_modified_at: '2026-08-26T03:38:27Z'
+last_modified_at: '2026-08-30T06:35:57Z'
 ---
+
 
 
 
