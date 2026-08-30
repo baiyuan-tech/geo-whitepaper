@@ -234,7 +234,7 @@ The engineering value of cross-border GEO lies not in any single trick but in on
 | Date | Version | Notes |
 |------|---------|-------|
 | 2026-07-06 | v1.2 | Initial draft. Records the Hong Kong edge-node UA routing, central compliance avoiding ICP, bidirectional symmetric switches, webmaster platform verification, and control-plane isolation. |
-| 2026-08-29 | v1.3.1 | Added §17.2.1 "One Source, Two Sites" — cn.baiyuan.io ↔ geo.baiyuan.io comparison table and data-flow diagram (Fig 17-1); the original UA-routing topology diagram is renumbered to Fig 17-2. |
+| 2026-08-30 | v1.3.3 | Added §17.2.1 "One Source, Two Sites" — cn.baiyuan.io ↔ geo.baiyuan.io comparison table and data-flow diagram (Fig 17-1); the original UA-routing topology diagram is renumbered to Fig 17-2. |
 
 ---
 

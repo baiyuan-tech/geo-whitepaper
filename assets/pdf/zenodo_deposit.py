@@ -75,6 +75,16 @@ def main() -> int:
     latest_id = latest.get("id")
     print("[zenodo] concept %s -> 目前最新 record %s" % (concept, latest_id))
 
+    # 清除上次失敗留下的未發佈草稿 —— 否則 newversion 回 400
+    #   {"field":"files.enabled","messages":["Please remove all files first."]}(2026-08-30 實證)。
+    #   列出本 concept 底下所有未 submitted 的草稿並刪除,讓 newversion 從乾淨狀態長出。
+    _, deps = _req("GET", "%s/deposit/depositions?size=100" % API, token)
+    for dep in (deps if isinstance(deps, list) else []):
+        if (not dep.get("submitted", True)) and str(dep.get("conceptrecid")) == str(concept):
+            did = dep.get("id")
+            print("[zenodo] 清除殘留未發佈草稿 id=%s" % did)
+            _req("DELETE", "%s/deposit/depositions/%s" % (API, did), token)
+
     _, nv = _req("POST", "%s/deposit/depositions/%s/actions/newversion" % (API, latest_id), token)
     draft_url = (nv.get("links") or {}).get("latest_draft") or ""
     draft_id = draft_url.rstrip("/").rsplit("/", 1)[-1]
