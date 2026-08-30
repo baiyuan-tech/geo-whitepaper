@@ -81,6 +81,33 @@ The core insight: **the trigger for an ICP filing is "providing services to in-b
 
 This decision also resolves narrative splitting: the simplified-Chinese façade is an OpenCC conversion of the Traditional Chinese facts plus a business custom-term overlay, and both share the same `brand_faq` / `ground_truths` / `brand_marketing_facts` fact sources (see [Ch 16 — Platform SSOT Chain](./ch16-platform-ssot-chain.md)). When a brand changes a fact once overseas, the China exposure surface reflects it in sync.
 
+### 17.2.1 One Source, Two Sites: cn.baiyuan.io ↔ geo.baiyuan.io
+
+Placed side by side, the platform's two public-facing sites are essentially **one source, two sites**: `geo.baiyuan.io` is the platform proper (the full Tokyo stack), and `cn.baiyuan.io` is a thin Hong Kong edge that extends it toward China's AI. The two sites do **not** share a frontend deployment, do **not** share edge logic, and do **not** share the presentation language — but they **do share the same central source of truth**. The difference lies entirely in "how it is presented and delivered," not in "the facts themselves."
+
+| Dimension | `geo.baiyuan.io` (Taiwan / International) | `cn.baiyuan.io` (China) |
+|---|---|---|
+| Positioning | The platform proper (enterprise SaaS product) | A China-facing exposure surface of the main platform (not a separate system) |
+| Target AI index network | Overseas AI (ChatGPT / Claude / Gemini / Perplexity) | China AI (ERNIE / Qwen / Doubao / DeepSeek / Kimi) |
+| Origin deployment | Tokyo main site (full backend + frontend + `geo_db`) | Hong Kong thin edge `cn-edge` (**no** database) |
+| Presentation language | Traditional Chinese / multilingual (per brand `content_language`) | Simplified Chinese (OpenCC twp→cn + business custom terms) |
+| Fact source | Central `geo_db` (`brand_faq` / `ground_truths` / `brand_marketing_facts`) | The **same** central `geo_db` (Simplified is a translated copy) |
+| Compliance entity | Taiwan / overseas legal entity | **Collects no** China end-user PII → no ICP filing |
+| Exposure switch | Served by default | `cn_expose_enabled` (super-admin only) |
+
+The **effect** is "maintain once, cover both networks": a fact a brand has already established in overseas AI becomes visible to China AI in sync — without setting up a China company, building a separate site, or filing an ICP. The data flow makes it clearest:
+
+```mermaid
+flowchart LR
+    SSOT[("Central source of truth (Tokyo geo_db)<br/>brand_faq · ground_truths · brand_marketing_facts")]
+    SSOT --> GEO["geo.baiyuan.io (Taiwan / Intl)<br/>Tokyo main-site SSR + AXP shadow docs"]
+    SSOT -.->|"OpenCC trad->simp + simplified facade"| CN["cn.baiyuan.io (China)<br/>Hong Kong cn-edge thin edge"]
+    GEO --> OAI["Overseas AI index network<br/>ChatGPT · Claude · Gemini · Perplexity"]
+    CN --> CAI["China AI index network<br/>ERNIE · Qwen · Doubao · DeepSeek · Kimi"]
+```
+
+*Fig 17-1: One source, two sites. A single central source of truth, via two sites (Tokyo main site `geo` / Hong Kong thin edge `cn`), penetrates the overseas and China AI index networks — two mutually disconnected webs — respectively. A brand fact changed once overseas is reflected in both sites in sync — precisely what the "exposure surface, not a separate system" decision looks like at the user-visible layer.*
+
 ---
 
 ## 17.3 Topology: Hong Kong Edge Node and UA Routing
@@ -99,7 +126,7 @@ flowchart TD
     G --> E
 ```
 
-*Fig 17-1: The two UA-routed paths of cn.baiyuan.io. Humans go to Tokyo SSR; crawlers go to the local Hong Kong cn-edge.*
+*Fig 17-2: The two UA-routed paths of cn.baiyuan.io. Humans go to Tokyo SSR; crawlers go to the local Hong Kong cn-edge.*
 
 The division of labor between the two paths:
 
@@ -206,6 +233,7 @@ The engineering value of cross-border GEO lies not in any single trick but in on
 | Date | Version | Notes |
 |------|---------|-------|
 | 2026-07-06 | v1.2 | Initial draft. Records the Hong Kong edge-node UA routing, central compliance avoiding ICP, bidirectional symmetric switches, webmaster platform verification, and control-plane isolation. |
+| 2026-08-29 | v1.3.1 | Added §17.2.1 "One Source, Two Sites" — cn.baiyuan.io ↔ geo.baiyuan.io comparison table and data-flow diagram (Fig 17-1); the original UA-routing topology diagram is renumbered to Fig 17-2. |
 
 ---
 

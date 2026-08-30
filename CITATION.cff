@@ -29,8 +29,8 @@ authors:
     affiliation: "Baiyuan Technology"
     orcid: https://orcid.org/0009-0004-8264-368X
     website: https://baiyuan.io
-version: "1.3.0"
-date-released: 2026-08-26
+version: "1.3.1"
+date-released: 2026-08-29
 url: "https://github.com/baiyuan-tech/geo-whitepaper"
 repository-code: "https://github.com/baiyuan-tech/geo-whitepaper"
 license: CC-BY-NC-4.0

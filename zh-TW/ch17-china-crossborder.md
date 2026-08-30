@@ -81,6 +81,33 @@ last_modified_at: '2026-08-26T02:57:15Z'
 
 這個決策同時解決了敘事分裂:簡體門面是繁體事實的 OpenCC 轉換 + 商務自訂詞疊加,兩者共用同一 `brand_faq` / `ground_truths` / `brand_marketing_facts` 事實源(見 [Ch 16 — 平台 SSOT 全鏈](./ch16-platform-ssot-chain.md))。品牌在海外改一次事實,中國曝光面同步反映。
 
+### 17.2.1 一源兩站:cn.baiyuan.io ↔ geo.baiyuan.io
+
+把平台的兩個對外站別並排看,本質是**一源兩站**:`geo.baiyuan.io` 是平台本體(東京完整堆疊),`cn.baiyuan.io` 是它伸向中國 AI 的一層香港薄邊緣。兩站**不**共用前端部署、**不**共用邊緣邏輯、**不**共用呈現語言,但**共用同一份中央事實源** —— 差異全在「如何呈現與送達」,不在「事實本身」。
+
+| 維度 | `geo.baiyuan.io`(台灣 / 國際站) | `cn.baiyuan.io`(中國站) |
+|---|---|---|
+| 定位 | 平台本體(企業 SaaS 產品) | 主平台的中國曝光面(非獨立系統) |
+| 目標 AI 索引網 | 海外 AI(ChatGPT / Claude / Gemini / Perplexity) | 中國 AI(文心 / 通義 / 豆包 / DeepSeek / Kimi) |
+| Origin 部署 | 東京主站(完整 backend + frontend + `geo_db`) | 香港薄邊緣 `cn-edge`(**無**資料庫) |
+| 呈現語言 | 繁中 / 多語(依品牌 `content_language`) | 簡體(OpenCC twp→cn + 商務自訂詞) |
+| 事實源 | 中央 `geo_db`(`brand_faq` / `ground_truths` / `brand_marketing_facts`) | **同一份**中央 `geo_db`(簡體為翻譯後的副本) |
+| 合規主體 | 台灣 / 海外法人 | **不收**中國終端個資 → 免 ICP 備案 |
+| 對外供給開關 | 預設服務 | `cn_expose_enabled`(僅 super_admin 可控) |
+
+**效果**是「一次維護、雙網覆蓋」:品牌在海外 AI 已建立的事實,無需另設中國公司、另建站、另備案,即同步對中國 AI 可見。資料流看得最清楚:
+
+```mermaid
+flowchart LR
+    SSOT[("中央事實源 SSOT（東京 geo_db）<br/>brand_faq · ground_truths · brand_marketing_facts")]
+    SSOT --> GEO["geo.baiyuan.io（台灣 / 國際站）<br/>東京主站 SSR + AXP 影子文檔"]
+    SSOT -.->|"OpenCC 繁→簡 + 簡體門面"| CN["cn.baiyuan.io（中國站）<br/>香港 cn-edge 薄邊緣"]
+    GEO --> OAI["海外 AI 索引網<br/>ChatGPT · Claude · Gemini · Perplexity"]
+    CN --> CAI["中國 AI 索引網<br/>文心 · 通義 · 豆包 · DeepSeek · Kimi"]
+```
+
+*Fig 17-1:一源兩站。同一份中央事實源,經兩個站別(東京主站 `geo` / 香港薄邊緣 `cn`)分別穿透海外與中國兩張互不連通的 AI 索引網。品牌事實在海外改一次,兩站同步反映 —— 這正是「曝光面而非獨立系統」決策在使用者可見層的具體樣貌。*
+
 ---
 
 ## 17.3 拓撲:香港邊緣節點與 UA 分流
@@ -99,7 +126,7 @@ flowchart TD
     G --> E
 ```
 
-*Fig 17-1:cn.baiyuan.io 依 UA 分流的兩條路徑。人類走東京 SSR、爬蟲走香港本機 cn-edge。*
+*Fig 17-2:cn.baiyuan.io 依 UA 分流的兩條路徑。人類走東京 SSR、爬蟲走香港本機 cn-edge。*
 
 兩條路徑的分工:
 
@@ -206,6 +233,7 @@ cn-edge 與東京 backend 之間的資料交換,依「控制面 vs 資料面」�
 | 日期 | 版本 | 說明 |
 |------|------|------|
 | 2026-07-06 | v1.2 | 初稿。記錄香港邊緣節點 UA 分流、中央合規免 ICP、雙向對稱開關、站長平台驗證與控制面隔離。 |
+| 2026-08-29 | v1.3.1 | 新增 §17.2.1「一源兩站」—— cn.baiyuan.io ↔ geo.baiyuan.io 對照表與資料流圖(Fig 17-1);原 UA 分流拓撲圖改為 Fig 17-2。 |
 
 ---
 

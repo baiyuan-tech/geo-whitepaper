@@ -69,6 +69,33 @@ canonical: https://baiyuan.io/whitepaper/ja/ch17-china-crossborder
 
 この決定は同時にナラティブ分裂も解決する:簡体字ファサードは繁体字事実の OpenCC 変換 + ビジネス用カスタム語彙の重ね合わせであり、両者は同一の `brand_faq` / `ground_truths` / `brand_marketing_facts` 事実源を共用する(参照:[第 16 章 — プラットフォーム SSOT 全チェーン](./ch16-platform-ssot-chain.md))。ブランドが海外で事実を一度変更すれば、中国露出面も同期して反映される。
 
+### 17.2.1 一源二拠点:cn.baiyuan.io ↔ geo.baiyuan.io
+
+プラットフォームの 2 つの対外サイトを並べて見ると、本質は **一源二拠点**である:`geo.baiyuan.io` はプラットフォーム本体(東京の完全スタック)、`cn.baiyuan.io` はそれを中国 AI へ伸ばす香港の薄いエッジである。2 つのサイトはフロントエンドのデプロイを共有**せず**、エッジロジックを共有**せず**、表示言語も共有**しない** —— しかし**同一の中央事実源を共有する**。差異はすべて「どう提示し配信するか」にあり、「事実そのもの」にはない。
+
+| 次元 | `geo.baiyuan.io`(台湾 / 国際サイト) | `cn.baiyuan.io`(中国サイト) |
+|---|---|---|
+| 位置づけ | プラットフォーム本体(企業 SaaS 製品) | 主プラットフォームの中国露出面(独立システムではない) |
+| 対象 AI インデックス網 | 海外 AI(ChatGPT / Claude / Gemini / Perplexity) | 中国 AI(文心 / 通義 / 豆包 / DeepSeek / Kimi) |
+| Origin デプロイ | 東京メインサイト(完全な backend + frontend + `geo_db`) | 香港薄エッジ `cn-edge`(データベース**なし**) |
+| 表示言語 | 繁体字 / 多言語(ブランドの `content_language` に従う) | 簡体字(OpenCC twp→cn + ビジネス用カスタム語彙) |
+| 事実源 | 中央 `geo_db`(`brand_faq` / `ground_truths` / `brand_marketing_facts`) | **同一の**中央 `geo_db`(簡体字は翻訳後のコピー) |
+| コンプライアンス主体 | 台湾 / 海外法人 | 中国エンドユーザーの個人情報を**収集しない** → ICP 備案不要 |
+| 露出スイッチ | デフォルトで提供 | `cn_expose_enabled`(スーパー管理者のみ制御) |
+
+**効果**は「一度メンテナンスすれば、両方の網をカバー」である:ブランドが海外 AI で既に確立した事実は、中国法人の設立・別サイトの構築・ICP 備案なしに、同期して中国 AI に可視となる。データフローが最も分かりやすい:
+
+```mermaid
+flowchart LR
+    SSOT[("中央事実源 SSOT（東京 geo_db）<br/>brand_faq · ground_truths · brand_marketing_facts")]
+    SSOT --> GEO["geo.baiyuan.io（台湾 / 国際）<br/>東京メインサイト SSR + AXP シャドウ文書"]
+    SSOT -.->|"OpenCC 繁→簡 + 簡体字ファサード"| CN["cn.baiyuan.io（中国）<br/>香港 cn-edge 薄エッジ"]
+    GEO --> OAI["海外 AI インデックス網<br/>ChatGPT · Claude · Gemini · Perplexity"]
+    CN --> CAI["中国 AI インデックス網<br/>文心 · 通義 · 豆包 · DeepSeek · Kimi"]
+```
+
+*Fig 17-1:一源二拠点。同一の中央事実源が、2 つのサイト(東京メインサイト `geo` / 香港薄エッジ `cn`)を経て、海外と中国という互いに接続されない 2 つの AI インデックス網をそれぞれ貫通する。海外で一度変更したブランド事実は両サイトに同期反映される —— これがまさに「独立システムではなく露出面」という決定のユーザー可視層での具体的な姿である。*
+
 ---
 
 ## 17.3 トポロジー:香港エッジノードと UA 分流
@@ -87,7 +114,7 @@ flowchart TD
     G --> E
 ```
 
-*Fig 17-1:cn.baiyuan.io を UA で分流する 2 つの経路。人間は東京 SSR、クローラーは香港ローカルの cn-edge を通る。*
+*Fig 17-2:cn.baiyuan.io を UA で分流する 2 つの経路。人間は東京 SSR、クローラーは香港ローカルの cn-edge を通る。*
 
 2 つの経路の分担:
 
@@ -194,6 +221,7 @@ cn-edge と東京 backend の間のデータ交換は、「制御面 vs デー�
 | 日付 | バージョン | 説明 |
 |------|------|------|
 | 2026-07-06 | v1.2 | 初稿。香港エッジノードの UA 分流、中央コンプライアンスによる ICP 回避、双方向対称スイッチ、運営者プラットフォーム検証と制御面の分離を記録。 |
+| 2026-08-29 | v1.3.1 | §17.2.1「一源二拠点」を追加 —— cn.baiyuan.io ↔ geo.baiyuan.io の対照表とデータフロー図(Fig 17-1);元の UA 分流トポロジー図は Fig 17-2 に付番変更。 |
 
 ---
 
